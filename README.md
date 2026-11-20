@@ -85,11 +85,25 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 
 ### Inside, bottom half
 
-- Navigation row: Back, a clickable low-profile joystick (a slide pad, so it clears the screen when shut), Menu. It sits just above the number row.
+- Navigation row: the clickable low-profile joystick (a slide pad, so it clears the screen when shut) is the focal control, 12.4 mm across, between two small pill keys (12 × 6.5 mm, as tall as a letter key), each centred between the joystick ring and the keyboard edge. Back has a printed **◁** and Menu a printed **□**, so the row reads triangle, circle, square, mirrored about the centre line. Keys physically shaped as a triangle and a square were tried and rejected. The shapes are the legends. It sits just above the number row.
 - 44 keys: a full **number row** (1 to 0) above a QWERTY. Letters and digits are printed; the call icons are in hidden-until-lit ink and only appear when the key backlight shows them. The bottom-left key switches to symbols.
 - **Near-square keys in the thumb zone.** Keys are 4.5 mm wide on a 5.2 mm pitch and 6.5 mm tall on a 7.5 mm row pitch, at least 1.5 mm clear of the frame. Earlier keys were 9.2 mm tall on 11.1 mm rows, which spread the keyboard over 68 mm and put Back, joystick and Menu 62 to 74 mm from the base, beyond a comfortable thumb reach. Now the whole block (navigation row, five rows) is 51 mm long, built up from the base: the bottom row is 6 mm from the base edge and the navigation row 45 to 57 mm.
 - Microphone centred below the keys.
-- **Open deck at the hinge end:** about 19 mm between the frame and the navigation row is left empty for now. Candidates: a speaker, or a row of special keys.
+- **Talk and make keys:** two rows of four wide keys above the navigation row, each marked with a plain outlined shape. Together they spell out the phone's purpose: talk on top, make below.
+
+| Row | Shape | Key |
+|---|---|---|
+| Talk (top) | Plus | Call: open the dialler or call a favourite |
+| Talk | Dash | Message: start a new message |
+| Talk | Hexagon | Contacts |
+| Talk | Star | Favourites: your few people, one press away |
+| Make | Lens (ring and dot) | Camera, from anywhere |
+| Make | Wave | Voice note: hold to record, release to save |
+| Make | Lines | Note: straight to a blank page |
+| Make | Diamond | Yours to assign |
+
+  They cost no battery (they use the keyboard layer). Being the furthest keys from the base, they suit occasional, deliberate presses, never typing. A front speaker was considered for this space but would cost about 400 mAh of battery. Every shape means one thing: triangle and square belong to Back and Menu only.
+- **Sculpted keys and frets** (from the research below): on the typing rows each key tilts slightly towards the centre of the keyboard, raised at its outer edge, so each thumb meets its keys squarely and can find them by feel. Thin frets in the body colour run between the rows, 0.3 mm tall: they separate the rows so a thumb does not catch two at once, and give a line to feel for without looking. This is long-standing keyboard-phone practice rather than a measured result.
 - A 1.3 mm raised frame with four soft bumpers holds the glass by its edges when closed, so the screen sits 0.7 mm clear of the keys.
 
 ### Edges
@@ -165,6 +179,12 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 - The bigger body also gave a bigger screen and battery (about 2,000 mAh).
 - **Confirm by hand:** print keyboard mock-ups at 60 mm (and 64 mm for comparison) and type on them (speed, errors, thumb strain) before tooling.
 - The mock-ups also test the weight and balance in the hand, reaching the dial and power button, and the edges of the battery door.
+- **What keyboard phones teach (research, November 2026):**
+  - The best-loved keyboard phones were wider than this one (about 67 to 72 mm), and the most praised one gained its reputation partly by widening its keyboard. Width is the single biggest factor, so the 64 mm mock-up is worth making.
+  - Those keyboards had four rows and put digits on a phone-style 3×3 block of letter keys. This phone keeps a dedicated number row by choice, accepting one more row of thumb travel.
+  - Comfort came from sculpted keys angled towards each thumb, frets between rows, and a light, fast press, more than from key count. This phone adopts the first two; the third is for the key mechanism supplier.
+  - Thumb travel is what slows typing; models of two-thumb typing reward short distances and alternating thumbs. Hence the compact block in the thumb zone and the shortcut rows at the far end.
+  - A portrait clamshell with a full QWERTY is almost untried (earlier keyboard clamshells opened sideways into landscape), so physical mock-ups matter more here than usual.
 - **Left-handed edition:** a limited run with the edges mirrored (dial and power button on the left, switches on the right, card tray on the right). The keyboard stays the same. Because everything is already symmetric, it needs mirrored edge parts, not a new design.
 
 ### Outside

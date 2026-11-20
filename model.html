@@ -168,7 +168,11 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
         <dt>Calls</dt><dd>Open the lid to answer, close it to hang up</dd>
         <dt>On a call</dt><dd>M mute, H hold, S speaker, A add a call, N note, 1 to 0 tones, hold X to end</dd>
         <dt>Legends</dt><dd>Letters and digits printed. Call icons are hidden until the key backlight shows them</dd>
-        <dt>Keys</dt><dd>44: a number row plus QWERTY</dd>
+        <dt>Keys</dt><dd>44 (numbers and QWERTY), 4 make keys, 4 talk keys</dd>
+        <dt>Talk keys</dt><dd>Plus: Call. Dash: Message. Hexagon: Contacts. Star: Favourites</dd>
+        <dt>Make keys</dt><dd>Lens: Camera. Wave: hold for a voice note. Lines: Note. Diamond: yours to assign</dd>
+        <dt>Navigation</dt><dd>A large 12.4 mm joystick between two small pill keys with a printed triangle (Back) and square (Menu)</dd>
+        <dt>Feel</dt><dd>Sculpted keys angled towards the centre; thin frets between rows</dd>
       </dl>
     </div>
     <div class="spec">
@@ -238,7 +242,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     </div>
     <div class="spec">
       <h2>Inside, bottom half</h2>
-      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Below it, a full number row and a QWERTY: 44 keys with clean printed legends. The whole keyboard sits low, in the thumb zone, with near-square keys; the deck nearer the hinge is left open. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
+      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Above it, two rows of four keys marked with plain shapes: talk keys (Call, Message, Contacts, Favourites) on top, make keys (Camera, Voice note, Note, one you assign) below. Below it, a full number row and a QWERTY: 44 keys with clean printed legends. The whole keyboard sits low, in the thumb zone, with near-square keys. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
     </div>
     <div class="spec">
       <h2>Size</h2>
@@ -418,13 +422,14 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var U = 0.52, GAP = 0.07, KEYS = [];
   // vertical layout, built up from the base end so the keys sit in the thumb zone: the keyboard
   // microphone, then five rows of near-square keys (6.5 mm tall on a 7.5 mm pitch: bottom row, QWERTY
-  // x3, numbers), then the navigation row just above the numbers. The deck between the navigation
-  // row and the hinge is left open (room for a speaker or extra keys later).
-  var KEY_H = 0.65, ROW_P = 0.75, WELL_R = 0.55 * KY;
+  // x3, numbers), then the navigation row just above the numbers, then a row of four make keys and a
+  // row of four talk keys nearest the hinge.
+  // the joystick is the focal control: 12.4 mm cap in a recess ring 13.5 mm across
+  var KEY_H = 0.65, ROW_P = 0.75, STICK_R = 0.62, WELL_R = STICK_R + 0.053, NAV_GAP = 0.2;
   var DECK0 = BS + 0.14, DECK1 = L - BS - 0.14;          // inside edges of the raised frame
   var KEYS_END = DECK1 - 0.33;                          // bottom edge of the bottom row
   var ROW0 = KEYS_END - 4 * ROW_P - KEY_H / 2;           // number row centre
-  var NAV_D = ROW0 - KEY_H / 2 - 0.25 - WELL_R;          // navigation row centre
+  var NAV_D = ROW0 - KEY_H / 2 - NAV_GAP - WELL_R;       // navigation row centre
   var rows = [
     { d: ROW0, keys: '1234567890'.split('').map(function (c) { return { t: c, u: 1 }; }) },
     { d: ROW0 + ROW_P, keys: 'QWERTYUIOP'.split('').map(function (c) { return { t: c, u: 1 }; }) },
@@ -436,15 +441,34 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     var x = -5 * U;
     r.keys.forEach(function (k) {
       var w = k.u * U;
-      KEYS.push({ t: k.t, x: x + w / 2, d: r.d, w: w - GAP, h: KEY_H });
+      KEYS.push({ t: k.t, x: x + w / 2, d: r.d, w: w - GAP, h: KEY_H, sculpt: true });
       x += w;
     });
   });
   // navigation row: a low-profile clickable joystick (slide pad) between Back and Menu.
   // The lid answers and ends calls; holding Back goes home.
-  KEYS.push({ t: 'stick', x: 0, d: NAV_D, r: 0.5 * KY });
-  [{ t: 'back', x: -1.61 * U / 0.5 }, { t: 'menu', x: 1.61 * U / 0.5 }].forEach(function (k) {
-    KEYS.push({ t: k.t, x: k.x, d: NAV_D, w: 1.78 * U / 0.5, h: 0.7 * KY, pill: true });
+  KEYS.push({ t: 'stick', x: 0, d: NAV_D, r: STICK_R });
+  // make keys: four wide keys just above the navigation row, each marked with a plain outlined shape
+  // used nowhere else: lens (Camera), wave (hold for a voice note), lines (Note), diamond (yours)
+  var MAKE_D = NAV_D - WELL_R - NAV_GAP - KEY_H / 2;
+  ['lens', 'wave', 'lines', 'diamond'].forEach(function (t, i) {
+    var w = 2.5 * U;
+    KEYS.push({ t: t, x: -5 * U + w * (i + 0.5), d: MAKE_D, w: w - GAP, h: KEY_H });
+  });
+  // talk keys: a second row of four above the make keys, for communication: plus (Call), dash
+  // (Message), hexagon (Contacts), star (Favourites). Talk on top, make below.
+  var TALK_D = MAKE_D - ROW_P;
+  ['plus', 'dash', 'hexagon', 'star'].forEach(function (t, i) {
+    var w = 2.5 * U;
+    KEYS.push({ t: t, x: -5 * U + w * (i + 0.5), d: TALK_D, w: w - GAP, h: KEY_H });
+  });
+  // Back and Menu are small pill keys either side of the round joystick, with a triangle (Back) and
+  // a square (Menu) printed on them, so the row reads triangle, circle, square. Each pill is as tall
+  // as a letter key and centred between the joystick ring and the keyboard edge. (Keys shaped as a
+  // triangle and a square were tried and rejected.)
+  var PILL_X = (WELL_R + 5 * U) / 2;
+  [{ t: 'back', x: -PILL_X }, { t: 'menu', x: PILL_X }].forEach(function (k) {
+    KEYS.push({ t: k.t, x: k.x, d: NAV_D, w: 1.2, h: KEY_H, pill: true });
   });
 
   // key-top texture covers the whole bottom deck; caps sample it by position
@@ -567,14 +591,46 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
           g.beginPath(); g.arc(X, Yc - 0.02 * s, 0.075 * s, 0.15, Math.PI - 0.15, false);
           g.moveTo(X, Yc + 0.055 * s); g.lineTo(X, Yc + 0.11 * s);
           break;
-        case 'back':
-          g.moveTo(X - 0.045 * s, Y - 0.1 * s); g.lineTo(X - 0.105 * s, Y - 0.04 * s); g.lineTo(X - 0.045 * s, Y + 0.02 * s);
-          g.moveTo(X - 0.105 * s, Y - 0.04 * s); g.lineTo(X + 0.035 * s, Y - 0.04 * s);
-          g.arc(X + 0.035 * s, Y + 0.02 * s, 0.06 * s, -Math.PI / 2, Math.PI / 2, false);
-          g.lineTo(X - 0.04 * s, Y + 0.08 * s);
+        case 'back':                     // printed left-pointing triangle
+          g.moveTo(X - 0.11 * s, Y); g.lineTo(X + 0.08 * s, Y - 0.11 * s); g.lineTo(X + 0.08 * s, Y + 0.11 * s); g.closePath();
           break;
-        case 'menu':
-          [-0.06, 0, 0.06].forEach(function (o) { g.moveTo(X - 0.095 * s, Y + o * s); g.lineTo(X + 0.095 * s, Y + o * s); });
+        case 'menu':                     // printed square
+          g.rect(X - 0.09 * s, Y - 0.09 * s, 0.18 * s, 0.18 * s);
+          break;
+        case 'lens':
+          g.arc(X, Y, 0.11 * s, 0, Math.PI * 2); g.moveTo(X + 0.04 * s, Y); g.arc(X, Y, 0.04 * s, 0, Math.PI * 2);
+          break;
+        case 'wave':
+          for (var wi = 0; wi <= 24; wi++) {
+            var wx = X - 0.14 * s + wi * 0.28 * s / 24, wy = Y - 0.07 * s * Math.sin(wi / 24 * Math.PI * 3);
+            if (wi === 0) g.moveTo(wx, wy); else g.lineTo(wx, wy);
+          }
+          break;
+        case 'lines':
+          [[-0.08, 0.12], [0, 0.12], [0.08, 0.07]].forEach(function (l) { g.moveTo(X - l[1] * s, Y + l[0] * s); g.lineTo(X + l[1] * s, Y + l[0] * s); });
+          break;
+        case 'diamond':
+          g.moveTo(X, Y - 0.12 * s); g.lineTo(X + 0.12 * s, Y); g.lineTo(X, Y + 0.12 * s); g.lineTo(X - 0.12 * s, Y); g.closePath();
+          break;
+        case 'plus':
+          g.moveTo(X - 0.11 * s, Y); g.lineTo(X + 0.11 * s, Y); g.moveTo(X, Y - 0.11 * s); g.lineTo(X, Y + 0.11 * s);
+          break;
+        case 'dash':
+          g.moveTo(X - 0.12 * s, Y); g.lineTo(X + 0.12 * s, Y);
+          break;
+        case 'hexagon':
+          for (var hi = 0; hi < 6; hi++) {
+            var ha = Math.PI / 6 + hi * Math.PI / 3, hx = X + 0.11 * s * Math.cos(ha), hy = Y + 0.11 * s * Math.sin(ha);
+            if (hi === 0) g.moveTo(hx, hy); else g.lineTo(hx, hy);
+          }
+          g.closePath();
+          break;
+        case 'star':
+          for (var si = 0; si < 10; si++) {
+            var sa = -Math.PI / 2 + si * Math.PI / 5, sr = (si % 2 ? 0.05 : 0.12) * s;
+            if (si === 0) g.moveTo(X + sr * Math.cos(sa), Y + sr * Math.sin(sa)); else g.lineTo(X + sr * Math.cos(sa), Y + sr * Math.sin(sa));
+          }
+          g.closePath();
           break;
         case 'stick':
           g.strokeStyle = f.sub; g.lineWidth = 0.01 * s;
@@ -598,11 +654,18 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     }
     var b = 0.028, x0 = k.x - k.w / 2 + b, x1 = k.x + k.w / 2 - b, y = -k.d;
     var y0 = y - k.h / 2 + b, y1 = y + k.h / 2 - b;
-    var r = k.pill ? (y1 - y0) / 2 - 0.002 : 0.1;
-    var g = new THREE.ExtrudeGeometry(rrShape(x0, y0, x1, y1, r, r), {
+    var r = k.pill ? (y1 - y0) / 2 - 0.002 : 0.1, shape;
+    shape = rrShape(x0, y0, x1, y1, r, r);
+    var g = new THREE.ExtrudeGeometry(shape, {
       depth: 0.03, bevelEnabled: true, bevelThickness: 0.028, bevelSize: b, bevelSegments: 3, curveSegments: 10
     });
     g.translate(0, 0, 0.028);
+    // sculpted keys: on the typing rows each key tilts slightly towards the centre of the keyboard
+    // (raised outer edge), so each thumb meets its keys squarely; lowered so the top stays 0.86 mm
+    if (k.sculpt && Math.abs(k.x) > 0.01) {
+      var tilt = 0.06 * (k.x < 0 ? 1 : -1);
+      g.translate(-k.x, 0, 0); g.rotateY(tilt); g.translate(k.x, 0, -Math.abs(Math.sin(tilt)) * k.w / 2);
+    }
     return g;
   }
 
@@ -931,13 +994,21 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
 
   KEYS.forEach(function (k) { bottom.add(new THREE.Mesh(keyGeom(k), [keyCapMat, keySideMat])); });
 
+  // frets: thin metal bars between the typing rows, in the body colour. They space the rows and let
+  // a thumb find a row by feel. 0.3 mm tall, well below the key tops.
+  var fretGeo = new THREE.BoxGeometry(10 * U - 0.1, 0.05, 0.03);
+  for (var fi = 0; fi < 4; fi++) {
+    var fret = new THREE.Mesh(fretGeo, tiMat);
+    fret.position.set(0, -(ROW0 + fi * ROW_P + ROW_P / 2), 0.015); bottom.add(fret);
+  }
+
   var mic = new THREE.Mesh(new THREE.CircleGeometry(0.045, 24), holeMat);
   mic.position.set(0, -(KEYS_END + DECK1) / 2, 0.002); bottom.add(mic);
 
   // joystick well: a slim recess round the pad, a shade darker than the body so it reads as a soft
   // shadow gap rather than a black ring
   var wellMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.6 });
-  var well = new THREE.Mesh(new THREE.RingGeometry(0.47 * KY, WELL_R, 64), wellMat);
+  var well = new THREE.Mesh(new THREE.RingGeometry(STICK_R - 0.03, WELL_R, 64), wellMat);
   well.position.set(0, -NAV_D, 0.001); bottom.add(well);
 
   var port = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.45, -0.16, 0.45, 0.16, 0.155, 0.155), 12), holeMat);

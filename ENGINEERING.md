@@ -49,16 +49,18 @@ Why this split: the user-facing repair (battery) is four screws from the back, a
 |---|---|---|
 | Raised frame | 0 to 2.8 mm and 75.7 to 78.5 mm; 1.4 mm wide all round | 1.3 mm tall; carries the shut glass by its outer margin |
 | Soft bumpers | 4, on the frame, 17.1 mm either side of the centre line, at both ends | 0.3 mm tall; with the frame they hold the glass 0.7 mm above the keys |
-| Open deck | 2.8 to 21.7 mm | Empty for now; reserved for a speaker or extra keys |
-| Navigation row | 21.7 to 33.4 mm | Back (left), joystick (centre), Menu (right) |
-| Joystick | Centred | Slide pad, 10.7 mm cap, in a recess ring 11.8 mm across; clicks |
+| Talk keys | 4.5 to 11.0 mm | 4 keys, 12.3 × 6.5 mm on a 13 mm pitch: plus (Call), dash (Message), hexagon (Contacts), star (Favourites) |
+| Make keys | 12.0 to 18.5 mm | 4 keys, 12.3 × 6.5 mm on a 13 mm pitch: lens (Camera), wave (voice note), lines (Note), diamond (assignable) |
+| Navigation row | 20.5 to 33.9 mm | Back and Menu: pill caps, 12 × 6.5 mm, 10.4 to 22.4 mm either side of the centre line (3.7 mm from the joystick ring, 3.6 mm from the keyboard edge), printed ◁ and □. Joystick: round, 12.4 mm, centre |
+| Frets | Between the five typing rows | 4 bars, 51.9 × 0.5 mm, 0.3 mm tall, aluminium in the body colour |
+| Joystick | Centred | Slide pad, 12.4 mm cap, in a recess ring 13.5 mm across; clicks |
 | Number row | 35.9 to 42.4 mm | 1 to 0 |
 | Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 4.5 mm wide, 5.2 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
 | Keyboard microphone | 74.1 mm, centred | 0.9 mm hole |
 
-**Key mechanism:** keys stand 0.86 mm above the deck. With the shut screen 0.7 mm above the key tops, all travel must sit below that line. Target a low-profile scissor or butterfly-style mechanism with **0.5 to 0.6 mm travel** and a metal dome per key *(est.)*. Backlight: a light-guide film under the keys with side LEDs, used for the hidden-until-lit call icons and the legends.
+**Key mechanism:** keys stand 0.86 mm above the deck. Typing keys are sculpted: each cap tilts about 3.4° towards the centre of the keyboard, raised at its outer edge, with its highest point still at 0.86 mm. With the shut screen 0.7 mm above the key tops, all travel must sit below that line. Target a low-profile scissor or butterfly-style mechanism with **0.5 to 0.6 mm travel** and a metal dome per key *(est.)*. Backlight: a light-guide film under the keys with side LEDs, used for the hidden-until-lit call icons and the legends.
 
-**Keyboard controller:** a small microcontroller on the keyboard flex scans the matrix (44 keys plus Back, Menu and the joystick's four directions and click) and drives the backlight. It talks to the main chip over one I²C or I³C bus, which keeps the wire count through the hinge low.
+**Keyboard controller:** a small microcontroller on the keyboard flex scans the matrix (44 keys, 8 talk and make keys, Back, Menu and the joystick's four directions and click) and drives the backlight. It talks to the main chip over one I²C or I³C bus, which keeps the wire count through the hinge low.
 
 ### 3.2 Back (battery door)
 
