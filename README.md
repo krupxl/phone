@@ -117,4 +117,6 @@ Not designed yet:
 
 ## Files
 
-- `index.html`: the interactive 3D model, self-contained apart from three.js and Google Fonts from their CDNs.
+- `index.html`: the interactive 3D model, self-contained apart from three.js and Google Fonts from their CDNs. Generated from `model.html` by `node tools/wrap.js`.
+- `model.html`: the source of the model.
+- `CLAUDE.md`: how to work on the model and the reasons behind the design.
