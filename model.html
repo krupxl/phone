@@ -167,8 +167,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
         <dt>Menu</dt><dd>Other actions for the selected item</dd>
         <dt>Calls</dt><dd>Open the lid to answer, close it to hang up</dd>
         <dt>On a call</dt><dd>M mute, H hold, S speaker, A add a call, N note, 1 to 0 tones, hold X to end</dd>
-        <dt>Legends</dt><dd>Letters only at rest. Digits and call icons are hidden until the key backlight shows them</dd>
-        <dt>Keys</dt><dd>34-key QWERTY</dd>
+        <dt>Legends</dt><dd>Letters and digits printed. Call icons are hidden until the key backlight shows them</dd>
+        <dt>Keys</dt><dd>44: a number row plus QWERTY</dd>
       </dl>
     </div>
     <div class="spec">
@@ -205,7 +205,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     <div class="spec">
       <h2>Battery and cards</h2>
       <dl class="dims">
-        <dt>Battery</dt><dd>User-replaceable, 48 × 49 mm, about 1,700 mAh (estimate). It fills the keyboard half, so the phone is bottom-heavy</dd>
+        <dt>Battery</dt><dd>User-replaceable, 52 × 54 mm, about 2,000 mAh (estimate). It fills the keyboard half, so the phone is bottom-heavy</dd>
         <dt>Board</dt><dd>Main board in the screen half beside the card reader; a small sub-board for USB-C and the speaker at the base</dd>
         <dt>Door</dt><dd>The whole back of the keyboard half, four flush Torx T5 screws, so a drop cannot knock it off. Gasket underneath; the cell lifts out by a pull tab, no glue</dd>
         <dt>Tool</dt><dd>T5 bit, in any precision screwdriver set</dd>
@@ -234,18 +234,18 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     </div>
     <div class="spec">
       <h2>Inside, top half</h2>
-      <p>One sheet of glass over the whole face. Under it, a 2.9 in OLED display with no touch layer, 50 × 54 mm, centred with equal margins and level with the top of the keyboard deck, and the front camera and earpiece slit on the centre line above it.</p>
+      <p>One sheet of glass over the whole face. Under it, a 3.4 in OLED display with no touch layer, 54 × 67.5 mm, stretched to slim 3 mm sides and equal 5.5 mm ends, with the front camera on the centre line above it. The earpiece is a slit in the top edge, not on the glass.</p>
     </div>
     <div class="spec">
       <h2>Inside, bottom half</h2>
-      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Below it, a 34-key QWERTY with clean letter-only legends; digits light up on the top row when needed. The whole deck mirrors the screen above it. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
+      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Below it, a full number row and a QWERTY: 44 keys with clean printed legends. The nav row sits close to the hinge to make room for the numbers. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
     </div>
     <div class="spec">
       <h2>Size</h2>
       <dl class="dims">
-        <dt>Closed</dt><dd>77 × 56 × 17 mm, flush camera</dd>
+        <dt>Closed</dt><dd>82 × 60 × 17 mm, flush camera</dd>
         <dt>Clearance</dt><dd>Screen sits 0.7 mm clear of the keys when shut</dd>
-        <dt>Open flat</dt><dd>147 × 56 mm</dd>
+        <dt>Open flat</dt><dd>157 × 60 mm</dd>
         <dt>Proportion</dt><dd>Open = φ² × width (2.618 : 1)</dd>
       </dl>
     </div>
@@ -328,7 +328,11 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // ---------- dimensions (1 unit = 1 cm) ----------
   // golden proportion: the open phone (2L) is phi squared times the width
   var PHI = (1 + Math.sqrt(5)) / 2;
-  var W = 5.6, L = W * PHI * PHI / 2, T = 0.75, ZP = 0.08, SR = T + ZP, BS = 0.14;
+  // 60 mm wide (was 56): room for a 5.2 mm key pitch with clear space between the keys and the frame
+  var W = 6.0, L = W * PHI * PHI / 2, T = 0.75, ZP = 0.08, SR = T + ZP, BS = 0.14;
+  // the inside layout was drawn at 56 mm; along the length it scales with the phone (KY), across the
+  // width the keys use their own pitch (U) so they keep a margin from the frame
+  var KY = W / 5.6;
 
   function rrShape(x0, y0, x1, y1, rb, rt) {
     rb = Math.max(rb, 0.001); rt = Math.max(rt, 0.001);
@@ -411,26 +415,36 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var portInnerMat = new THREE.MeshStandardMaterial({ color: srgb(0x3a3b3e), roughness: 0.5, metalness: 0.4 });
 
   // ---------- keyboard layout ----------
-  var U = 0.5, GAP = 0.07, KEYS = [];
+  var U = 0.52, GAP = 0.07, KEYS = [];
+  // vertical layout, measured from the hinge: the navigation row sits close to the hinge-end frame,
+  // then five equal rows (numbers, QWERTY x3, bottom row), then the keyboard microphone. This runs the
+  // keys past the screen's edges across the fold: a deliberate exception to the mirror rule, to fit
+  // a full number row without shortening the keys.
+  var KEY_H = 0.86 * KY, ROW_P = 1.04 * KY, WELL_R = 0.55 * KY;
+  var DECK0 = BS + 0.14, DECK1 = L - BS - 0.14;          // inside edges of the raised frame
+  var NAV_D = DECK0 + 0.15 + WELL_R;                    // navigation row centre
+  var ROW0 = NAV_D + WELL_R + 0.25 + KEY_H / 2;          // number row centre
   var rows = [
-    { d: 2.83, keys: 'QWERTYUIOP'.split('').map(function (c, i) { return { t: c, u: 1, sub: '1234567890'.charAt(i) }; }) },
-    { d: 3.87, keys: 'ASDFGHJKL'.split('').map(function (c) { return { t: c, u: 1 }; }).concat([{ t: 'bksp', u: 1 }]) },
-    { d: 4.91, keys: [{ t: 'shift', u: 1.5 }].concat('ZXCVBNM'.split('').map(function (c) { return { t: c, u: 1 }; }), [{ t: 'enter', u: 1.5 }]) },
-    { d: 5.95, keys: [{ t: '123', u: 1.5 }, { t: ',', u: 1 }, { t: 'space', u: 5 }, { t: '.', u: 1 }, { t: 'mic', u: 1.5 }] }
+    { d: ROW0, keys: '1234567890'.split('').map(function (c) { return { t: c, u: 1 }; }) },
+    { d: ROW0 + ROW_P, keys: 'QWERTYUIOP'.split('').map(function (c) { return { t: c, u: 1 }; }) },
+    { d: ROW0 + 2 * ROW_P, keys: 'ASDFGHJKL'.split('').map(function (c) { return { t: c, u: 1 }; }).concat([{ t: 'bksp', u: 1 }]) },
+    { d: ROW0 + 3 * ROW_P, keys: [{ t: 'shift', u: 1.5 }].concat('ZXCVBNM'.split('').map(function (c) { return { t: c, u: 1 }; }), [{ t: 'enter', u: 1.5 }]) },
+    { d: ROW0 + 4 * ROW_P, keys: [{ t: 'sym', u: 1.5 }, { t: ',', u: 1 }, { t: 'space', u: 5 }, { t: '.', u: 1 }, { t: 'mic', u: 1.5 }] }
   ];
+  var KEYS_END = ROW0 + 4 * ROW_P + KEY_H / 2;
   rows.forEach(function (r) {
-    var x = -2.5;
+    var x = -5 * U;
     r.keys.forEach(function (k) {
       var w = k.u * U;
-      KEYS.push({ t: k.t, sub: k.sub, x: x + w / 2, d: r.d, w: w - GAP, h: 0.86 });
+      KEYS.push({ t: k.t, x: x + w / 2, d: r.d, w: w - GAP, h: KEY_H });
       x += w;
     });
   });
   // navigation row: a low-profile clickable joystick (slide pad) between Back and Menu.
   // The lid answers and ends calls; holding Back goes home.
-  KEYS.push({ t: 'stick', x: 0, d: 1.6, r: 0.5 });
-  [{ t: 'back', x: -1.61 }, { t: 'menu', x: 1.61 }].forEach(function (k) {
-    KEYS.push({ t: k.t, x: k.x, d: 1.6, w: 1.78, h: 0.7, pill: true });
+  KEYS.push({ t: 'stick', x: 0, d: NAV_D, r: 0.5 * KY });
+  [{ t: 'back', x: -1.61 * U / 0.5 }, { t: 'menu', x: 1.61 * U / 0.5 }].forEach(function (k) {
+    KEYS.push({ t: k.t, x: k.x, d: NAV_D, w: 1.78 * U / 0.5, h: 0.7 * KY, pill: true });
   });
 
   // key-top texture covers the whole bottom deck; caps sample it by position
@@ -497,7 +511,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   }
 
   // legend system: one typeface weight, one line weight, every legend centred on the same line
-  // in its row, and a slot under each letter that is only used by backlit call legends
+  // in its row, and a slot under each letter that is only used by backlit call legends. Digits have
+  // their own printed row; on a call they send tones.
   function drawKeys() {
     var f = FINISHES[finish], g = kctx, gl = gctx, s = PX, LW = 0.02 * s;
     g.fillStyle = '#' + new THREE.Color(f.key).getHexString();
@@ -517,11 +532,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     KEYS.forEach(function (k) {
       var X = (k.x + W / 2) * s, Y = k.d * s, Yc = Y - 0.04 * s;
       g.fillStyle = f.label; g.strokeStyle = f.label; g.lineWidth = LW;
-      if (k.t.length === 1 && /[A-Z]/.test(k.t)) {
+      if (k.t.length === 1 && /[A-Z0-9]/.test(k.t)) {
         g.font = '500 ' + (0.25 * s) + 'px ' + FONT;
         g.fillText(k.t, X, Yc);
         if (callMode && LIT[k.t]) lit(X, Y + 0.22 * s, LIT[k.t], k.t === 'X');
-        if (callMode && k.sub) lit(X, Y + 0.22 * s, null, false, k.sub);
         return;
       }
       g.beginPath();
@@ -529,8 +543,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
         case ',': case '.':
           g.font = '500 ' + (0.3 * s) + 'px ' + FONT; g.textBaseline = 'alphabetic';
           g.fillText(k.t, X, Yc + 0.09 * s); g.textBaseline = 'middle'; return;
-        case '123':
-          g.font = '500 ' + (0.15 * s) + 'px ' + FONT; g.fillText('123', X, Yc); return;
+        case 'sym':
+          g.font = '500 ' + (0.15 * s) + 'px ' + FONT; g.fillText('#+=', X, Yc); return;
         case 'space':
           return;
         case 'bksp':
@@ -593,9 +607,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   }
 
   // ---------- screen texture ----------
-  // screen: same width as the keyboard (0.3 cm side margins), equal 0.95 cm margins top and bottom,
-  // so its lower edge lines up with the top row of keys across the fold
-  var DW = 5.0, D0 = 0.95, DH = L - 2 * D0;
+  // screen stretched as far as it goes without a camera hole: 3 mm at the sides (the strip the shut
+  // glass rests on), and equal 5.5 mm at both ends, set by the front camera at the far end
+  var SCREEN_SIDE = 0.3, SCREEN_END = 0.55;
+  var DW = W - 2 * SCREEN_SIDE, D0 = SCREEN_END, DH = L - 2 * SCREEN_END;
   var screenCanvas = document.createElement('canvas');
   screenCanvas.width = 1024; screenCanvas.height = Math.round(1024 * DH / DW);
   var sctx = screenCanvas.getContext('2d');
@@ -692,7 +707,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var bumperMat = new THREE.MeshStandardMaterial({ color: srgb(0x141415), roughness: 0.95 });
   var bumperGeo = new THREE.CylinderGeometry(0.05, 0.05, 2 * ZP - RIM_H, 20); bumperGeo.rotateX(Math.PI / 2);
   var rimMid = BS + (RIM_W + RIM_B) / 2;
-  [[-1.6, -rimMid], [1.6, -rimMid], [-1.6, -(L - rimMid)], [1.6, -(L - rimMid)]].forEach(function (p) {
+  [[-1.6 * KY, -rimMid], [1.6 * KY, -rimMid], [-1.6 * KY, -(L - rimMid)], [1.6 * KY, -(L - rimMid)]].forEach(function (p) {
     var b = new THREE.Mesh(bumperGeo, bumperMat);
     b.position.set(p[0], p[1], RIM_H + (2 * ZP - RIM_H) / 2);
     bottom.add(b);
@@ -816,12 +831,12 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // and the speaker. The cell runs full width between the screw rows, from the hinge-end screws down
   // to that sub-board.
   var D1_Y0 = -L + BS + 0.1, D1_Y1 = -DOOR_HINGE;
-  var BAT_Y1 = D1_Y1 - 0.53, BAT_Y0 = -5.9, SUB_Y1 = -6.02, SUB_Y0 = D1_Y0 + 0.54;
+  var BAT_Y1 = D1_Y1 - 0.53, BAT_Y0 = -L + 1.43, SUB_Y1 = BAT_Y0 - 0.12, SUB_Y0 = D1_Y0 + 0.54;
   var subBoard = new THREE.ShapeGeometry(rrShape(-1.7, SUB_Y0, 1.7, SUB_Y1, 0.06, 0.06), 8);
   var subCan = new THREE.ShapeGeometry(rrShape(-1.5, SUB_Y0 + 0.1, 1.5, SUB_Y1 - 0.1, 0.04, 0.04), 6);
   var doorKb = buildDoor({
     half: bottom, y0: D1_Y0, y1: D1_Y1, rb: DOOR_RF, rt: DOOR_RT, screwY: [D1_Y1 - 0.26, D1_Y0 + 0.3],
-    bat: { x0: -2.4, x1: 2.4, y0: BAT_Y0, y1: BAT_Y1 }, tabAtTop: true, label: 'Battery',
+    bat: { x0: -(W / 2 - 0.4), x1: W / 2 - 0.4, y0: BAT_Y0, y1: BAT_Y1 }, tabAtTop: true, label: 'Battery',
     extras: [
       { geo: subBoard, mat: new THREE.MeshStandardMaterial({ color: srgb(0x1d3328), roughness: 0.6 }), z: -T - 0.003 },
       { geo: subCan, mat: portInnerMat, z: -T - 0.004 }
@@ -917,13 +932,13 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   KEYS.forEach(function (k) { bottom.add(new THREE.Mesh(keyGeom(k), [keyCapMat, keySideMat])); });
 
   var mic = new THREE.Mesh(new THREE.CircleGeometry(0.045, 24), holeMat);
-  mic.position.set(0, -(6.38 + L) / 2, 0.002); bottom.add(mic);
+  mic.position.set(0, -(KEYS_END + DECK1) / 2, 0.002); bottom.add(mic);
 
   // joystick well: a slim recess round the pad, a shade darker than the body so it reads as a soft
   // shadow gap rather than a black ring
   var wellMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.6 });
-  var well = new THREE.Mesh(new THREE.RingGeometry(0.47, 0.55, 64), wellMat);
-  well.position.set(0, -1.6, 0.001); bottom.add(well);
+  var well = new THREE.Mesh(new THREE.RingGeometry(0.47 * KY, WELL_R, 64), wellMat);
+  well.position.set(0, -NAV_D, 0.001); bottom.add(well);
 
   var port = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.45, -0.16, 0.45, 0.16, 0.155, 0.155), 12), holeMat);
   port.rotation.x = Math.PI / 2; port.position.set(0, -L - 0.003, -T / 2); bottom.add(port);
@@ -939,10 +954,11 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var display = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-DW / 2, D0, DW / 2, D0 + DH, 0.16, 0.16), 12), displayMat);
   display.position.z = 0.004; top.add(display);
 
-  // earpiece slit and front camera, both on the centre line above the screen
-  var ear = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.5, L - 0.31, 0.5, L - 0.25, 0.03, 0.03), 6), holeMat);
-  ear.position.z = 0.005; top.add(ear);
-  var fcY = D0 + DH + 0.4;
+  // earpiece: a slit in the far-end edge, just behind the glass, so the face is free for the screen.
+  // Front camera on the centre line above the screen, as close to the end as the glass allows.
+  var ear = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.5, -0.025, 0.5, 0.025, 0.024, 0.024), 6), holeMat);
+  ear.rotation.x = -Math.PI / 2; ear.position.set(0, L + 0.003, -0.17); top.add(ear);
+  var fcY = L - 0.36;
   var fcRing = new THREE.Mesh(new THREE.RingGeometry(0.1, 0.135, 32), new THREE.MeshStandardMaterial({ color: srgb(0x1b1c1f), roughness: 0.4, metalness: 0.5 }));
   fcRing.position.set(0, fcY, 0.006); top.add(fcRing);
   var fcLens = new THREE.Mesh(new THREE.CircleGeometry(0.1, 32), lensCoreMat);

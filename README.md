@@ -7,7 +7,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 ## Design principles
 
 - **No touchscreen, no swiping.** Navigation is a joystick, Back and Menu keys, a keyboard and a side dial. Every action is deliberate.
-- **Symmetry.** Everything sits on a centre line or is mirrored across it, and the screen lines up with the keyboard across the fold.
+- **Symmetry.** Everything sits on a centre line or is mirrored across it. One deliberate exception: the keyboard runs a little past the screen's edges across the fold, to fit a full number row.
 - **Golden proportion.** Open, the phone is φ² (2.618) times its width.
 - **Physical controls for big decisions.** Silent and connection levels are hardware switches, not settings.
 - **Ages well.** One material, finished so that wear softens it instead of chipping it.
@@ -19,10 +19,10 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 
 | | |
 |---|---|
-| Closed | 77 × 56 × 17 mm, flush camera |
-| Open flat | 147 × 56 mm |
+| Closed | 82 × 60 × 17 mm, flush camera |
+| Open flat | 157 × 60 mm |
 | Proportion | Open length = φ² × width |
-| Each half | 73.3 × 56 × 7.5 mm |
+| Each half | 78.5 × 60 × 7.5 mm |
 
 ### Core parts
 
@@ -35,7 +35,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | Main camera sensor | 48 to 50 MP, about 1/2", 0.8 µm pixels binned to 1.6 µm, phase-detect focus | 50 MP mid-range sensors from Sony (LYTIA), Samsung (ISOCELL) or OmniVision. Sensor size to confirm |
 | Main camera lens | 26 mm, f/1.6 to f/1.8, optical stabilisation, flush | A camera module maker's stock module, or a custom one built around the chosen sensor |
 | Front camera | About 12 MP, for video calls | Stock module |
-| Display | 2.9 in OLED, 50 × 54 mm, no touch layer | A custom cut from a small-OLED maker. The nearest stock panels are flip-phone cover screens |
+| Display | 3.4 in OLED, 54 × 67.5 mm, no touch layer, slim borders | A custom cut from a small-OLED maker. The nearest stock panels are flip-phone cover screens |
 | HDR video | HDR up to 4K60 | Dolby Vision (licensed) or HLG (free) |
 | Fingerprint | On the power button | Side-key capacitive sensor |
 | Haptics | Strong, crisp clicks | X-axis linear resonant actuator, the large kind |
@@ -44,7 +44,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | Speakers | Earpiece and base speaker, everyday quality | Stock micro-speaker modules |
 | Radios | 5G, Wi-Fi 6E or 7, Bluetooth, NFC, dual-band GPS | Mostly in the chip, plus an eSIM chip |
 | USB-C | USB 3 (10 Gb/s) | Needs a chip with USB 3 |
-| Battery | 48 × 49 × 4 mm, about 1,700 mAh | Custom lithium-ion pouch cell from a cell maker |
+| Battery | 52 × 54 × 4 mm, about 2,000 mAh | Custom lithium-ion pouch cell from a cell maker |
 
 ### Body
 
@@ -76,15 +76,20 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 ### Inside, top half
 
 - One sheet of glass over the whole inner face.
-- 2.9 in OLED display, 50 × 54 mm, **no touch layer**. Same width as the keyboard, equal 9.5 mm margins top and bottom, lower edge level with the top of the keyboard deck.
-- Front camera for video calls and an earpiece slit, both on the centre line above the screen.
+- 3.4 in OLED display, 54 × 67.5 mm, **no touch layer**, stretched as far as it goes without a camera hole:
+  - **Sides 3 mm:** the strip where the shut glass rests on the keyboard's raised frame and bumpers.
+  - **Ends 5.5 mm, equal top and bottom** (symmetry): set by the front camera at the far end.
+- Front camera for video calls on the centre line above the screen, with the proximity and light sensors either side. No punch-hole: the screen stays whole.
+- The earpiece is a slit in the far-end edge, just behind the glass, so the face is free for the screen.
 - Proximity and ambient light sensors under the glass, either side of the front camera. The proximity sensor makes the keys ignore your cheek on a call.
 
 ### Inside, bottom half
 
-- Navigation row: Back, a clickable low-profile joystick (a slide pad, so it clears the screen when shut), Menu.
-- 34-key QWERTY. Letter-only legends at rest; digits and call icons are printed in hidden-until-lit ink and only appear when the key backlight shows them.
+- Navigation row: Back, a clickable low-profile joystick (a slide pad, so it clears the screen when shut), Menu. It sits close to the hinge-end frame to make room for the number row.
+- 44 keys: a full **number row** (1 to 0) above a QWERTY. Letters and digits are printed; the call icons are in hidden-until-lit ink and only appear when the key backlight shows them. The bottom-left key switches to symbols.
+- All keys keep the same size (5.2 mm pitch, 9.2 mm tall) and stand at least 1.5 mm clear of the frame.
 - Microphone centred below the keys.
+- Because of the number row, the keys run about 7 mm past each end of the screen across the fold, so the keyboard no longer mirrors the screen exactly. This was chosen over shortening the keys.
 - A 1.3 mm raised frame with four soft bumpers holds the glass by its edges when closed, so the screen sits 0.7 mm clear of the keys.
 
 ### Edges
@@ -119,8 +124,8 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 
 | | |
 |---|---|
-| Cell | 48 × 49 mm, about 4 mm thick, full width between the screw rows |
-| Capacity | About 1,700 mAh (estimate) |
+| Cell | 52 × 54 mm, about 4 mm thick, full width between the screw rows |
+| Capacity | About 2,000 mAh (estimate) |
 | Below it | A 34 × 5 mm sub-board for USB-C and the speaker |
 
 ### Heat
@@ -149,15 +154,16 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 
 ### Ergonomics
 
-- **Key pitch.** At 56 mm wide, ten keys per row gives a 5.0 mm pitch and 4.3 mm caps, which is cramped for thumbs. Widening keeps the golden proportion, so the phone grows in length too:
+- **Width: 60 mm.** At the original 56 mm, ten keys per row gave a 5.0 mm pitch with the outer keys only 0.2 mm from the raised frame, which looked jammed and was cramped for thumbs. At 60 mm the keys have a 5.2 mm pitch and stand 1.5 mm clear of the frame (Back and Menu 1.2 mm). Widening keeps the golden proportion, so the phone grew in length too:
 
-| Width | Key pitch | Closed | Open |
-|---|---|---|---|
-| 56 mm (current) | 5.0 mm | 77 × 56 mm | 147 mm |
-| 60 mm | 5.4 mm | 82 × 60 mm | 157 mm |
-| 64 mm | 5.8 mm | 88 × 64 mm | 168 mm |
+| Width | Key pitch | Clear of frame | Closed | Open |
+|---|---|---|---|---|
+| 56 mm (old) | 5.0 mm | 0.2 mm | 77 × 56 mm | 147 mm |
+| **60 mm (chosen)** | **5.2 mm** | **1.5 mm** | **82 × 60 mm** | **157 mm** |
+| 64 mm | 5.6 mm | 1.5 mm | 88 × 64 mm | 168 mm |
 
-- **Decision method:** print keyboard mock-ups at all three widths and type on them (speed, errors, thumb strain) before choosing. The model stays at 56 mm until then.
+- The bigger body also gave a bigger screen and battery (about 2,000 mAh).
+- **Confirm by hand:** print keyboard mock-ups at 60 mm (and 64 mm for comparison) and type on them (speed, errors, thumb strain) before tooling.
 - The mock-ups also test the weight and balance in the hand, reaching the dial and power button, and the edges of the battery door.
 - **Left-handed edition:** a limited run with the edges mirrored (dial and power button on the left, switches on the right, card tray on the right). The keyboard stays the same. Because everything is already symmetric, it needs mirrored edge parts, not a new design.
 
@@ -192,12 +198,12 @@ A larger 1/1.28" sensor (as in current flagship phones) was considered; it needs
 - **Everyday processing, on purpose.** The lens and sensor above are good; the processing behind them is at entry-level flagship level, not Pro. No professional formats (raw or intermediate codecs), log, ACES or genlock: those need a Pro chip and heavy cooling, and belong to a studio camera.
 - Video: 4K HDR at 24 to 60 fps, strong electronic stabilisation on top of the optical, 8 MP stills while recording 4K.
 - Four microphones; spatial and stereo recording; wind noise reduction.
-- Stereo speakers (earpiece plus base-edge grille), at entry-level phone quality on purpose.
+- Stereo speakers (top-edge earpiece slit plus base-edge grille), at entry-level phone quality on purpose.
 
 ### Calls
 
 - Open the lid to answer, close it to hang up. On the call screen, End is highlighted by default, so one joystick click also hangs up.
-- On a call the keyboard becomes call controls (the icons light up): **M** mute, **H** hold, **S** speaker, **A** add a call, **N** take a note, **1 to 0** tones, **hold X** to end.
+- On a call the keyboard becomes call controls (the icons light up): **M** mute, **H** hold, **S** speaker, **A** add a call, **N** take a note, **number row** tones, **hold X** to end.
 - A proximity sensor ignores all keys while the phone is at your ear.
 
 ## Open questions
@@ -211,13 +217,13 @@ Not designed yet:
 - Accessibility (screen reader, large text, voice control) and non-English input.
 
 **Hardware**
-- Battery life on about 1,700 mAh, especially for 4K recording.
+- Battery life on about 2,000 mAh, especially for 4K recording.
 - Confirm on a prototype that graphite spreading is enough for 30 minutes of 4K60, and how warm the keys get.
 - Radio performance of the hidden antennas (hinge joints and door seam), especially with the phone shut in a pocket.
 - Dent resistance of the aluminium spine and edges after drops.
 
 **Use**
-- Keyboard mock-ups at 56, 60 and 64 mm; choose the width.
+- Keyboard mock-ups at 60 mm (and 64 mm for comparison) to confirm the width by hand.
 - Vlogging (the front camera is only rated for calls) and a tripod mount. One idea: a clip-on cage with a tripod thread that also acts as an extra heat sink for long shoots.
 
 **Business**
