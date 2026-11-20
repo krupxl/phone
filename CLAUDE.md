@@ -17,7 +17,7 @@ Read `README.md` first: it is the spec, and its "Open questions" section is the 
 5. Update `README.md` if the spec changed.
 6. Commit and push. Before the first commit in a session, run `git var GIT_COMMITTER_IDENT` and confirm it is `Krupal Tandel <krupalktandel@gmail.com>`. This PC falls back to a work address if unset; never commit with it. Push with `git -c credential.helper= -c credential.helper='!"/c/Program Files/GitHub CLI/gh.exe" auth git-credential' push`.
 
-The repo is **public**: no personal details, nothing about Krupal's employer, no private links other than the artifact link above (it is private and only opens for Krupal).
+The repo is **public**: no personal details, nothing about Krupal's employer, no private links other than the artifact link above (it is private and only opens for Krupal), and no other companies' phone or product names (trademarks). Component suppliers and licensed standards may be named as candidates.
 
 ## Design rules (Krupal's, in priority order)
 
@@ -37,13 +37,19 @@ Do not undo these without asking Krupal:
 - **Raised frame and four bumpers on the keyboard half:** they hold the glass by its edges so the screen never presses on the keys. The 1.6 mm hinge gap (`ZP = 0.08`) exists for this.
 - **Back and Menu only:** the lid answers and ends calls (and one joystick click on End), holding Back goes home, Menu replaces long-press and swipe actions. Call, End and Home keys were removed.
 - **Flush 1/2" camera:** a flagship 1/1.28" sensor needs a bump or a 20 mm phone. Krupal chose slim and flush.
-- **Hidden hinge with a titanium spine** turning at half the hinge angle; opens to 180° so the phone works as a normal camera. The spine is **flattened** (`SB = 0.35`, 3.5 mm proud when closed) because a full half-round looked too big; it must still span the closed thickness (`SR`).
+- **Hidden hinge with an aluminium spine** turning at half the hinge angle; opens to 180° so the phone works as a normal camera. The spine is **flattened** (`SB = 0.35`, 3.5 mm proud when closed) because a full half-round looked too big; it must still span the closed thickness (`SR`).
 - **Zoom dial halfway down the right edge of the keyboard half:** right thumb in portrait, right index finger in landscape (camera end on the left).
 - **Connection switch Open / Talk / Create:** nested levels named by intent. Talk is software-enforced (calls and data share the modem); Create is a hardware cut and blocks emergency calls, which the UI must say.
 - **Fingerprint sensor on the power button,** not the dial (a turning, ridged dial cannot read a fingerprint).
 - **Key legends:** letters only at rest; digits and call icons are hidden-until-lit (printed keys cannot change their legends).
 - **One replaceable battery behind one screwed door, the back of the keyboard half:** Krupal wants it user-replaceable but not able to pop off in a drop, so four flush Torx T5 screws (uncommon, but the bit is easy to buy), not clips. A second door on the screen half was tried and dropped: two opening parts look unpolished. The keyboard half is given over to the battery (plus a small USB-C and speaker sub-board at the base), so the phone is bottom-heavy; everything else, including the main board, goes in the screen half, which is only thick for the camera anyway.
 - **SIM and microSD tray on the screen half's left edge, halfway along:** Krupal chose an edge tray over putting the cards under the battery door, accepting nothing mirrored on the right edge. It sits in the screen half (only thick for the camera) so the keyboard half's space goes to the battery, and it mirrors the connection switch across the fold.
+- **Bead-blasted, clear-anodised aluminium, one material throughout:** Krupal wants something that ages well, and heat removal is a top priority (weight is not). Clear anodise wears to metal of the same colour, so it softens rather than chips. Bronze was tried and dropped (skin marks, unpredictable ageing, weight); titanium is poor for heat. Only the door screws are stainless steel, in steel inserts. The finish swatches are wear stages (`FINISHES.fresh/worn/aged`), not colours.
+- **Core hardware matches a reference entry-level flagship, built from independent parts:** Krupal named the reference privately; it only sets the level. Every part comes from independent suppliers (see the Core parts table in the README). Camera keeps the good lens and sensor with everyday processing (4K HDR up to 60 fps). Professional formats, log, ACES and genlock were removed: they made it a studio camera and drove the heat, chip and battery problems. Krupal wants a simple phone, not a full flagship; check new features against that.
+- **Heat out comes first, at a modest level:** no vents or fans (IP68). Efficient non-Pro chip, graphite sheets into the aluminium back of the screen half, a graphite strip through the hinge to a spreader under the keyboard (as current foldables do), insulation between that spreader and the battery. A vapour chamber only if prototype testing needs it. Charging speed and wireless charging do not matter (no wireless charging).
+- **No antenna lines:** Krupal did not like visible bands. Antennas use existing gaps: the hinge joints at the hinge end of each half, and the battery door seam as a slot antenna at the base end (door isolated by its gasket and insulating screw bushes). Colour-matched thin bands are only a fallback if RF testing fails.
+- **Minimal notifications:** the only missed-call signal is the flash breathing softly with the lid shut. The point is to use the phone less.
+- **Ergonomics settled by hand:** the 56 mm width gives a 5.0 mm key pitch, which is cramped. Keyboard mock-ups at 56, 60 and 64 mm decide the width; do not change `W` until Krupal has chosen. A limited left-handed edition mirrors the edges only.
 - **Whole inner top face is one sheet of glass;** front camera and earpiece on the centre line.
 
 ## Code notes

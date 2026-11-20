@@ -92,7 +92,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
 <div class="wrap">
   <header>
     <h1>QWERTY Flip Concept</h1>
-    <p>A phone for communication and creation, not consumption. No touchscreen and nothing to swipe: a screen on the inside top, a QWERTY keyboard and joystick on the inside bottom, and a camera-style dial on the side. Pro-level camera, mics and video; everyday speakers.</p>
+    <p>A phone for communication and creation, not consumption. No touchscreen and nothing to swipe: a screen on the inside top, a QWERTY keyboard and joystick on the inside bottom, and a camera-style dial on the side. A good camera and mics for making things; everyday speakers.</p>
   </header>
 
   <section class="stage" id="stage" aria-label="3D model of the flip phone">
@@ -111,10 +111,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       <button class="btn" id="flat" type="button">Flat 180°</button>
     </div>
     <div class="group" role="group" aria-label="Finish">
-      <span class="label">Finish</span>
-      <button class="swatch" type="button" id="finish-black" data-finish="black" aria-label="Black" aria-pressed="true" style="background:#1d1e20"></button>
-      <button class="swatch" type="button" id="finish-light" data-finish="light" aria-label="Light grey" aria-pressed="false" style="background:#d7d5cf"></button>
-      <button class="swatch" type="button" id="finish-moss" data-finish="moss" aria-label="Moss" aria-pressed="false" style="background:#56604f"></button>
+      <span class="label">Wear</span>
+      <button class="swatch" type="button" id="finish-fresh" data-finish="fresh" aria-label="Aluminium, new" title="New" aria-pressed="true" style="background:#c4c6c8"></button>
+      <button class="swatch" type="button" id="finish-worn" data-finish="worn" aria-label="Aluminium, after a year" title="After a year" aria-pressed="false" style="background:#b7b8b8"></button>
+      <button class="swatch" type="button" id="finish-aged" data-finish="aged" aria-label="Aluminium, after years" title="After years" aria-pressed="false" style="background:#a9a9a6"></button>
     </div>
     <div class="group" role="group" aria-label="View">
       <span class="label">View</span>
@@ -133,6 +133,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     </div>
     <div class="group">
       <button class="btn" type="button" id="callmode" aria-pressed="false">On a call</button>
+      <button class="btn" type="button" id="missed" aria-pressed="false">Missed call</button>
       <button class="btn" type="button" id="battery" aria-pressed="false">Battery door off</button>
       <button class="btn" type="button" id="spin" aria-pressed="true">Turntable</button>
     </div>
@@ -141,7 +142,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   <section class="specs" aria-label="Specification">
     <div class="spec">
       <h2>Outside</h2>
-      <p>Almost nothing: one flush camera with a flash near the top of the back, and a titanium spine over the hinge. No screen or logo. The back of the keyboard half is the one battery door, held by four flush Torx screws. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
+      <p>Almost nothing: one flush camera with a flash near the top of the back, and an aluminium spine over the hinge. No antenna lines: the radios use the hinge joints and the battery door seam. No screen or logo. The back of the keyboard half is the one battery door, held by four flush Torx screws. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
     </div>
     <div class="spec">
       <h2>Camera</h2>
@@ -158,7 +159,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       <dl class="dims">
         <dt>Touch</dt><dd>None. No touchscreen, no swiping</dd>
         <dt>Joystick</dt><dd>Move and click to select; shutter in the camera</dd>
-        <dt>Dial</dt><dd>Knurled titanium, halfway down the right edge of the keyboard half. Under your thumb in portrait, under your index finger in landscape. Zoom in the camera, volume elsewhere</dd>
+        <dt>Dial</dt><dd>Knurled aluminium, halfway down the right edge of the keyboard half. Under your thumb in portrait, under your index finger in landscape. Zoom in the camera, volume elsewhere</dd>
         <dt>Power</dt><dd>Fingerprint power button, right edge opposite the silent switch. Rest your thumb as you open the lid to unlock; hold to switch off or call for help</dd>
         <dt>Back</dt><dd>Leave any screen; hold to go home</dd>
         <dt>Menu</dt><dd>Other actions for the selected item</dd>
@@ -179,6 +180,26 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       </dl>
     </div>
     <div class="spec">
+      <h2>Body and heat</h2>
+      <dl class="dims">
+        <dt>Material</dt><dd>Bead-blasted aluminium, clear anodised. Wears to a soft polish at the edges, no chips</dd>
+        <dt>Sealing</dt><dd>IP68</dd>
+        <dt>Cooling</dt><dd>No vents or fans. Efficient non-Pro chip; graphite into the aluminium back, a graphite strip through the hinge, the battery insulated</dd>
+        <dt>Target</dt><dd>30 minutes of 4K60 without throttling</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Sensors and storage</h2>
+      <dl class="dims">
+        <dt>Sensors</dt><dd>Proximity and light, either side of the front camera</dd>
+        <dt>Haptics</dt><dd>Large linear resonant actuator</dd>
+        <dt>Missed call</dt><dd>The flash breathes softly with the lid shut. Nothing more</dd>
+        <dt>SIM</dt><dd>Nano SIM plus eSIM</dd>
+        <dt>Storage</dt><dd>256 GB minimum, plus microSD</dd>
+        <dt>Audio out</dt><dd>USB-C only, no 3.5 mm jack</dd>
+      </dl>
+    </div>
+    <div class="spec">
       <h2>Battery and cards</h2>
       <dl class="dims">
         <dt>Battery</dt><dd>User-replaceable, 48 × 49 mm, about 1,700 mAh (estimate). It fills the keyboard half, so the phone is bottom-heavy</dd>
@@ -191,22 +212,21 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     <div class="spec">
       <h2>Audio</h2>
       <dl class="dims">
-        <dt>Mics</dt><dd>Four studio-quality</dd>
+        <dt>Mics</dt><dd>Four</dd>
         <dt>Where</dt><dd>Keyboard chin, base edge, back by the camera, top edge</dd>
-        <dt>Recording</dt><dd>Spatial Audio and stereo</dd>
-        <dt>Tools</dt><dd>Wind noise reduction, Audio Mix</dd>
-        <dt>Speakers</dt><dd>Stereo, as iPhone 17e: earpiece plus base-edge grille</dd>
-        <dt>Playback</dt><dd>Spatial Audio, Dolby Atmos</dd>
+        <dt>Recording</dt><dd>Spatial and stereo</dd>
+        <dt>Tools</dt><dd>Wind noise reduction</dd>
+        <dt>Speakers</dt><dd>Stereo, everyday quality: earpiece plus base-edge grille</dd>
+        <dt>Playback</dt><dd>Stereo, spatial audio</dd>
       </dl>
     </div>
     <div class="spec">
       <h2>Video</h2>
       <dl class="dims">
-        <dt>HDR</dt><dd>4K Dolby Vision, 24 to 60 fps</dd>
-        <dt>Pro</dt><dd>ProRes and ProRes RAW, external recording</dd>
-        <dt>Colour</dt><dd>Apple Log 2, ACES</dd>
-        <dt>Sync</dt><dd>Genlock</dd>
-        <dt>USB-C</dt><dd>USB 3, fast enough for ProRes to an external drive</dd>
+        <dt>HDR</dt><dd>4K HDR, 24 to 60 fps</dd>
+        <dt>Stabilisation</dt><dd>Optical in the lens, plus electronic</dd>
+        <dt>Level</dt><dd>Everyday processing. No professional formats, log or genlock: not a studio camera</dd>
+        <dt>USB-C</dt><dd>USB 3, to move video off quickly</dd>
       </dl>
     </div>
     <div class="spec">
@@ -229,9 +249,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     <div class="spec">
       <h2>Hinge</h2>
       <dl class="dims">
-        <dt>Type</dt><dd>Hidden, as on iPhone Duo</dd>
-        <dt>Cover</dt><dd>Grade 5 titanium spine</dd>
-        <dt>Inside</dt><dd>100+ parts, graphite heat pipe</dd>
+        <dt>Type</dt><dd>Hidden, as on current foldables</dd>
+        <dt>Cover</dt><dd>Aluminium spine, graphite heat pipe through it</dd>
+        <dt>Inside</dt><dd>100+ parts</dd>
         <dt>Range</dt><dd>0° to 180°, holds any angle</dd>
       </dl>
     </div>
@@ -358,18 +378,23 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   }
 
   // ---------- finishes ----------
+  // one material: bead-blasted aluminium with a thin clear anodise, shown new, after a year and
+  // after years. Wear exposes metal of the same colour, so it softens and polishes at the edges
+  // instead of showing chips. The spine, dial, buttons and card tray are the same aluminium; only the
+  // door screws are stainless steel (in steel inserts). Aluminium spreads heat well, so the shell
+  // helps shed it.
   var FINISHES = {
-    black: { shell: 0x1d1e20, rough: 0.6, key: 0x2c2d30, label: '#ecebe6', sub: '#8f8e89', ti: 0x3c3c3e, call: '#7cc7a4', end: '#ef8a77' },
-    light: { shell: 0xd7d5cf, rough: 0.66, key: 0xebe9e4, label: '#26272a', sub: '#a3a19b', ti: 0xb9b5ae, call: '#2f7a5c', end: '#b4432f' },
-    moss:  { shell: 0x56604f, rough: 0.62, key: 0x67715f, label: '#f3f1ea', sub: '#aeb3a3', ti: 0x6b7067, call: '#e4efc2', end: '#ffb4a1' }
+    fresh: { shell: 0xc4c6c8, rough: 0.48, key: 0x2a2b2d, label: '#ecebe6', sub: '#8f8e89', ti: 0xc9cbcd, call: '#7cc7a4', end: '#ef8a77' },
+    worn:  { shell: 0xb7b8b8, rough: 0.42, key: 0x2a2b2d, label: '#ecebe6', sub: '#8f8e89', ti: 0xc2c3c3, call: '#7cc7a4', end: '#ef8a77' },
+    aged:  { shell: 0xa9a9a6, rough: 0.36, key: 0x2a2b2d, label: '#ecebe6', sub: '#8f8e89', ti: 0xb8b8b5, call: '#7cc7a4', end: '#ef8a77' }
   };
   // on a call, the keyboard turns into call controls (digits send tones)
   var callMode = false;
   var muted = false, conn = 'open';
   var CALL_KEYS = { M: 'MUTE', H: 'HOLD', S: 'SPKR', A: 'ADD', N: 'NOTE', X: 'END' };
-  var finish = 'black';
+  var finish = 'fresh';
 
-  var shellMat = new THREE.MeshPhysicalMaterial({ roughness: 0.6, metalness: 0, clearcoat: 0.15, clearcoatRoughness: 0.5 });
+  var shellMat = new THREE.MeshStandardMaterial({ roughness: 0.4, metalness: 1 });
   var keySideMat = new THREE.MeshStandardMaterial({ roughness: 0.5, metalness: 0 });
   var glassMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x060607), roughness: 0.05, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.03 });
   var holeMat = new THREE.MeshStandardMaterial({ color: srgb(0x0b0b0c), roughness: 0.95 });
@@ -664,7 +689,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   });
   top.add(new THREE.Mesh(slabGeom(false), shellMat));
 
-  // hinge: hidden mechanism, Grade 5 titanium spine cover across the full width
+  // hinge: hidden mechanism, aluminium spine cover across the full width
   var tiMat = new THREE.MeshStandardMaterial({ roughness: 0.36, metalness: 1, side: THREE.DoubleSide });
   var spine = new THREE.Group(); spine.position.z = ZP; shift.add(spine);
   var spineLen = W - 0.06, sg = spineGeoms(spineLen);
@@ -679,7 +704,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var lensMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x07080b), roughness: 0.03, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.02 });
   var lensCoreMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x1c2140), roughness: 0.04, metalness: 0.3, clearcoat: 1, clearcoatRoughness: 0.02 });
   var ringMat = new THREE.MeshStandardMaterial({ color: srgb(0x2a2b2e), roughness: 0.32, metalness: 0.75 });
-  var flashMat = new THREE.MeshStandardMaterial({ color: srgb(0xdcd5c3), roughness: 0.35, metalness: 0 });
+  // the flash has a low-power coloured LED: with the lid shut it breathes softly after a missed call
+  var flashMat = new THREE.MeshStandardMaterial({ color: srgb(0xdcd5c3), roughness: 0.35, metalness: 0, emissive: srgb(0x7cc7a4), emissiveIntensity: 0 });
+  var missed = false, glowT = 0;
   // sized for a 1/2" 48MP sensor module: 8 mm ring, flush with the 7.5 mm back
   var camY = L - 1.0;
   var ring = new THREE.Mesh(new THREE.RingGeometry(0.36, 0.4, 64), ringMat);
@@ -693,7 +720,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var flash = new THREE.Mesh(new THREE.CircleGeometry(0.08, 32), flashMat);
   flash.rotation.y = Math.PI; flash.position.set(0.85, camY, -T - 0.002); top.add(flash);
 
-  // four studio-quality mics: deck chin (added later), base edge, back beside the camera, top edge
+  // four mics: deck chin (added later), base edge, back beside the camera, top edge
   var micGeo = new THREE.CircleGeometry(0.035, 20);
   var rearMic = new THREE.Mesh(micGeo, holeMat);
   rearMic.rotation.y = Math.PI; rearMic.position.set(-0.85, camY, -T - 0.002); top.add(rearMic);
@@ -707,7 +734,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // no glue, no prying.
   var DOOR_X = W / 2 - BS - 0.1, DOOR_HINGE = BS + 0.3, DOOR_RT = 0.06, DOOR_RF = 0.62 - BS - 0.1;
 
-  // Torx T5 drive: a six-lobed star in a flush titanium head (M1.4 screw, 2.2 mm head)
+  // Torx T5 drive: a six-lobed star in a flush stainless steel head (M1.4 screw, 2.2 mm head),
+  // threaded into steel inserts so repeated battery swaps do not wear the aluminium
+  var steelMat = new THREE.MeshStandardMaterial({ color: srgb(0x8e9093), roughness: 0.3, metalness: 1 });
   var torx = new THREE.Shape();
   for (var ti = 0; ti <= 72; ti++) {
     var ta = ti / 72 * Math.PI * 2, tr = 0.042 * (0.76 + 0.24 * Math.cos(6 * ta));
@@ -737,7 +766,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     var screws = [];
     o.screwY.forEach(function (y) { [-1, 1].forEach(function (sx) { screws.push([sx * (DOOR_X - 0.28), y]); }); });
     screws.forEach(function (p) {
-      onBack(headGeo, tiMat, p[0], p[1], -T - 0.005, door);
+      onBack(headGeo, steelMat, p[0], p[1], -T - 0.005, door);
       onBack(torxGeo, holeMat, p[0], p[1], -T - 0.006, door);
     });
 
@@ -790,7 +819,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   });
   var doorLift = 0, doorOff = false;
 
-  // camera-style command dial: a knurled titanium disc rolling out of a slot halfway down the right
+  // camera-style command dial: a knurled aluminium disc rolling out of a slot halfway down the right
   // edge of the keyboard half. Under the right thumb in portrait; under the right index finger on the
   // top edge when the phone is flat and held landscape. Zoom in the camera, volume everywhere else.
   var DIAL_R = 0.45, DIAL_OUT = 0.12, DIAL_D = -L / 2, DIAL_TH = 0.34;
@@ -847,7 +876,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // half is only as thick as it is for the camera, so the card reader and the main board fit behind
   // the display and the keyboard half keeps its room for the battery. One nano SIM on one side of the tray, a
   // microSD card on the other (double-sided, so it stays 13 mm long). The eject pinhole is in the
-  // flush titanium face, at the end away from the hinge.
+  // flush aluminium face, at the end away from the hinge.
   var TR_Y0 = L / 2 - 0.65, TR_Y1 = L / 2 + 0.65, TR_H = 0.085;
   top.add(sideRect(TR_Y0 - 0.012, TR_Y1 + 0.012, SW_Z - TR_H - 0.012, SW_Z + TR_H + 0.012, TR_H + 0.012, holeMat, 0.002));
   top.add(sideRect(TR_Y0, TR_Y1, SW_Z - TR_H, SW_Z + TR_H, TR_H, tiMat, 0.003));
@@ -856,7 +885,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
 
   // ---------- right edge: power button with fingerprint sensor ----------
   // Mirrors the silent switch on the left (same height, same length). Flat sapphire-capped
-  // titanium key, nearly flush so it is not pressed in a pocket.
+  // aluminium key, nearly flush so it is not pressed in a pocket.
   var PB_Y0 = -1.55, PB_Y1 = -1.05, PB_H = 0.105;
   var pbGap = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-SW_Z - PB_H - 0.025, PB_Y0 - 0.025, -SW_Z + PB_H + 0.025, PB_Y1 + 0.025, PB_H + 0.02, PB_H + 0.02), 12), holeMat);
   pbGap.rotation.y = Math.PI / 2; pbGap.position.x = W / 2 + 0.002; bottom.add(pbGap);
@@ -907,6 +936,17 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var fcLens = new THREE.Mesh(new THREE.CircleGeometry(0.1, 32), lensCoreMat);
   fcLens.position.set(0, fcY, 0.006); top.add(fcLens);
 
+  // proximity and ambient light sensors under the glass, either side of the front camera. The
+  // proximity sensor stops the cheek pressing keys on a call.
+  var sensorGeo = new THREE.CircleGeometry(0.045, 24), sensorMat = new THREE.MeshStandardMaterial({ color: srgb(0x111215), roughness: 0.2 });
+  [-0.42, 0.42].forEach(function (x) {
+    var sn = new THREE.Mesh(sensorGeo, sensorMat); sn.position.set(x, fcY, 0.005); top.add(sn);
+  });
+
+  // no antenna lines: the radios use gaps the phone already has. Antennas sit at the hinge end of
+  // each half, behind the joint with the spine, and the battery door's seam works as a slot antenna
+  // at the base end. So there are no visible bands on the aluminium.
+
   var meshes = [];
   root.traverse(function (o) { if (o.isMesh) { o.castShadow = true; meshes.push(o); } });
 
@@ -919,7 +959,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     drawKeys();
     document.querySelectorAll('[data-finish]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.finish === name)); });
   }
-  applyFinish('black');
+  applyFinish('fresh');
   drawScreen();
   if (document.fonts && document.fonts.load) {
     Promise.all(['500', '600'].map(function (wt) { return document.fonts.load(wt + ' 40px "Instrument Sans"'); }))
@@ -982,6 +1022,12 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     });
   });
 
+  var missedBtn = document.getElementById('missed');
+  missedBtn.addEventListener('click', function () {
+    missed = !missed;
+    missedBtn.setAttribute('aria-pressed', String(missed));
+    if (missed) { setTarget(0); if (spin) setSpin(false); goView('outside'); }
+  });
   var callBtn = document.getElementById('callmode');
   callBtn.addEventListener('click', function () {
     callMode = !callMode;
@@ -1060,6 +1106,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var sph = new THREE.Spherical();
   function frame() {
     var dt = Math.min(clock.getDelta(), 0.05);
+    glowT += dt;
+    flashMat.emissiveIntensity = missed ? (reduce ? 0.8 : 0.45 + 0.4 * Math.sin(glowT * 1.6)) : 0;
     angle = reduce ? targetAngle : angle + (targetAngle - angle) * (1 - Math.exp(-dt * 5));
     if (Math.abs(targetAngle - angle) < 0.01) angle = targetAngle;
     var theta = Math.PI - angle * Math.PI / 180;
