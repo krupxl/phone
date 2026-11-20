@@ -156,7 +156,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   <section class="specs" aria-label="Specification">
     <div class="spec">
       <h2>Outside</h2>
-      <p>Almost nothing: one flush camera with a flash near the top of the back, and an aluminium spine over the hinge. No antenna lines: the radios use the hinge joints and the battery door seam. No screen or logo. The back of the keyboard half is the one battery door, held by four flush Torx screws. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
+      <p>Almost nothing: one flush camera with a flash near the top of the back, and an aluminium spine over the hinge. No antenna lines: the radios use the hinge joints and the battery door seam. No screen or logo. The back of the keyboard half is the one battery door, hooked in at the hinge end and held by two flush Torx screws. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
     </div>
     <div class="spec">
       <h2>Camera</h2>
@@ -221,9 +221,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     <div class="spec">
       <h2>Battery and cards</h2>
       <dl class="dims">
-        <dt>Battery</dt><dd>User-replaceable, 52 × 54 mm, about 2,000 mAh (estimate). It fills the keyboard half, so the phone is bottom-heavy</dd>
+        <dt>Battery</dt><dd>User-replaceable, 57.5 × 54.5 mm, about 2,250 mAh (estimate). It fills the keyboard half, so the phone is bottom-heavy</dd>
         <dt>Board</dt><dd>Main board in the screen half beside the card reader; a small sub-board for USB-C and the speaker at the base</dd>
-        <dt>Door</dt><dd>The whole back of the keyboard half, four flush Torx T5 screws, so a drop cannot knock it off. Gasket underneath; the cell lifts out by a pull tab, no glue</dd>
+        <dt>Door</dt><dd>The whole back of the keyboard half, hooked under the frame at the hinge end and clamped by two flush Torx T5 screws, so a drop cannot knock it off. Gasket underneath; the cell lifts out by a pull tab, no glue</dd>
         <dt>Tool</dt><dd>T5 bit, in any precision screwdriver set</dd>
         <dt>Cards</dt><dd>One nano SIM and one microSD, on a double-sided tray halfway along the left edge of the screen half. Shut, it sits right over the connection switch</dd>
       </dl>
@@ -250,7 +250,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     </div>
     <div class="spec">
       <h2>Inside, top half</h2>
-      <p>One sheet of glass over the whole face. Under it, a 3.4 in OLED display with no touch layer, 54 × 67.5 mm, stretched to slim 3 mm sides and equal 5.5 mm ends, with the front camera on the centre line above it. The earpiece is a slit in the top edge, not on the glass.</p>
+      <p>One sheet of glass over the whole face. Under it, a 3.5 in OLED display with no touch layer, 59.5 × 67.5 mm, stretched to slim 3 mm sides and equal 5.5 mm ends, with the front camera on the centre line above it. The earpiece is a slit in the top edge, not on the glass.</p>
     </div>
     <div class="spec">
       <h2>Inside, bottom half</h2>
@@ -259,10 +259,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     <div class="spec">
       <h2>Size</h2>
       <dl class="dims">
-        <dt>Closed</dt><dd>82 × 60 × 17 mm, flush camera</dd>
+        <dt>Closed</dt><dd>82 × 65.5 × 17 mm, flush camera</dd>
         <dt>Clearance</dt><dd>Screen sits 0.7 mm clear of the keys when shut</dd>
-        <dt>Open flat</dt><dd>157 × 60 mm</dd>
-        <dt>Proportion</dt><dd>Open = φ² × width (2.618 : 1)</dd>
+        <dt>Open flat</dt><dd>157 × 65.5 mm</dd>
+        <dt>Proportion</dt><dd>Each half 6:5, open 12:5</dd>
       </dl>
     </div>
     <div class="spec">
@@ -342,13 +342,14 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   scene.add(ground);
 
   // ---------- dimensions (1 unit = 1 cm) ----------
-  // golden proportion: the open phone (2L) is phi squared times the width
+  // proportion: each half is exactly 6:5 (length : width), so open the phone is 12:5. The length is
+  // kept from the earlier golden-proportion design (78.5 mm per half); the width grew to 65.5 mm for
+  // a roomier keyboard, closer to the keyboard phones people loved.
   var PHI = (1 + Math.sqrt(5)) / 2;
-  // 60 mm wide (was 56): room for a 5.2 mm key pitch with clear space between the keys and the frame
-  var W = 6.0, L = W * PHI * PHI / 2, T = 0.75, ZP = 0.08, SR = T + ZP, BS = 0.14;
-  // the inside layout was drawn at 56 mm; along the length it scales with the phone (KY), across the
-  // width the keys use their own pitch (U) so they keep a margin from the frame
-  var KY = W / 5.6;
+  var L = 6.0 * PHI * PHI / 2, W = L * 5 / 6, T = 0.75, ZP = 0.08, SR = T + ZP, BS = 0.14;
+  // the inside layout was first drawn on a 73.3 mm half; along the length it scales with the phone
+  // (KY), across the width the keys use their own pitch (U) so they keep a margin from the frame
+  var KY = L / (5.6 * PHI * PHI / 2);
 
   function rrShape(x0, y0, x1, y1, rb, rt) {
     rb = Math.max(rb, 0.001); rt = Math.max(rt, 0.001);
@@ -434,7 +435,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var wellMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.6 });
 
   // ---------- keyboard layout ----------
-  var U = 0.52, GAP = 0.07, KEYS = [];
+  // key pitch: ten keys across, the outer keys 1.5 mm inside the raised frame
+  var GAP = 0.07, U = (W / 2 - BS - 0.14 - 0.15 + GAP / 2) / 5, KEYS = [];
   // vertical layout, built up from the base end so the keys sit in the thumb zone: the keyboard
   // microphone, then five rows of near-square keys (6.5 mm tall on a 7.5 mm pitch: bottom row, QWERTY
   // x3, numbers), then the navigation row just above the numbers, then a row of four make keys and a
@@ -829,7 +831,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var flashMat = new THREE.MeshStandardMaterial({ color: srgb(0xdcd5c3), roughness: 0.35, metalness: 0, emissive: srgb(0x7cc7a4), emissiveIntensity: 0 });
   var missed = false, glowT = 0;
   // sized for a 1/2" 48MP sensor module: 8 mm ring, flush with the 7.5 mm back
-  var camY = L - 1.0;
+  // 12 mm from the far end: 2 mm further towards the hinge than first drawn, so the rear camera
+  // module clears the front camera module inside the screen half
+  var camY = L - 1.2;
   var ring = new THREE.Mesh(new THREE.RingGeometry(0.36, 0.4, 64), ringMat);
   ring.rotation.y = Math.PI; ring.position.set(0, camY, -T - 0.001); top.add(ring);
   var bezel = new THREE.Mesh(new THREE.RingGeometry(0.32, 0.36, 64), holeMat);
@@ -849,8 +853,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   topMic.rotation.x = -Math.PI / 2; topMic.position.set(0, L + 0.003, -T / 2); top.add(topMic);
 
   // ---------- battery door: the whole back of the keyboard half ----------
-  // One replaceable cell. The door is held by four flush Torx T5 screws, not clips, so a drop cannot
-  // knock it off. A coin or a fingernail will not open it, but a T5 bit is in any precision
+  // One replaceable cell. The door hooks under the frame at the hinge end and is clamped at the far
+  // end by two flush Torx T5 screws, not clips, so a drop cannot knock it off and the gasket is
+  // pressed evenly. A coin or a fingernail will not open it, but a T5 bit is in any precision
   // screwdriver set. A gasket under the door seals the bay, and the cell lifts out by a pull tab:
   // no glue, no prying.
   var DOOR_X = W / 2 - BS - 0.1, DOOR_HINGE = BS + 0.3, DOOR_RT = 0.06, DOOR_RF = 0.62 - BS - 0.1;
@@ -931,7 +936,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var subBoard = new THREE.ShapeGeometry(rrShape(-1.7, SUB_Y0, 1.7, SUB_Y1, 0.06, 0.06), 8);
   var subCan = new THREE.ShapeGeometry(rrShape(-1.5, SUB_Y0 + 0.1, 1.5, SUB_Y1 - 0.1, 0.04, 0.04), 6);
   var doorKb = buildDoor({
-    half: bottom, y0: D1_Y0, y1: D1_Y1, rb: DOOR_RF, rt: DOOR_RT, screwY: [D1_Y1 - 0.26, D1_Y0 + 0.3],
+    half: bottom, y0: D1_Y0, y1: D1_Y1, rb: DOOR_RF, rt: DOOR_RT, screwY: [D1_Y0 + 0.3],
     bat: { x0: -(W / 2 - 0.4), x1: W / 2 - 0.4, y0: BAT_Y0, y1: BAT_Y1 }, tabAtTop: true, label: 'Battery',
     extras: [
       { geo: subBoard, mat: new THREE.MeshStandardMaterial({ color: srgb(0x1d3328), roughness: 0.6 }), z: -T - 0.003 },

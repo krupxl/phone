@@ -8,7 +8,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 
 - **No touchscreen, no swiping.** Navigation is a joystick, Back and Menu keys, a keyboard and a side dial. Every action is deliberate.
 - **Symmetry.** Everything sits on a centre line or is mirrored across it. One deliberate exception: the keyboard sits low on its half, in the thumb zone, so it no longer mirrors the screen across the fold.
-- **Golden proportion.** Open, the phone is φ² (2.618) times its width.
+- **Clean proportion.** Each half is exactly 6:5, so the open phone is 12:5.
 - **Physical controls for big decisions.** Silent and connection levels are hardware switches, not settings.
 - **Ages well.** One material, finished so that wear softens it instead of chipping it.
 - **Ergonomics first.** Comfort in the hand is settled with physical mock-ups, not on screen.
@@ -19,10 +19,10 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 
 | | |
 |---|---|
-| Closed | 82 × 60 × 17 mm, flush camera |
-| Open flat | 157 × 60 mm |
-| Proportion | Open length = φ² × width |
-| Each half | 78.5 × 60 × 7.5 mm |
+| Closed | 82 × 65.5 × 17 mm, flush camera |
+| Open flat | 157 × 65.5 mm |
+| Proportion | Each half 6:5 (length : width); open 12:5 |
+| Each half | 78.5 × 65.5 × 7.5 mm |
 
 ### Core parts
 
@@ -35,7 +35,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | Main camera sensor | 48 to 50 MP, about 1/2", 0.8 µm pixels binned to 1.6 µm, phase-detect focus | 50 MP mid-range sensors from Sony (LYTIA), Samsung (ISOCELL) or OmniVision. Sensor size to confirm |
 | Main camera lens | 26 mm, f/1.6 to f/1.8, optical stabilisation, flush | A camera module maker's stock module, or a custom one built around the chosen sensor |
 | Front camera | About 12 MP, for video calls | Stock module |
-| Display | 3.4 in OLED, 54 × 67.5 mm, no touch layer, slim borders | A custom cut from a small-OLED maker. The nearest stock panels are flip-phone cover screens |
+| Display | 3.5 in OLED, 59.5 × 67.5 mm, no touch layer, slim borders | A custom cut from a small-OLED maker. The nearest stock panels are flip-phone cover screens |
 | HDR video | HDR up to 4K60 | Dolby Vision (licensed) or HLG (free) |
 | Fingerprint | On the power button | Side-key capacitive sensor |
 | Haptics | Strong, crisp clicks | X-axis linear resonant actuator, the large kind |
@@ -44,7 +44,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | Speakers | Earpiece and base speaker, everyday quality | Stock micro-speaker modules |
 | Radios | 5G, Wi-Fi 6E or 7, Bluetooth, NFC, dual-band GPS | Mostly in the chip, plus an eSIM chip |
 | USB-C | USB 3 (10 Gb/s) | Needs a chip with USB 3 |
-| Battery | 52 × 54 × 4 mm, about 2,000 mAh | Custom lithium-ion pouch cell from a cell maker |
+| Battery | 57.5 × 54.5 × 4 mm, about 2,250 mAh | Custom lithium-ion pouch cell from a cell maker |
 
 ### Body
 
@@ -76,7 +76,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 ### Inside, top half
 
 - One sheet of glass over the whole inner face.
-- 3.4 in OLED display, 54 × 67.5 mm, **no touch layer**, stretched as far as it goes without a camera hole:
+- 3.5 in OLED display, 59.5 × 67.5 mm, **no touch layer**, stretched as far as it goes without a camera hole:
   - **Sides 3 mm:** the strip where the shut glass rests on the keyboard's raised frame and bumpers.
   - **Ends 5.5 mm, equal top and bottom** (symmetry): set by the front camera at the far end.
 - Front camera for video calls on the centre line above the screen, with the proximity and light sensors either side. No punch-hole: the screen stays whole.
@@ -87,7 +87,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 
 - Navigation row: the clickable low-profile joystick (a slide pad, so it clears the screen when shut) is the focal control, 12.4 mm across, between two small pill keys (12 × 6.5 mm, as tall as a letter key), each centred between the joystick ring and the keyboard edge. Back has a printed **◁** and Menu a printed **□**, so the row reads triangle, circle, square, mirrored about the centre line. Keys physically shaped as a triangle and a square were tried and rejected. The shapes are the legends. It sits just above the number row.
 - 44 keys: a full **number row** (1 to 0) above a QWERTY. Letters and digits are printed; the call icons are in hidden-until-lit ink and only appear when the key backlight shows them. The bottom-left key switches to symbols.
-- **Near-square keys in the thumb zone.** Keys are 4.5 mm wide on a 5.2 mm pitch and 6.5 mm tall on a 7.5 mm row pitch, at least 1.5 mm clear of the frame. Earlier keys were 9.2 mm tall on 11.1 mm rows, which spread the keyboard over 68 mm and put Back, joystick and Menu 62 to 74 mm from the base, beyond a comfortable thumb reach. Now the whole block (navigation row, five rows) is 51 mm long, built up from the base: the bottom row is 6 mm from the base edge and the navigation row 45 to 57 mm.
+- **Near-square keys in the thumb zone.** Keys are 5.1 mm wide on a 5.8 mm pitch and 6.5 mm tall on a 7.5 mm row pitch, at least 1.5 mm clear of the frame. Earlier keys were 9.2 mm tall on 11.1 mm rows, which spread the keyboard over 68 mm and put Back, joystick and Menu 62 to 74 mm from the base, beyond a comfortable thumb reach. Now the whole block (navigation row, five rows) is 51 mm long, built up from the base: the bottom row is 6 mm from the base edge and the navigation row 45 to 57 mm.
 - Microphone centred below the keys.
 - **Talk and make keys:** two rows of four wide keys above the navigation row, each marked with a plain outlined shape. Together they spell out the phone's purpose: talk on top, make below.
 
@@ -135,13 +135,13 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 - **One user-replaceable cell** behind **one door**: the whole back of the keyboard half. One opening part looks more finished than two.
 - **The keyboard half is given over to the battery**, the heaviest part, so the phone is bottom-heavy, as it should be. Only a small sub-board for USB-C and the speaker shares it, at the base end.
 - **Everything else goes in the screen half**, which is only 7.5 mm thick because of the camera: the main board (stacked, beside the card reader, below the camera), the card reader, cameras and earpiece. The board reaches the battery through the hinge.
-- The door is held by **four flush Torx T5 screws**, one in each corner, not clips, so a drop cannot knock it off. A coin or fingernail will not open it, but a T5 bit is in any precision screwdriver set. A gasket under the door seals the bay.
+- The door **hooks under the frame at the hinge end** and is clamped at the far end by **two flush Torx T5 screws**, not clips, so a drop cannot knock it off and the gasket is pressed evenly all round. A coin or fingernail will not open it, but a T5 bit is in any precision screwdriver set. To swap the battery: undo two screws, lift the far end, slide the door out of its lip. A gasket under the door seals the bay.
 - The cell lifts out by a pull tab at its hinge end: no glue, no prying.
 
 | | |
 |---|---|
-| Cell | 52 × 54 mm, about 4 mm thick, full width between the screw rows |
-| Capacity | About 2,000 mAh (estimate) |
+| Cell | 57.5 × 54.5 mm, about 4 mm thick, nearly the full width of the bay |
+| Capacity | About 2,250 mAh (estimate) |
 | Below it | A 34 × 5 mm sub-board for USB-C and the speaker |
 
 ### Heat
@@ -170,16 +170,17 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 
 ### Ergonomics
 
-- **Width: 60 mm.** At the original 56 mm, ten keys per row gave a 5.0 mm pitch with the outer keys only 0.2 mm from the raised frame, which looked jammed and was cramped for thumbs. At 60 mm the keys have a 5.2 mm pitch and stand 1.5 mm clear of the frame (Back and Menu 1.2 mm). Widening keeps the golden proportion, so the phone grew in length too:
+- **Width: 65.5 mm, halves 6:5.** At the original 56 mm, ten keys per row gave a 5.0 mm pitch with the outer keys only 0.2 mm from the raised frame, which looked jammed and was cramped for thumbs. Widening to 60 mm (golden proportion kept) gave 5.2 mm. Research on keyboard phones showed width matters most (the best-loved ones were about 67 to 72 mm), so the phone was widened again to 65.5 mm, keeping its 82 mm closed length: each half is now exactly 6:5 and the golden proportion was retired. Keys have a 5.8 mm pitch, 1.5 mm clear of the frame:
 
 | Width | Key pitch | Clear of frame | Closed | Open |
 |---|---|---|---|---|
 | 56 mm (old) | 5.0 mm | 0.2 mm | 77 × 56 mm | 147 mm |
-| **60 mm (chosen)** | **5.2 mm** | **1.5 mm** | **82 × 60 mm** | **157 mm** |
+| 60 mm (φ²) | 5.2 mm | 1.5 mm | 82 × 60 mm | 157 mm |
+| **65.5 mm (chosen, 6:5)** | **5.8 mm** | **1.5 mm** | **82 × 65.5 mm** | **157 mm** |
 | 64 mm | 5.6 mm | 1.5 mm | 88 × 64 mm | 168 mm |
 
-- The bigger body also gave a bigger screen and battery (about 2,000 mAh).
-- **Confirm by hand:** print keyboard mock-ups at 60 mm (and 64 mm for comparison) and type on them (speed, errors, thumb strain) before tooling.
+- The wider body also gave a bigger screen (3.5 in) and battery (about 2,250 mAh).
+- **Confirm by hand:** print a keyboard mock-up at 65.5 mm and type on it (speed, errors, thumb strain) before tooling.
 - The mock-ups also test the weight and balance in the hand, reaching the dial and power button, and the edges of the battery door.
 - **What keyboard phones teach (research, November 2026):**
   - The best-loved keyboard phones were wider than this one (about 67 to 72 mm), and the most praised one gained its reputation partly by widening its keyboard. Width is the single biggest factor, so the 64 mm mock-up is worth making.
@@ -192,7 +193,7 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 ### Outside
 
 - Almost nothing: one flush rear camera with a flash and a microphone either side of it, and an aluminium spine over the hinge. No antenna lines.
-- The back of the keyboard half is the battery door: a hairline seam and four flush Torx screws.
+- The back of the keyboard half is the battery door: a hairline seam and two flush Torx screws at the far end.
 - Base edge: USB-C (USB 3) in the centre, with five holes on each side (speaker on the right, microphone behind the left).
 - Top edge: one microphone.
 
@@ -239,13 +240,13 @@ Not designed yet:
 - Accessibility (screen reader, large text, voice control) and non-English input.
 
 **Hardware**
-- Battery life on about 2,000 mAh, especially for 4K recording.
+- Battery life on about 2,250 mAh, especially for 4K recording.
 - Confirm on a prototype that graphite spreading is enough for 30 minutes of 4K60, and how warm the keys get.
 - Radio performance of the hidden antennas (hinge joints and door seam), especially with the phone shut in a pocket.
 - Dent resistance of the aluminium spine and edges after drops.
 
 **Use**
-- Keyboard mock-ups at 60 mm (and 64 mm for comparison) to confirm the width by hand.
+- A keyboard mock-up at 65.5 mm to confirm the width by hand.
 - Vlogging (the front camera is only rated for calls) and a tripod mount. One idea: a clip-on cage with a tripod thread that also acts as an extra heat sink for long shoots.
 
 **Business**

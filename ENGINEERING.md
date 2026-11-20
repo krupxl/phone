@@ -14,10 +14,10 @@ Positions are given as millimetres **from the hinge** along the length of each h
 
 | | |
 |---|---|
-| Width | 60.0 mm |
-| Each half | 78.5 × 60.0 × 7.5 mm |
-| Closed | 82 × 60 × 17 mm (two halves, 1.6 mm gap, spine 3.5 mm proud of the hinge end) |
-| Open flat | 157 × 60 mm, φ² × width |
+| Width | 65.5 mm |
+| Each half | 78.5 × 65.5 × 7.5 mm, exactly 6:5 |
+| Closed | 82 × 65.5 × 17 mm (two halves, 1.6 mm gap, spine 3.5 mm proud of the hinge end) |
+| Open flat | 157 × 65.5 mm, 12:5 |
 | Corners | 1.4 mm edge bevel all round; outer corners 6.2 mm radius at the far ends, 1.6 mm at the hinge end |
 | Material | Bead-blasted 6000-series aluminium, anodised (clear, or dyed for colours) |
 | Weight | About 140 to 160 g *(est.)*, unconstrained by design |
@@ -37,7 +37,7 @@ Each half is a **machined aluminium unibody** (one block per half: walls, deck o
 - **Screen half:** unibody with a **closed back** (camera window machined in) and an **open front**, closed by the cover glass with the display bonded to it. It assembles **from the front**: internals in, display and glass bonded last.
 - **Hinge:** a separate module screwed into both unibodies through the hinge end, covered by the aluminium spine.
 
-Why this split: the user-facing repair (battery) is four screws from the back, and the keyboard half needs no glue at all. The screen half uses adhesive only where sealing needs it (the glass).
+Why this split: the user-facing repair (battery) is two screws from the back, and the keyboard half needs no glue at all. The screen half uses adhesive only where sealing needs it (the glass).
 
 ---
 
@@ -50,13 +50,13 @@ Why this split: the user-facing repair (battery) is four screws from the back, a
 | Raised frame | 0 to 2.8 mm and 75.7 to 78.5 mm; 1.4 mm wide all round | 1.3 mm tall; carries the shut glass by its outer margin. Interrupted for 14 mm at the centre of the base end (thumb notch) |
 | Thumb notch | Base end, centred, 14 mm wide | Scoop in the unibody's inner edge, about 1.2 mm deep, so a thumb can lift the shut screen half; 0.25 mm or more clear of the USB-C opening below |
 | Soft bumpers | 4, on the frame, 17.1 mm either side of the centre line, at both ends | 0.3 mm tall; with the frame they hold the glass 0.7 mm above the keys |
-| Talk keys | 4.5 to 11.0 mm | 4 keys, 12.3 × 6.5 mm on a 13 mm pitch: plus (Call), dash (Message), hexagon (Contacts), star (Favourites) |
-| Make keys | 12.0 to 18.5 mm | 4 keys, 12.3 × 6.5 mm on a 13 mm pitch: lens (Camera), wave (voice note), lines (Note), diamond (assignable) |
-| Navigation row | 20.5 to 33.9 mm | Back and Menu: pill caps, 12 × 6.5 mm, 10.4 to 22.4 mm either side of the centre line (3.7 mm from the joystick ring, 3.6 mm from the keyboard edge), printed ◁ and □. Joystick: round, 12.4 mm, centre |
-| Frets | Between the five typing rows | 4 bars, 51.9 × 0.5 mm, 0.3 mm tall, aluminium in the body colour |
+| Talk keys | 4.5 to 11.0 mm | 4 keys, 13.7 × 6.5 mm on a 14.4 mm pitch: plus (Call), dash (Message), hexagon (Contacts), star (Favourites) |
+| Make keys | 12.0 to 18.5 mm | 4 keys, 13.7 × 6.5 mm on a 14.4 mm pitch: lens (Camera), wave (voice note), lines (Note), diamond (assignable) |
+| Navigation row | 20.5 to 33.9 mm | Back and Menu: pill caps, 12 × 6.5 mm, 11.8 to 23.8 mm either side of the centre line, centred between the joystick ring and the keyboard edge, printed ◁ and □. Joystick: round, 12.4 mm, centre |
+| Frets | Between the five typing rows | 4 bars, 56.6 × 0.5 mm, 0.3 mm tall, aluminium in the body colour |
 | Joystick | Centred | Slide pad, 12.4 mm cap, in a recess ring 13.5 mm across; clicks |
 | Number row | 35.9 to 42.4 mm | 1 to 0 |
-| Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 4.5 mm wide, 5.2 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
+| Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 5.1 mm wide, 5.8 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
 | Keyboard microphone | 74.1 mm, centred | 0.9 mm hole |
 
 **Legends:** printed (pad-printed or laser-etched through a coating, supplier to propose), at least 4.5:1 contrast against the key colour; the call icons are hidden-until-lit ink over the backlight.
@@ -69,10 +69,10 @@ Why this split: the user-facing repair (battery) is four screws from the back, a
 
 | Feature | Position | Notes |
 |---|---|---|
-| Door | 55.2 mm wide, 4.4 to 76.1 mm from the hinge | The whole back. Corners: 3.8 mm radius at the far end, 0.6 mm at the hinge end |
+| Door | 60.7 mm wide, 4.4 to 76.1 mm from the hinge; hooks under the frame at the hinge end | The whole back. Corners: 3.8 mm radius at the far end, 0.6 mm at the hinge end |
 | Seam | 0.14 mm hairline round the door | Doubles as a slot antenna (section 9) |
-| Screws | 4 × Torx T5, at 24.8 mm either side of centre, at 7.0 mm and 73.1 mm from the hinge | Flush heads, stainless steel |
-| Battery | 52.0 mm wide, 9.7 to 64.2 mm from the hinge (52 × 54.5 mm), about 4.0 mm thick | About 2,000 mAh *(est.)*, single cell, 3.85 V nominal |
+| Screws | 2 × Torx T5, 27.5 mm either side of centre, 73.1 mm from the hinge (far end) | Flush heads, stainless steel; the hinge-end lip holds the other end |
+| Battery | 57.5 mm wide, 9.7 to 64.2 mm from the hinge (57.5 × 54.5 mm), about 4.0 mm thick | About 2,250 mAh *(est.)*, single cell, 3.85 V nominal |
 | Pull tab | Hinge end of the cell, centred, 10 mm wide | Lift-out; no adhesive |
 | Sub-board | 34 mm wide, 65.4 to 70.7 mm | USB-C, charger, speaker amp; see 3.4 |
 
@@ -128,8 +128,8 @@ There is no slack. The battery thickness is the first thing to give if any layer
 
 | Feature | Position | Notes |
 |---|---|---|
-| Cover glass | Whole face, 60 × 78.5 mm less the 1.4 mm bevel | Aluminosilicate, about 0.55 mm *(est.)* |
-| Display active area | 54.0 × 67.5 mm, 5.5 to 73.0 mm from the hinge, 3.0 mm side borders | 3.4 in OLED, **no touch layer** |
+| Cover glass | Whole face, 65.5 × 78.5 mm less the 1.4 mm bevel | Aluminosilicate, about 0.55 mm *(est.)* |
+| Display active area | 59.5 × 67.5 mm, 5.5 to 73.0 mm from the hinge, 3.0 mm side borders | 3.5 in OLED, **no touch layer** |
 | Front camera | 74.9 mm from the hinge, centred | About 12 MP; ring 2.7 mm across |
 | Proximity and light sensors | Beside the front camera, 4.2 mm either side of centre | Under the glass, IR-transparent ink windows |
 
@@ -137,7 +137,7 @@ There is no slack. The battery thickness is the first thing to give if any layer
 
 | Feature | Position | Notes |
 |---|---|---|
-| Rear camera | Centred at 68.5 mm from the hinge | 8 mm ring, flush with the back; 48 to 50 MP, about 1/2", 26 mm, OIS |
+| Rear camera | Centred at 66.5 mm from the hinge (12 mm from the far end) | 8 mm ring, flush with the back; 48 to 50 MP, about 1/2", 26 mm, OIS |
 | Flash | 8.5 mm to one side of the camera | White LED plus a low-power colour LED (missed-call glow) |
 | Rear microphone | 8.5 mm to the other side | Mirrors the flash |
 | Card tray | Left edge, 32.8 to 45.8 mm (13 mm long) | Directly over the connection switch when shut. Double-sided: nano SIM one side, microSD the other. Gasket |
@@ -172,7 +172,7 @@ Through the main board area:
 | Clearance for component height | 2.35 mm |
 | **Total** | **7.5 mm** |
 
-**Risk, camera clash:** the rear camera module (about 9.5 mm square, about 6 mm tall from the back) spans roughly 63.8 to 73.3 mm from the hinge. The front camera module (about 5.5 mm square, about 3.5 mm tall from the glass) spans roughly 72.2 to 77.7 mm. They overlap by about 1 mm in plan, and their heights overlap inside the 7.5 mm. Options: a thinner front module (2.5 mm or less), a stepped rear module, or moving the rear camera about 2 mm towards the hinge (a visible change to the back). **Needs a decision before CAD.**
+**Camera clash, resolved:** the rear camera module (about 9.5 mm square, about 6 mm tall from the back) and the front camera module (about 5.5 mm square, about 3.5 mm tall from the glass) overlapped by about 1 mm at the far end. Krupal chose to move the rear camera 2 mm towards the hinge: its module now spans about 61.8 to 71.3 mm from the hinge, and the front module 72.2 to 77.7 mm, 0.9 mm clear.
 
 ---
 
@@ -204,7 +204,7 @@ All counts and sizes are *(est.)* except the battery door. Internal screws use T
 
 | Where | What it holds | Qty | Type |
 |---|---|---|---|
-| Battery door | Door to keyboard unibody | 4 | M1.4 × 2.5 mm Torx T5, stainless, flush; into **steel threaded inserts** pressed into the aluminium |
+| Battery door | Door to keyboard unibody, far end (the hinge end hooks under a lip in the frame) | 2 | M1.4 × 2.5 mm Torx T5, stainless, flush; into **steel threaded inserts** pressed into the aluminium |
 | Keyboard half | Keyboard module to deck | 6 | M1.2 Torx T3 |
 | Keyboard half | Sub-board and USB-C bracket (takes plug forces) | 3 | M1.4 Torx T5 |
 | Keyboard half | Dial assembly bracket | 2 | M1.2 Torx T3 |
@@ -217,11 +217,11 @@ All counts and sizes are *(est.)* except the battery door. Internal screws use T
 | Screen half | Rear camera bracket | 2 | M1.2 Torx T3 |
 | Screen half | Front camera, sensors and receiver bracket | 2 | M1.2 Torx T3 |
 | Screen half | Haptic actuator | 2 | M1.2 Torx T3 |
-| **Total** | | **44** | |
+| **Total** | | **42** | |
 
 **No glue** in the keyboard half. In the screen half, adhesive is used only for the cover glass (a sealing gasket adhesive, releasable with heat) and for thin graphite sheets.
 
-**Risk, door gasket:** with screws only at the corners, a 72 mm door in 0.8 mm aluminium may not press the gasket evenly along its long sides, which threatens IP68. Options: a stiffer door (1.0 mm with internal ribs; costs 0.2 mm of battery), a lip at the hinge end that hooks under the frame (then only the two far-end screws clamp), or two extra screws mid-way along each side (visible). Test with a door prototype early.
+**Door clamping, decided:** four corner screws might not press the gasket evenly along a 72 mm door. Krupal chose a **lip at the hinge end** that hooks under the frame, with **two screws** clamping the far end. The lip and the screws together load the gasket from both ends; a door prototype must still confirm even compression along the long sides (a light internal rib is the fallback).
 
 ---
 
@@ -231,7 +231,7 @@ All counts and sizes are *(est.)* except the battery door. Internal screws use T
 
 ```
 USB-C (keyboard half)
-  └─ charger + fuel gauge (sub-board) ── battery (1 cell, 3.85 V nominal, ~2,000 mAh)
+  └─ charger + fuel gauge (sub-board) ── battery (1 cell, 3.85 V nominal, ~2,250 mAh)
                                    │
                                    └─ VSYS (3.4 to 4.4 V) ──► through the hinge flex ──► screen half
                                                                         │
@@ -264,7 +264,7 @@ Only **one high-current path** crosses the hinge (VSYS and its returns). The fle
 
 About 40 lines in all. One wide multi-layer flex, or two narrower ones side by side.
 
-**Risk, USB 3 through a moving hinge:** the 10 Gb/s pairs run about 100 mm from the port to the chip through a flexing cable. Impedance-controlled flex, and possibly a redriver on the sub-board. Validate signal quality over the full hinge cycle life. Fallback: USB 2 (as many entry-level phones ship), at the cost of slower video transfer.
+**Risk, USB 3 through a moving hinge:** the 10 Gb/s pairs run about 100 mm from the port to the chip through a flexing cable. Impedance-controlled flex, and possibly a redriver on the sub-board. Validate signal quality over the full hinge cycle life. Fallback: USB 2 (as many entry-level phones ship), at the cost of slower video transfer. **Decided:** design for USB 3 with a redriver on the sub-board; drop to USB 2 only if hinge-cycle testing fails.
 
 ### 7.3 Parts list (beyond the Core parts table in the README) *(candidates)*
 
@@ -310,7 +310,7 @@ No visible antenna lines. The radios use gaps that are already there:
 | GNSS (dual-band) | Hinge end of the screen half, sharing with diversity | Faces up when the phone is open in the hand |
 | NFC | Coil round the battery door seam slot | **Risk:** NFC through a metal body needs a slot; the door seam is the only one. Test early |
 
-The door must be electrically isolated from the frame where the seam acts as an antenna: the gasket insulates, and the four screws need **insulating bushes** (or the inserts are isolated). The modem is in the screen half; feeds to the keyboard-half antennas cross the hinge as micro-coax.
+The door must be electrically isolated from the frame where the seam acts as an antenna: the gasket insulates, the hinge-end lip needs an insulating liner, and the two screws need **insulating bushes** (or the inserts are isolated). The modem is in the screen half; feeds to the keyboard-half antennas cross the hinge as micro-coax.
 
 ---
 
@@ -318,7 +318,7 @@ The door must be electrically isolated from the frame where the seam acts as an 
 
 | Opening | Seal |
 |---|---|
-| Battery door | Perimeter gasket, compressed by the four screws (see the door risk in section 6) |
+| Battery door | Perimeter gasket, compressed by the hinge-end lip and the two far-end screws (section 6) |
 | Card tray | Silicone gasket on the tray |
 | Silent and connection switches | O-ring on each slider shaft, sealed behind the visible slot |
 | Power button | Sealed membrane behind the key |
@@ -356,7 +356,7 @@ Target: IP68 at the same depth and time as current flagship phones.
 
 | Job | Steps | Who |
 |---|---|---|
-| Battery | 4 × T5 screws, lift the door, unplug, lift by the tab | **The owner** |
+| Battery | 2 × T5 screws, lift the far end, slide the door out of its lip, unplug, lift by the tab | **The owner** |
 | SIM or microSD | Pin in the tray | The owner |
 | Keyboard | Battery out, then the keyboard module from behind | Repair shop |
 | Sub-board, USB-C, speaker | Battery out | Repair shop |
@@ -385,13 +385,13 @@ Target: IP68 at the same depth and time as current flagship phones.
 
 ## 13. Risks, in order
 
-1. **Camera clash** at the far end of the screen half (section 4.4). Decide before CAD.
-2. **Door gasket pressure** with corner-only screws (section 6). Prototype early.
-3. **USB 3 through the hinge** (section 7.2). Fallback is USB 2.
+1. **Door gasket pressure** with the hinge lip and two screws (section 6). Prototype early.
+2. **USB 3 through the hinge** (section 7.2). Fallback is USB 2.
+3. **Camera spacing** at the far end of the screen half: resolved on paper (section 4.4) with 0.9 mm clearance; confirm in CAD.
 4. **Hidden antennas** in a metal body, especially NFC and reception when shut in a pocket (section 9).
 5. **Keyboard half stack-up** has no slack (section 3.5); the battery absorbs any growth.
 6. **Sub-board space** for the charger and gauge (section 3.4); may cost battery length.
-7. **Custom 3.4 in display** (no touch): supplier, minimum order and cost.
+7. **Custom 3.5 in display** (no touch): supplier, minimum order and cost.
 8. **Key travel** within 0.86 mm above the deck and a 0.7 mm screen clearance (section 3.1).
 9. **Heat** in a phone with two thirds of a slab phone's surface (section 8).
 
@@ -400,7 +400,5 @@ Target: IP68 at the same depth and time as current flagship phones.
 ## 14. Not yet decided
 
 - The chip (waits on software), which sets the main board, power management and parts of the hinge flex.
-- Width confirmed by hand with keyboard mock-ups (60 mm chosen; 64 mm for comparison).
-- The camera clash fix.
-- The door clamping method.
+- Width confirmed by hand with a keyboard mock-up (65.5 mm chosen).
 - Speaker amplifier placement (sub-board or main board).
