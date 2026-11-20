@@ -238,7 +238,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     </div>
     <div class="spec">
       <h2>Inside, bottom half</h2>
-      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Below it, a full number row and a QWERTY: 44 keys with clean printed legends. The nav row sits close to the hinge to make room for the numbers. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
+      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Below it, a full number row and a QWERTY: 44 keys with clean printed legends. The whole keyboard sits low, in the thumb zone, with near-square keys; the deck nearer the hinge is left open. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
     </div>
     <div class="spec">
       <h2>Size</h2>
@@ -416,14 +416,15 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
 
   // ---------- keyboard layout ----------
   var U = 0.52, GAP = 0.07, KEYS = [];
-  // vertical layout, measured from the hinge: the navigation row sits close to the hinge-end frame,
-  // then five equal rows (numbers, QWERTY x3, bottom row), then the keyboard microphone. This runs the
-  // keys past the screen's edges across the fold: a deliberate exception to the mirror rule, to fit
-  // a full number row without shortening the keys.
-  var KEY_H = 0.86 * KY, ROW_P = 1.04 * KY, WELL_R = 0.55 * KY;
+  // vertical layout, built up from the base end so the keys sit in the thumb zone: the keyboard
+  // microphone, then five rows of near-square keys (6.5 mm tall on a 7.5 mm pitch: bottom row, QWERTY
+  // x3, numbers), then the navigation row just above the numbers. The deck between the navigation
+  // row and the hinge is left open (room for a speaker or extra keys later).
+  var KEY_H = 0.65, ROW_P = 0.75, WELL_R = 0.55 * KY;
   var DECK0 = BS + 0.14, DECK1 = L - BS - 0.14;          // inside edges of the raised frame
-  var NAV_D = DECK0 + 0.15 + WELL_R;                    // navigation row centre
-  var ROW0 = NAV_D + WELL_R + 0.25 + KEY_H / 2;          // number row centre
+  var KEYS_END = DECK1 - 0.33;                          // bottom edge of the bottom row
+  var ROW0 = KEYS_END - 4 * ROW_P - KEY_H / 2;           // number row centre
+  var NAV_D = ROW0 - KEY_H / 2 - 0.25 - WELL_R;          // navigation row centre
   var rows = [
     { d: ROW0, keys: '1234567890'.split('').map(function (c) { return { t: c, u: 1 }; }) },
     { d: ROW0 + ROW_P, keys: 'QWERTYUIOP'.split('').map(function (c) { return { t: c, u: 1 }; }) },
@@ -431,7 +432,6 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     { d: ROW0 + 3 * ROW_P, keys: [{ t: 'shift', u: 1.5 }].concat('ZXCVBNM'.split('').map(function (c) { return { t: c, u: 1 }; }), [{ t: 'enter', u: 1.5 }]) },
     { d: ROW0 + 4 * ROW_P, keys: [{ t: 'sym', u: 1.5 }, { t: ',', u: 1 }, { t: 'space', u: 5 }, { t: '.', u: 1 }, { t: 'mic', u: 1.5 }] }
   ];
-  var KEYS_END = ROW0 + 4 * ROW_P + KEY_H / 2;
   rows.forEach(function (r) {
     var x = -5 * U;
     r.keys.forEach(function (k) {

@@ -49,10 +49,11 @@ Why this split: the user-facing repair (battery) is four screws from the back, a
 |---|---|---|
 | Raised frame | 0 to 2.8 mm and 75.7 to 78.5 mm; 1.4 mm wide all round | 1.3 mm tall; carries the shut glass by its outer margin |
 | Soft bumpers | 4, on the frame, 17.1 mm either side of the centre line, at both ends | 0.3 mm tall; with the frame they hold the glass 0.7 mm above the keys |
-| Navigation row | 4.3 to 16.1 mm | Back (left), joystick (centre), Menu (right) |
+| Open deck | 2.8 to 21.7 mm | Empty for now; reserved for a speaker or extra keys |
+| Navigation row | 21.7 to 33.4 mm | Back (left), joystick (centre), Menu (right) |
 | Joystick | Centred | Slide pad, 10.7 mm cap, in a recess ring 11.8 mm across; clicks |
-| Number row | 18.6 mm onward | 1 to 0 |
-| Key rows | 5 rows, 11.1 mm pitch, keys 9.2 mm tall × 4.5 mm wide, 5.2 mm pitch across | Ends at 72.4 mm |
+| Number row | 35.9 to 42.4 mm | 1 to 0 |
+| Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 4.5 mm wide, 5.2 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
 | Keyboard microphone | 74.1 mm, centred | 0.9 mm hole |
 
 **Key mechanism:** keys stand 0.86 mm above the deck. With the shut screen 0.7 mm above the key tops, all travel must sit below that line. Target a low-profile scissor or butterfly-style mechanism with **0.5 to 0.6 mm travel** and a metal dome per key *(est.)*. Backlight: a light-guide film under the keys with side LEDs, used for the hidden-until-lit call icons and the legends.

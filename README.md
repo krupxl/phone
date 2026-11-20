@@ -7,7 +7,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 ## Design principles
 
 - **No touchscreen, no swiping.** Navigation is a joystick, Back and Menu keys, a keyboard and a side dial. Every action is deliberate.
-- **Symmetry.** Everything sits on a centre line or is mirrored across it. One deliberate exception: the keyboard runs a little past the screen's edges across the fold, to fit a full number row.
+- **Symmetry.** Everything sits on a centre line or is mirrored across it. One deliberate exception: the keyboard sits low on its half, in the thumb zone, so it no longer mirrors the screen across the fold.
 - **Golden proportion.** Open, the phone is φ² (2.618) times its width.
 - **Physical controls for big decisions.** Silent and connection levels are hardware switches, not settings.
 - **Ages well.** One material, finished so that wear softens it instead of chipping it.
@@ -85,11 +85,11 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 
 ### Inside, bottom half
 
-- Navigation row: Back, a clickable low-profile joystick (a slide pad, so it clears the screen when shut), Menu. It sits close to the hinge-end frame to make room for the number row.
+- Navigation row: Back, a clickable low-profile joystick (a slide pad, so it clears the screen when shut), Menu. It sits just above the number row.
 - 44 keys: a full **number row** (1 to 0) above a QWERTY. Letters and digits are printed; the call icons are in hidden-until-lit ink and only appear when the key backlight shows them. The bottom-left key switches to symbols.
-- All keys keep the same size (5.2 mm pitch, 9.2 mm tall) and stand at least 1.5 mm clear of the frame.
+- **Near-square keys in the thumb zone.** Keys are 4.5 mm wide on a 5.2 mm pitch and 6.5 mm tall on a 7.5 mm row pitch, at least 1.5 mm clear of the frame. Earlier keys were 9.2 mm tall on 11.1 mm rows, which spread the keyboard over 68 mm and put Back, joystick and Menu 62 to 74 mm from the base, beyond a comfortable thumb reach. Now the whole block (navigation row, five rows) is 51 mm long, built up from the base: the bottom row is 6 mm from the base edge and the navigation row 45 to 57 mm.
 - Microphone centred below the keys.
-- Because of the number row, the keys run about 7 mm past each end of the screen across the fold, so the keyboard no longer mirrors the screen exactly. This was chosen over shortening the keys.
+- **Open deck at the hinge end:** about 19 mm between the frame and the navigation row is left empty for now. Candidates: a speaker, or a row of special keys.
 - A 1.3 mm raised frame with four soft bumpers holds the glass by its edges when closed, so the screen sits 0.7 mm clear of the keys.
 
 ### Edges
