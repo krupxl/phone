@@ -133,6 +133,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     </div>
     <div class="group">
       <button class="btn" type="button" id="callmode" aria-pressed="false">On a call</button>
+      <button class="btn" type="button" id="battery" aria-pressed="false">Battery door off</button>
       <button class="btn" type="button" id="spin" aria-pressed="true">Turntable</button>
     </div>
   </div>
@@ -140,7 +141,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   <section class="specs" aria-label="Specification">
     <div class="spec">
       <h2>Outside</h2>
-      <p>Almost nothing: one flush camera with a flash near the top of the back, and a titanium spine over the hinge. No screen or logo. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
+      <p>Almost nothing: one flush camera with a flash near the top of the back, and a titanium spine over the hinge. No screen or logo. The back of the keyboard half is the one battery door, held by four flush Torx screws. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
     </div>
     <div class="spec">
       <h2>Camera</h2>
@@ -175,6 +176,16 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
         <dt>Talk</dt><dd>No internet: mobile data and Wi-Fi off. Calls, texts and Bluetooth stay on</dd>
         <dt>Create</dt><dd>Hardware cut to every radio. Camera, mics and notes still work. No emergency calls</dd>
         <dt>Balance</dt><dd>Connection switch sits opposite the dial</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Battery and cards</h2>
+      <dl class="dims">
+        <dt>Battery</dt><dd>User-replaceable, 48 × 49 mm, about 1,700 mAh (estimate). It fills the keyboard half, so the phone is bottom-heavy</dd>
+        <dt>Board</dt><dd>Main board in the screen half beside the card reader; a small sub-board for USB-C and the speaker at the base</dd>
+        <dt>Door</dt><dd>The whole back of the keyboard half, four flush Torx T5 screws, so a drop cannot knock it off. Gasket underneath; the cell lifts out by a pull tab, no glue</dd>
+        <dt>Tool</dt><dd>T5 bit, in any precision screwdriver set</dd>
+        <dt>Cards</dt><dd>One nano SIM and one microSD, on a double-sided tray halfway along the left edge of the screen half. Shut, it sits right over the connection switch</dd>
       </dl>
     </div>
     <div class="spec">
@@ -689,6 +700,96 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var topMic = new THREE.Mesh(micGeo, holeMat);
   topMic.rotation.x = -Math.PI / 2; topMic.position.set(0, L + 0.003, -T / 2); top.add(topMic);
 
+  // ---------- battery door: the whole back of the keyboard half ----------
+  // One replaceable cell. The door is held by four flush Torx T5 screws, not clips, so a drop cannot
+  // knock it off. A coin or a fingernail will not open it, but a T5 bit is in any precision
+  // screwdriver set. A gasket under the door seals the bay, and the cell lifts out by a pull tab:
+  // no glue, no prying.
+  var DOOR_X = W / 2 - BS - 0.1, DOOR_HINGE = BS + 0.3, DOOR_RT = 0.06, DOOR_RF = 0.62 - BS - 0.1;
+
+  // Torx T5 drive: a six-lobed star in a flush titanium head (M1.4 screw, 2.2 mm head)
+  var torx = new THREE.Shape();
+  for (var ti = 0; ti <= 72; ti++) {
+    var ta = ti / 72 * Math.PI * 2, tr = 0.042 * (0.76 + 0.24 * Math.cos(6 * ta));
+    if (ti === 0) torx.moveTo(tr * Math.cos(ta), tr * Math.sin(ta)); else torx.lineTo(tr * Math.cos(ta), tr * Math.sin(ta));
+  }
+  var torxGeo = new THREE.ShapeGeometry(torx), headGeo = new THREE.CircleGeometry(0.11, 40);
+  var bayMat = new THREE.MeshStandardMaterial({ color: srgb(0x232427), roughness: 0.8 });
+  var tabMat = new THREE.MeshStandardMaterial({ color: srgb(0xff7a1a), roughness: 0.9 });
+  var batteryDraws = [];
+
+  function onBack(geo, mat, x, y, z, parent) {
+    var m = new THREE.Mesh(geo, mat);
+    m.rotation.y = Math.PI; m.position.set(x, y, z); parent.add(m);
+    return m;
+  }
+
+  // o: { half, y0, y1 (y0 < y1), rb, rt, screwY: [a, b], bat: { x0, x1, y0, y1 }, tabAtTop, label, extras: [{ geo, mat, z }] }
+  function buildDoor(o) {
+    function outline(inset) {
+      return rrShape(-DOOR_X + inset, o.y0 + inset, DOOR_X - inset, o.y1 - inset, Math.max(o.rb - inset, 0.01), Math.max(o.rt - inset, 0.01));
+    }
+    var seamShape = outline(-0.014); seamShape.holes.push(outline(0));
+    onBack(new THREE.ShapeGeometry(seamShape, 24), holeMat, 0, 0, -T - 0.002, o.half);
+
+    var door = new THREE.Group(); o.half.add(door);
+    onBack(new THREE.ShapeGeometry(outline(0), 24), shellMat, 0, 0, -T - 0.003, door);
+    var screws = [];
+    o.screwY.forEach(function (y) { [-1, 1].forEach(function (sx) { screws.push([sx * (DOOR_X - 0.28), y]); }); });
+    screws.forEach(function (p) {
+      onBack(headGeo, tiMat, p[0], p[1], -T - 0.005, door);
+      onBack(torxGeo, holeMat, p[0], p[1], -T - 0.006, door);
+    });
+
+    // the bay under the door, only drawn while the door is off
+    var bay = new THREE.Group(); bay.visible = false; o.half.add(bay);
+    onBack(new THREE.ShapeGeometry(outline(0), 24), bayMat, 0, 0, -T - 0.002, bay);
+    var gasketShape = outline(0.02); gasketShape.holes.push(outline(0.07));
+    onBack(new THREE.ShapeGeometry(gasketShape, 24), holeMat, 0, 0, -T - 0.003, bay);
+    screws.forEach(function (p) { onBack(new THREE.RingGeometry(0.035, 0.09, 32), portInnerMat, p[0], p[1], -T - 0.003, bay); });
+    (o.extras || []).forEach(function (e) { onBack(e.geo, e.mat, 0, 0, e.z, bay); });
+
+    var b = o.bat, bw = b.x1 - b.x0, bh = b.y1 - b.y0;
+    var cv = document.createElement('canvas'); cv.width = Math.round(bw * 200); cv.height = Math.round(bh * 200);
+    var tex = new THREE.CanvasTexture(cv);
+    tex.encoding = THREE.sRGBEncoding; tex.anisotropy = maxAniso;
+    function draw() {
+      var g = cv.getContext('2d'), w = cv.width, h = cv.height;
+      g.fillStyle = '#2f3b46'; g.fillRect(0, 0, w, h);
+      g.strokeStyle = 'rgba(255,255,255,0.18)'; g.lineWidth = 6; g.strokeRect(24, 24, w - 48, h - 48);
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillStyle = '#e8ecef'; g.font = '600 58px "Instrument Sans", system-ui, sans-serif'; g.fillText(o.label, w / 2, h * 0.46);
+      g.fillStyle = '#b8c2ca'; g.font = '500 40px "Instrument Sans", system-ui, sans-serif'; g.fillText('Li-ion · lift by the tab', w / 2, h * 0.46 + 72);
+      tex.needsUpdate = true;
+    }
+    draw(); batteryDraws.push(draw);
+    // onBack mirrors geometry in x, so off-centre parts are built centred and moved by position
+    var cx = (b.x0 + b.x1) / 2, tabY = o.tabAtTop ? b.y1 : b.y0;
+    onBack(new THREE.PlaneGeometry(bw, bh), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55 }), cx, (b.y0 + b.y1) / 2, -T - 0.004, bay);
+    onBack(new THREE.ShapeGeometry(rrShape(-0.5, tabY - 0.28, 0.5, tabY + 0.28, 0.08, 0.08), 8), tabMat, cx, 0, -T - 0.005, bay);
+    return { door: door, bay: bay };
+  }
+  function drawBattery() { batteryDraws.forEach(function (d) { d(); }); }
+
+  // the keyboard half is given over to the battery, the heaviest part, so the phone is bottom-heavy.
+  // The main board is in the screen half, stacked beside the card reader below the camera, joined to
+  // the battery through the hinge. Here only a small sub-board remains at the base end, carrying USB-C
+  // and the speaker. The cell runs full width between the screw rows, from the hinge-end screws down
+  // to that sub-board.
+  var D1_Y0 = -L + BS + 0.1, D1_Y1 = -DOOR_HINGE;
+  var BAT_Y1 = D1_Y1 - 0.53, BAT_Y0 = -5.9, SUB_Y1 = -6.02, SUB_Y0 = D1_Y0 + 0.54;
+  var subBoard = new THREE.ShapeGeometry(rrShape(-1.7, SUB_Y0, 1.7, SUB_Y1, 0.06, 0.06), 8);
+  var subCan = new THREE.ShapeGeometry(rrShape(-1.5, SUB_Y0 + 0.1, 1.5, SUB_Y1 - 0.1, 0.04, 0.04), 6);
+  var doorKb = buildDoor({
+    half: bottom, y0: D1_Y0, y1: D1_Y1, rb: DOOR_RF, rt: DOOR_RT, screwY: [D1_Y1 - 0.26, D1_Y0 + 0.3],
+    bat: { x0: -2.4, x1: 2.4, y0: BAT_Y0, y1: BAT_Y1 }, tabAtTop: true, label: 'Battery',
+    extras: [
+      { geo: subBoard, mat: new THREE.MeshStandardMaterial({ color: srgb(0x1d3328), roughness: 0.6 }), z: -T - 0.003 },
+      { geo: subCan, mat: portInnerMat, z: -T - 0.004 }
+    ]
+  });
+  var doorLift = 0, doorOff = false;
+
   // camera-style command dial: a knurled titanium disc rolling out of a slot halfway down the right
   // edge of the keyboard half. Under the right thumb in portrait; under the right index finger on the
   // top edge when the phone is flat and held landscape. Zoom in the camera, volume everywhere else.
@@ -740,6 +841,18 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     var dot = new THREE.Mesh(new THREE.CircleGeometry(0.022, 16), dotMat);
     dot.rotation.y = -Math.PI / 2; dot.position.set(-W / 2 - 0.002, py, SW_Z + 0.17); bottom.add(dot);
   });
+
+  // card tray in the screen half, halfway along its left edge: the mirror of the connection switch
+  // across the fold, so when the phone is shut the tray sits directly over the switch. The screen
+  // half is only as thick as it is for the camera, so the card reader and the main board fit behind
+  // the display and the keyboard half keeps its room for the battery. One nano SIM on one side of the tray, a
+  // microSD card on the other (double-sided, so it stays 13 mm long). The eject pinhole is in the
+  // flush titanium face, at the end away from the hinge.
+  var TR_Y0 = L / 2 - 0.65, TR_Y1 = L / 2 + 0.65, TR_H = 0.085;
+  top.add(sideRect(TR_Y0 - 0.012, TR_Y1 + 0.012, SW_Z - TR_H - 0.012, SW_Z + TR_H + 0.012, TR_H + 0.012, holeMat, 0.002));
+  top.add(sideRect(TR_Y0, TR_Y1, SW_Z - TR_H, SW_Z + TR_H, TR_H, tiMat, 0.003));
+  var pin = new THREE.Mesh(new THREE.CircleGeometry(0.026, 16), holeMat);
+  pin.rotation.y = -Math.PI / 2; pin.position.set(-W / 2 - 0.004, TR_Y1 - 0.16, SW_Z); top.add(pin);
 
   // ---------- right edge: power button with fingerprint sensor ----------
   // Mirrors the silent switch on the left (same height, same length). Flat sapphire-capped
@@ -810,7 +923,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   drawScreen();
   if (document.fonts && document.fonts.load) {
     Promise.all(['500', '600'].map(function (wt) { return document.fonts.load(wt + ' 40px "Instrument Sans"'); }))
-      .then(function () { drawScreen(); drawKeys(); }, function () {});
+      .then(function () { drawScreen(); drawKeys(); drawBattery(); }, function () {});
   }
 
   // ---------- camera, controls, views ----------
@@ -875,6 +988,12 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     callBtn.setAttribute('aria-pressed', String(callMode));
     drawKeys(); drawScreen();
     if (callMode) { if (targetAngle < OPEN / 2) setTarget(OPEN); if (spin) setSpin(false); goView('inside'); }
+  });
+  var batteryBtn = document.getElementById('battery');
+  batteryBtn.addEventListener('click', function () {
+    doorOff = !doorOff;
+    batteryBtn.setAttribute('aria-pressed', String(doorOff));
+    if (doorOff) { if (spin) setSpin(false); goView('outside'); }
   });
   controls.addEventListener('start', function () { tween = null; if (spin) setSpin(false); setViewButtons(''); });
 
@@ -955,6 +1074,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       sw.strip.visible = len > 0.004;
       if (sw.strip.visible) { sw.strip.scale.set(2 * SW_H * 0.8, len, 1); sw.strip.position.set(-W / 2 - 0.003, (a + b) / 2, SW_Z); }
     });
+    var liftTo = doorOff ? 1.4 : 0;
+    doorLift = reduce ? liftTo : doorLift + (liftTo - doorLift) * (1 - Math.exp(-dt * 6));
+    if (Math.abs(liftTo - doorLift) < 0.001) doorLift = liftTo;
+    doorKb.door.position.z = -doorLift; doorKb.bay.visible = doorLift > 0.002;
     shift.position.y = (1 - angle / MAX) * (L - SB) / 2;
     hingeTag.textContent = 'Hinge ' + Math.round(angle) + '°';
 

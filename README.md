@@ -54,9 +54,27 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 - **Power button:** flush titanium key with a fingerprint sensor. Rest your thumb on it as you open the lid to unlock; hold to switch off or call for help.
 - **Zoom dial:** knurled titanium disc. Zoom in the camera, volume everywhere else. In landscape (camera end on the left) it sits on the top edge under the right index finger.
 
+- **Card tray:** on the screen half, halfway along its left edge. It is the mirror of the connection switch across the fold, so when the phone is shut it sits directly over the switch. One double-sided tray, 13 mm long, flush titanium face with the eject pinhole in it: one nano SIM on one side, one microSD card on the other. Nothing is mirrored opposite it on the right edge; that was a deliberate choice so cards swap without opening the phone.
+- The card reader sits in the screen half with the main board, so the keyboard half keeps its space for the battery.
+
+### Battery
+
+- **One user-replaceable cell** behind **one door**: the whole back of the keyboard half. One opening part looks more finished than two.
+- **The keyboard half is given over to the battery**, the heaviest part, so the phone is bottom-heavy, as it should be. Only a small sub-board for USB-C and the speaker shares it, at the base end.
+- **Everything else goes in the screen half**, which is only 7.5 mm thick because of the camera: the main board (stacked, beside the card reader, below the camera), the card reader, cameras and earpiece. The board reaches the battery through the hinge.
+- The door is held by **four flush Torx T5 screws**, one in each corner, not clips, so a drop cannot knock it off. A coin or fingernail will not open it, but a T5 bit is in any precision screwdriver set. A gasket under the door seals the bay.
+- The cell lifts out by a pull tab at its hinge end: no glue, no prying.
+
+| | |
+|---|---|
+| Cell | 48 × 49 mm, about 4 mm thick, full width between the screw rows |
+| Capacity | About 1,700 mAh (estimate) |
+| Below it | A 34 × 5 mm sub-board for USB-C and the speaker |
+
 ### Outside
 
 - Almost nothing: one flush rear camera with a flash and a microphone either side of it, and a Grade 5 titanium spine over the hinge.
+- The back of the keyboard half is the battery door: a hairline seam and four flush Torx screws.
 - Base edge: USB-C (USB 3) in the centre, with five holes on each side (speaker on the right, microphone behind the left).
 - Top edge: one microphone.
 
@@ -102,8 +120,9 @@ Not designed yet:
 - Accessibility (screen reader, large text, voice control) and non-English input.
 
 **Hardware**
-- Battery size and placement (possibly split across both halves), battery life, charging speed, wireless charging.
-- eSIM only, or a SIM tray (which would break the edge symmetry).
+- Battery life on about 1,700 mAh, especially for 4K recording. Charging speed; wireless charging (a metal door would block it).
+- Heat: the main board now sits behind the display, so heat from 4K ProRes recording goes into the screen half. Needs a heat spreader there.
+- eSIM alongside the nano SIM.
 - Proximity and light sensors near the earpiece (needed for the call safety feature; not on the model yet).
 - Vibration motor, body material (metal needs antenna lines), water and dust resistance, heat during 4K ProRes recording, storage, weight.
 - A deliberate decision on missed-call indication with the lid shut.

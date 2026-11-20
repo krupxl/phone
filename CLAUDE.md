@@ -42,6 +42,8 @@ Do not undo these without asking Krupal:
 - **Connection switch Open / Talk / Create:** nested levels named by intent. Talk is software-enforced (calls and data share the modem); Create is a hardware cut and blocks emergency calls, which the UI must say.
 - **Fingerprint sensor on the power button,** not the dial (a turning, ridged dial cannot read a fingerprint).
 - **Key legends:** letters only at rest; digits and call icons are hidden-until-lit (printed keys cannot change their legends).
+- **One replaceable battery behind one screwed door, the back of the keyboard half:** Krupal wants it user-replaceable but not able to pop off in a drop, so four flush Torx T5 screws (uncommon, but the bit is easy to buy), not clips. A second door on the screen half was tried and dropped: two opening parts look unpolished. The keyboard half is given over to the battery (plus a small USB-C and speaker sub-board at the base), so the phone is bottom-heavy; everything else, including the main board, goes in the screen half, which is only thick for the camera anyway.
+- **SIM and microSD tray on the screen half's left edge, halfway along:** Krupal chose an edge tray over putting the cards under the battery door, accepting nothing mirrored on the right edge. It sits in the screen half (only thick for the camera) so the keyboard half's space goes to the battery, and it mirrors the connection switch across the fold.
 - **Whole inner top face is one sheet of glass;** front camera and earpiece on the centre line.
 
 ## Code notes
