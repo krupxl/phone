@@ -200,7 +200,7 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 ### Hinge
 
 - Hidden hinge with a full-width aluminium spine cover that turns at half the hinge angle. A graphite heat pipe runs through it (see Heat).
-- The spine is flattened (elliptical), so when closed it stands only 3.5 mm proud of the hinge end instead of a full 8.3 mm half-round. Open, it sits inside the halves.
+- The spine is a solid, rounded barrel in the body colour, with a D-shaped section and rounded ends, so shut it reads as part of the body: it runs flush into both backs and leaves only a 1 mm seam beside the halves' hinge ends. It is flattened (elliptical), standing only 3.5 mm proud of the hinge end instead of a full 8.3 mm half-round. Open flat, it tucks just below the inner faces.
 - 0° to 180°, holds any angle. Opens flat so the phone works as a normal camera.
 - 1.6 mm gap between the halves when closed.
 

@@ -138,7 +138,7 @@ There is no slack. The battery thickness is the first thing to give if any layer
 | Feature | Position | Notes |
 |---|---|---|
 | Rear camera | Centred at 66.5 mm from the hinge (12 mm from the far end) | 8 mm ring, flush with the back; 48 to 50 MP, about 1/2", 26 mm, OIS |
-| Flash | 8.5 mm to one side of the camera | White LED plus a low-power colour LED (missed-call glow) |
+| Flash | 8.5 mm to one side of the camera | 3.6 mm window in a thin dark bezel: white LED plus a low-power colour LED (missed-call glow) |
 | Rear microphone | 8.5 mm to the other side | Mirrors the flash |
 | Card tray | Left edge, 32.8 to 45.8 mm (13 mm long) | Directly over the connection switch when shut. Double-sided: nano SIM one side, microSD the other. Gasket |
 | Earpiece | Slit in the far-end edge, 10 × 0.5 mm, 1.7 mm behind the glass | Acoustic channel from an offset receiver |
@@ -183,7 +183,7 @@ Through the main board area:
 | Type | Hidden, multi-link hinge module, one per phone, screwed into both halves |
 | Range | 0° to 180°, holds any angle by friction; firm detents at 0° (shut) and 180° (flat) |
 | Gap when shut | 1.6 mm between the halves |
-| Spine | Aluminium cover, 59.4 mm long, flattened (elliptical), turns at half the hinge angle through a gear train; 3.5 mm proud of the hinge end when shut, tucked between the halves when open |
+| Spine | Solid aluminium cover in the body colour, 63.5 mm long with rounded ends; D-shaped section (flattened elliptical outside, flat inside); turns at half the hinge angle through a gear train. Shut: 3.5 mm proud of the hinge end, flush into both backs, 1 mm seam beside the hinge ends. Open flat: tucked 0.1 mm below the inner faces |
 | Cycle life | 200,000 open and close cycles *(target)* |
 | Holding torque | Enough to hold the screen half at any angle with the phone in one hand; open with one thumb *(to set with mock-ups)* |
 | Lid sensing | Hall sensor in the screen half and magnet in the keyboard half detect open/shut (answer and end calls). A second Hall sensor or an angle sensor reads the hinge angle |

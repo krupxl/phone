@@ -378,27 +378,27 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     return g;
   }
 
-  // hidden-hinge spine cover: a shell that turns at half the hinge angle, so it wraps the
-  // hinge end when closed and sits inside the halves when open flat. It is flattened
-  // (elliptical): it still spans the full closed thickness (semi-axis SR) but stands only
-  // SB = 3.5 mm proud of the hinge end when closed, instead of a full 8.3 mm half-round.
-  var SPINE_ARC = Math.PI * 160 / 180, SB = 0.35;
-  function spineGeoms(len) {
-    var start = Math.PI / 2 + (Math.PI - SPINE_ARC) / 2;
-    var shell = new THREE.CylinderGeometry(1, 1, len, 96, 1, true, start, SPINE_ARC);
-    shell.rotateZ(Math.PI / 2);
-    shell.scale(1, SR, SB);
-    var s = new THREE.Shape(), n = 48, i, a;
-    s.moveTo(0, 0);
-    for (i = 0; i <= n; i++) {
-      a = start + SPINE_ARC * i / n;
-      s.lineTo(Math.cos(a), Math.sin(a));
-    }
-    s.lineTo(0, 0);
-    var cap = new THREE.ShapeGeometry(s);
-    cap.rotateY(-Math.PI / 2);
-    cap.scale(1, SR, SB);
-    return { shell: shell, cap: cap };
+  // hidden-hinge spine cover: a solid, rounded barrel in the body colour that turns at half the
+  // hinge angle, so it closes over the hinge end when shut and tucks inside the halves when open
+  // flat. Flattened (elliptical): it spans the full closed thickness (semi-axis SR) and runs flush
+  // into both backs, but stands only SB = 3.5 mm proud of the hinge end. Its ends are rounded so it
+  // reads as one part with the body rather than a separate sheet.
+  var SPINE_ARC = Math.PI * 145 / 180, SB = 0.35, SPINE_END = 0.08;
+  function spineGeom(len) {
+    // a D-shaped section: the outer arc closed by a flat inner side, extruded along the hinge axis
+    // with rounded ends. Shut, the flat side leaves a 1 mm seam beside the halves' hinge ends; open
+    // flat, the whole spine sits just below the inner faces. Drawn slightly inside the unit circle
+    // so the rounding brings it back to full size.
+    var start = Math.PI / 2 + (Math.PI - SPINE_ARC) / 2, r = 1 - 0.04;
+    var sh = new THREE.Shape(), n = 64, i, a;
+    for (i = 0; i <= n; i++) { a = start + SPINE_ARC * i / n; if (i === 0) sh.moveTo(r * Math.cos(a), r * Math.sin(a)); else sh.lineTo(r * Math.cos(a), r * Math.sin(a)); }
+    sh.closePath();
+    var g = new THREE.ExtrudeGeometry(sh, { depth: len - 2 * SPINE_END, bevelEnabled: true, bevelThickness: SPINE_END, bevelSize: 0.04, bevelSegments: 6, curveSegments: 64 });
+    g.rotateY(-Math.PI / 2);
+    g.translate((len - 2 * SPINE_END) / 2, 0, 0);
+    g.scale(1, SR, SB);
+    g.computeVertexNormals();
+    return g;
   }
 
   // ---------- finishes ----------
@@ -812,16 +812,11 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   });
   top.add(new THREE.Mesh(slabGeom(false), shellMat));
 
-  // hinge: hidden mechanism, aluminium spine cover across the full width
+  // hinge: hidden mechanism under a solid aluminium spine in the body colour, across the full width
   var tiMat = new THREE.MeshStandardMaterial({ roughness: 0.36, metalness: 1, side: THREE.DoubleSide });
   var spine = new THREE.Group(); spine.position.z = ZP; shift.add(spine);
-  var spineLen = W - 0.06, sg = spineGeoms(spineLen);
-  spine.add(new THREE.Mesh(sg.shell, tiMat));
-  [-1, 1].forEach(function (sgn) {
-    var cap = new THREE.Mesh(sg.cap, tiMat);
-    cap.position.x = sgn * spineLen / 2;
-    spine.add(cap);
-  });
+  var spineLen = W - 0.2;
+  spine.add(new THREE.Mesh(spineGeom(spineLen), shellMat));
 
   // rear camera and flash, on the outside of the top half
   var lensMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x07080b), roughness: 0.03, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.02 });
@@ -842,8 +837,12 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   lens.rotation.y = Math.PI; lens.position.set(0, camY, -T - 0.002); top.add(lens);
   var lensCore = new THREE.Mesh(new THREE.CircleGeometry(0.14, 48), lensCoreMat);
   lensCore.rotation.y = Math.PI; lensCore.position.set(0, camY, -T - 0.003); top.add(lensCore);
-  var flash = new THREE.Mesh(new THREE.CircleGeometry(0.08, 32), flashMat);
+  // flash: a 3.6 mm window (white LED plus the low-power colour LED) in a thin dark bezel,
+  // 2.6 mm clear of the camera ring, the usual size for a phone flash
+  var flash = new THREE.Mesh(new THREE.CircleGeometry(0.18, 48), flashMat);
   flash.rotation.y = Math.PI; flash.position.set(0.85, camY, -T - 0.002); top.add(flash);
+  var flashBezel = new THREE.Mesh(new THREE.RingGeometry(0.18, 0.2, 48), holeMat);
+  flashBezel.rotation.y = Math.PI; flashBezel.position.set(0.85, camY, -T - 0.002); top.add(flashBezel);
 
   // four mics: deck chin (added later), base edge, back beside the camera, top edge
   var micGeo = new THREE.CircleGeometry(0.035, 20);
