@@ -2,7 +2,7 @@
 
 A concept phone for **communication and creation, not consumption**: a clamshell with a screen and a physical QWERTY keyboard inside, no touchscreen and nothing to swipe, a good camera and microphones for making things, and everyday speakers. Not a pro studio camera: photos and video should be good, not studio-grade.
 
-`index.html` is an interactive 3D model of the phone (three.js, loaded from a CDN). Open it in a browser: drag to turn, scroll to zoom, tap the phone to open or close it. The controls under the model change the hinge angle, the wear, the view and the switches, show the phone on a call or after a missed call, and take the battery door off.
+`index.html` is an interactive 3D model of the phone (three.js, loaded from a CDN). Open it in a browser: drag to turn, scroll to zoom, tap the phone to open or close it. The controls under the model change the hinge angle, the colour, the view and the switches, show the phone on a call or after a missed call, and take the battery door off.
 
 ## Design principles
 
@@ -48,7 +48,20 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 
 ### Body
 
-- **Bead-blasted aluminium with a thin clear anodise** for the whole shell, the battery door, the spine, the dial, the power button and the card tray. Wear exposes metal of the same colour underneath, so edges soften to a gentle polish instead of showing chips, as coloured anodising would. The model shows it new, after a year and after years.
+- **Bead-blasted aluminium** for the whole shell, the battery door, the spine, the dial, the power button and the card tray, all in the same colour.
+- **Five colours.** Three have keys matched to the body (Indigo, Blush, Citrus); two have black keys with white legends (Silver, Carbon). One light neutral, one dark neutral, three colours. Frost, Sky, Champagne and Ink were tried and cut as too close to the others.
+- The keyboard deck is always the body colour. A black keyboard well (as on some laptops) was tried on Silver and Carbon and dropped.
+- **Matching keys:** The keys are a shade lighter than the body, and the legends are a soft, darker tint of the same colour rather than black ink, so the keyboard looks of a piece with the phone.
+
+| Colour | Finish | Keys | How it ages |
+|---|---|---|---|
+| Indigo | Dyed anodise, muted slate blue | A lighter slate blue, legends in a darker slate | Edges slowly wear to silver |
+| Blush | Dyed anodise, pale pink | A lighter pink, legends in a soft dusty pink-grey | Edges wear to silver, barely visible on a light colour |
+| Citrus | Dyed anodise, pale lemon yellow | A lighter lemon, legends in a soft olive-grey | As Blush |
+| Silver | Clear anodise | Black, white legends | Wear is the same colour, so edges just soften. Ages best |
+| Carbon | Dyed anodise, warm dark grey | Black, white legends | Edges slowly wear to silver |
+
+- The call legends that light up on a call (digits and icons) work on every colour.
 - Aluminium spreads heat well; titanium is poor at it, which is why flagship phones have been moving from titanium back to aluminium (see Heat).
 - The battery door screws are stainless steel, threaded into steel inserts so repeated battery swaps do not wear the aluminium threads.
 - **Bronze was considered** for its patina. It was dropped because it is heavy, can mark damp skin while new, and ages unpredictably from phone to phone.

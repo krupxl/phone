@@ -122,11 +122,13 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       <span class="num" id="hinge-num">165°</span>
       <button class="btn" id="flat" type="button">Flat 180°</button>
     </div>
-    <div class="group" role="group" aria-label="Finish">
-      <span class="label">Wear</span>
-      <button class="swatch" type="button" id="finish-fresh" data-finish="fresh" aria-label="Aluminium, new" title="New" aria-pressed="true" style="background:#c4c6c8"></button>
-      <button class="swatch" type="button" id="finish-worn" data-finish="worn" aria-label="Aluminium, after a year" title="After a year" aria-pressed="false" style="background:#b7b8b8"></button>
-      <button class="swatch" type="button" id="finish-aged" data-finish="aged" aria-label="Aluminium, after years" title="After years" aria-pressed="false" style="background:#a9a9a6"></button>
+    <div class="group" role="group" aria-label="Colour">
+      <span class="label">Colour</span>
+      <button class="swatch" type="button" id="finish-indigo" data-finish="indigo" aria-label="Indigo" title="Indigo" aria-pressed="true" style="background:#525d72"></button>
+      <button class="swatch" type="button" id="finish-blush" data-finish="blush" aria-label="Blush" title="Blush" aria-pressed="false" style="background:#ead2d1"></button>
+      <button class="swatch" type="button" id="finish-citrus" data-finish="citrus" aria-label="Citrus" title="Citrus" aria-pressed="false" style="background:#e8e896"></button>
+      <button class="swatch" type="button" id="finish-silver" data-finish="silver" aria-label="Silver, black keys" title="Silver" aria-pressed="false" style="background:#d9dbdd"></button>
+      <button class="swatch" type="button" id="finish-carbon" data-finish="carbon" aria-label="Carbon, black keys" title="Carbon" aria-pressed="false" style="background:#4b494c"></button>
     </div>
     <div class="group" role="group" aria-label="View">
       <span class="label">View</span>
@@ -194,7 +196,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     <div class="spec">
       <h2>Body and heat</h2>
       <dl class="dims">
-        <dt>Material</dt><dd>Bead-blasted aluminium, clear anodised. Wears to a soft polish at the edges, no chips</dd>
+        <dt>Material</dt><dd>Bead-blasted aluminium</dd>
+        <dt>Colours</dt><dd>Indigo, Blush, Citrus with matching keys; Silver, Carbon with black keys</dd>
         <dt>Sealing</dt><dd>IP68</dd>
         <dt>Cooling</dt><dd>No vents or fans. Efficient non-Pro chip; graphite into the aluminium back, a graphite strip through the hinge, the battery insulated</dd>
         <dt>Target</dt><dd>30 minutes of 4K60 without throttling</dd>
@@ -390,21 +393,28 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   }
 
   // ---------- finishes ----------
-  // one material: bead-blasted aluminium with a thin clear anodise, shown new, after a year and
-  // after years. Wear exposes metal of the same colour, so it softens and polishes at the edges
-  // instead of showing chips. The spine, dial, buttons and card tray are the same aluminium; only the
-  // door screws are stainless steel (in steel inserts). Aluminium spreads heat well, so the shell
-  // helps shed it.
+  // one material, bead-blasted aluminium, in five colours. Silver is clear anodise; the rest are
+  // dyed, so their edges slowly wear to silver with use (least visible on the
+  // light ones). Each colour has keys a shade lighter than the body, with soft legends in a darker
+  // tint of the same colour.
+  // The spine, dial, buttons, card tray and door share the body colour; only the door screws are
+  // stainless steel (in steel inserts).
+  // colours sampled from Krupal's reference photos: body, a lighter key cap, and a soft legend
+  // that is a darker tint of the same colour rather than dark ink
+  var CALL = '#2f7a5c', END = '#b4432f';
   var FINISHES = {
-    fresh: { shell: 0xc4c6c8, rough: 0.48, key: 0x2a2b2d, label: '#ecebe6', sub: '#8f8e89', ti: 0xc9cbcd, call: '#7cc7a4', end: '#ef8a77' },
-    worn:  { shell: 0xb7b8b8, rough: 0.42, key: 0x2a2b2d, label: '#ecebe6', sub: '#8f8e89', ti: 0xc2c3c3, call: '#7cc7a4', end: '#ef8a77' },
-    aged:  { shell: 0xa9a9a6, rough: 0.36, key: 0x2a2b2d, label: '#ecebe6', sub: '#8f8e89', ti: 0xb8b8b5, call: '#7cc7a4', end: '#ef8a77' }
+    blush:  { shell: 0xead2d1, rough: 0.48, key: 0xf1dee0, label: '#a29595', sub: '#c2b2b3', ti: 0xeed9d8, call: CALL, end: END },
+    citrus: { shell: 0xe8e896, rough: 0.48, key: 0xf5f3bd, label: '#a29f77', sub: '#c4c194', ti: 0xeeeda6, call: CALL, end: END },
+    indigo: { shell: 0x525d72, rough: 0.5,  key: 0x8d99b5, label: '#5b677b', sub: '#6f7b92', ti: 0x5c677d, call: '#1f5c44', end: '#8c2a1c' },
+    // two colours with black keys and white legends instead of matching keys
+    silver:    { shell: 0xd9dbdd, rough: 0.48, key: 0x1f2123, label: '#ecebe6', sub: '#8f8e89', ti: 0xe0e2e4, call: '#7cc7a4', end: '#ef8a77' },
+    carbon:    { shell: 0x4b494c, rough: 0.55, key: 0x201f22, label: '#ecebe6', sub: '#8f8e89', ti: 0x545255, call: '#7cc7a4', end: '#ef8a77' }
   };
   // on a call, the keyboard turns into call controls (digits send tones)
   var callMode = false;
   var muted = false, conn = 'open';
   var CALL_KEYS = { M: 'MUTE', H: 'HOLD', S: 'SPKR', A: 'ADD', N: 'NOTE', X: 'END' };
-  var finish = 'fresh';
+  var finish = 'indigo';
 
   var shellMat = new THREE.MeshStandardMaterial({ roughness: 0.4, metalness: 1 });
   var keySideMat = new THREE.MeshStandardMaterial({ roughness: 0.5, metalness: 0 });
@@ -921,8 +931,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var mic = new THREE.Mesh(new THREE.CircleGeometry(0.045, 24), holeMat);
   mic.position.set(0, -(6.38 + L) / 2, 0.002); bottom.add(mic);
 
-  // joystick well: a dark recess ring round the pad
-  var well = new THREE.Mesh(new THREE.RingGeometry(0.47, 0.6, 64), holeMat);
+  // joystick well: a slim recess round the pad, a shade darker than the body so it reads as a soft
+  // shadow gap rather than a black ring
+  var wellMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.6 });
+  var well = new THREE.Mesh(new THREE.RingGeometry(0.47, 0.55, 64), wellMat);
   well.position.set(0, -1.6, 0.001); bottom.add(well);
 
   var port = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.45, -0.16, 0.45, 0.16, 0.155, 0.155), 12), holeMat);
@@ -968,10 +980,11 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     shellMat.color.copy(srgb(f.shell)); shellMat.roughness = f.rough;
     keySideMat.color.copy(srgb(f.key));
     tiMat.color.copy(srgb(f.ti));
+    wellMat.color.copy(srgb(f.shell)).multiplyScalar(0.72);
     drawKeys();
     document.querySelectorAll('[data-finish]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.finish === name)); });
   }
-  applyFinish('fresh');
+  applyFinish('indigo');
   drawScreen();
   if (document.fonts && document.fonts.load) {
     Promise.all(['500', '600'].map(function (wt) { return document.fonts.load(wt + ' 40px "Instrument Sans"'); }))
