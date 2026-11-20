@@ -23,6 +23,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 | Open flat | 157 × 65.5 mm |
 | Proportion | Each half 6:5 (length : width); open 12:5 |
 | Each half | 78.5 × 65.5 × 7.5 mm |
+| Weight | About 160 to 180 g (estimate) |
 
 ### Core parts
 
@@ -33,9 +34,9 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | Chip with 5G modem | Efficient, non-Pro class. Hardware 4K60 HDR video encoding, USB 3 | MediaTek Dimensity 8500 or the current Qualcomm Snapdragon 8s. Final pick depends on the operating system (see Software) |
 | Memory and storage | 8 GB RAM, 256 GB minimum | LPDDR5X and UFS 4 |
 | Main camera sensor | 48 to 50 MP, about 1/2", 0.8 µm pixels binned to 1.6 µm, phase-detect focus | 50 MP mid-range sensors from Sony (LYTIA), Samsung (ISOCELL) or OmniVision. Sensor size to confirm |
-| Main camera lens | 26 mm, f/1.6 to f/1.8, optical stabilisation, flush | A camera module maker's stock module, or a custom one built around the chosen sensor |
+| Main camera lens | 26 mm, f/1.6 to f/1.8, optical stabilisation, flush, under a sapphire cover | A camera module maker's stock module, or a custom one built around the chosen sensor |
 | Front camera | About 12 MP, for video calls | Stock module |
-| Display | 3.5 in OLED, 59.5 × 67.5 mm, no touch layer, slim borders | A custom cut from a small-OLED maker. The nearest stock panels are flip-phone cover screens |
+| Display | 3.5 in OLED, 59.5 × 67.5 mm, about 1080 × 1224 (460 ppi), 60 Hz, about 1,500 nits outdoors, no touch layer, slim borders | A custom cut from a small-OLED maker. The nearest stock panels are flip-phone cover screens |
 | HDR video | HDR up to 4K60 | Dolby Vision (licensed) or HLG (free) |
 | Fingerprint | On the power button | Side-key capacitive sensor |
 | Haptics | Strong, crisp clicks | X-axis linear resonant actuator, the large kind |
@@ -106,6 +107,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 - **Sculpted keys and frets** (from the research below): on the typing rows each key tilts slightly towards the centre of the keyboard, raised at its outer edge, so each thumb meets its keys squarely and can find them by feel. Thin frets in the body colour run between the rows, 0.3 mm tall: they separate the rows so a thumb does not catch two at once, and give a line to feel for without looking. This is long-standing keyboard-phone practice rather than a measured result.
 - A 1.3 mm raised frame with four soft bumpers holds the glass by its edges when closed, so the screen sits 0.7 mm clear of the keys.
 - **Thumb notch:** at the centre of the base end, the frame is interrupted for 14 mm and the edge has a shallow scoop (about 1.2 mm deep), so a thumb can lift the shut screen half. It sits on the centre line, above the USB-C port.
+- **Keycaps:** double-shot PBT. The legend is moulded through the key in a second plastic, so it can never wear off, and PBT does not go shiny with use: the keyboard ages as well as the body. The call icons are the exception, in hidden-until-lit ink over the backlight.
 - **Legibility:** every legend has at least 4.5:1 contrast against its key, so it reads in daylight. The tinted legends first matched the reference photos at only 2.0 to 2.4:1 and were darkened, keeping their tint; the keyboard backlight covers the dark.
 
 ### Edges
@@ -122,11 +124,12 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 |---|---|---|
 | Open | Nothing | Everything |
 | Talk | All internet: mobile data and Wi-Fi (software-enforced) | Calls, texts, Bluetooth |
-| Create | Every radio, cut in hardware | Camera, mics, notes. **No emergency calls** |
+| Create | Every radio, cut in hardware | Camera, mics, notes. **Emergency calls only through the override:** hold the power button for 5 seconds |
 
 - **Power button:** flush aluminium key with a fingerprint sensor. Rest your thumb on it as you open the lid to unlock; hold to switch off or call for help.
 - **Zoom slider:** a spring-return rocker in a 10 mm slot, exactly opposite the connection switch (same position, same size), with a ridged knob so the two are easy to tell apart by feel. Slide towards the hinge to zoom in (volume up elsewhere), away to zoom out (volume down); hold to keep zooming; let go and it springs back to the centre, like a camera's zoom lever. The haptic actuator ticks for each zoom step. It needs only about 2.5 mm of depth, so the battery keeps its full width. In landscape (camera end on the left) it sits on the top edge under the right index finger. A rotating dial was dropped: it stood proud of the edge, and a flush one would have cut into the battery.
 
+- **Emergency override:** Create cuts every radio in hardware, which would block emergency calls. Holding the power button for 5 seconds restores power to the cellular radio only, for an emergency call, then cuts it again when the call ends. It is a hardware path, so Create stays a true cut the rest of the time; the radio takes some seconds to connect.
 - **Card tray:** on the screen half, halfway along its left edge. It is the mirror of the connection switch across the fold, so when the phone is shut it sits directly over the switch. One double-sided tray, 13 mm long, flush aluminium face with the eject pinhole in it: one nano SIM on one side, one microSD card on the other. Nothing is mirrored opposite it on the right edge; that was a deliberate choice so cards swap without opening the phone.
 - The card reader sits in the screen half with the main board, so the keyboard half keeps its space for the battery.
 
@@ -159,7 +162,12 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 
 - Proximity and ambient light sensors by the earpiece (see Inside, top half).
 - **Haptics:** a large linear resonant actuator, as strong and crisp as the best phone haptics, in the screen half with the main board. It gives alerts when the silent switch is on, and soft clicks for the joystick and for zoom steps on the slider.
-- **Missed calls:** the flash has a low-power coloured LED. With the lid shut, it breathes softly after a missed call until you open the phone. Nothing more: the point is to use the phone less, so there is no wider notification system. It can be turned off.
+- **The flash's colour LED** (full colour, low power) is the only signal on the outside, and it is used for three things, each distinct:
+  - **Missed call:** with the lid shut, it breathes slowly in green until you open the phone.
+  - **A favourite calling:** it glows that person's colour (you choose one per favourite), pulsing with the ring, so you know who it is without opening. Anyone else just rings.
+  - **Charging:** steady amber while plugged in, soft white when full, off once unplugged.
+
+  Nothing more: the point is to use the phone less, so there is no wider notification system. Each use can be turned off.
 
 ### Connectivity and storage
 
@@ -208,7 +216,7 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 
 | | |
 |---|---|
-| Rear | 48 MP, 1/2" sensor, flush with the back |
+| Rear | 48 MP, 1/2" sensor, flush with the back under a sapphire cover |
 | Pixels | 0.8 µm, 1.6 µm binned to 12 MP |
 | Lens | 26 mm, f/1.8 |
 | Stabilisation | Optical |

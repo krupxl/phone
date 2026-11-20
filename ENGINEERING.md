@@ -20,7 +20,7 @@ Positions are given as millimetres **from the hinge** along the length of each h
 | Open flat | 157 × 65.5 mm, 12:5 |
 | Corners | 1.4 mm edge bevel all round; outer corners 6.2 mm radius at the far ends, 1.6 mm at the hinge end |
 | Material | Bead-blasted 6000-series aluminium, anodised (clear, or dyed for colours) |
-| Weight | About 140 to 160 g *(est.)*, unconstrained by design |
+| Weight | About 160 to 180 g *(est.)*, unconstrained by design |
 
 **Split of contents (bottom-heavy by design):**
 
@@ -59,7 +59,7 @@ Why this split: the user-facing repair (battery) is two screws from the back, an
 | Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 5.1 mm wide, 5.8 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
 | Keyboard microphone | 74.1 mm, centred | 0.9 mm hole |
 
-**Legends:** printed (pad-printed or laser-etched through a coating, supplier to propose), at least 4.5:1 contrast against the key colour; the call icons are hidden-until-lit ink over the backlight.
+**Keycaps and legends:** double-shot PBT keycaps: the legend is a second moulded plastic running through the key, so it cannot wear off, and PBT does not polish shiny with use. At least 4.5:1 contrast against the key colour. The call icons are the exception: hidden-until-lit ink over the backlight, laser-etched windows in the cap.
 
 **Key mechanism:** keys stand 0.86 mm above the deck. Typing keys are sculpted: each cap tilts about 3.4° towards the centre of the keyboard, raised at its outer edge, with its highest point still at 0.86 mm. With the shut screen 0.7 mm above the key tops, all travel must sit below that line. Target a low-profile scissor or butterfly-style mechanism with **0.5 to 0.6 mm travel** and a metal dome per key *(est.)*. Backlight: a light-guide film under the keys with side LEDs, used for the hidden-until-lit call icons and the legends.
 
@@ -89,7 +89,9 @@ Why this split: the user-facing repair (battery) is two screws from the back, an
 
 **Zoom slider:** a sprung rocker with a centre rest and about 1.5 mm of travel each way, read by two switch contacts (or a Hall sensor for a soft, wear-free feel). A short press steps the zoom; holding keeps it going. The haptic actuator ticks for each step. Sealed with an O-ring round the slider shaft, as on the other switches. Only about 2.5 mm deep, so it stays clear of the battery.
 
-**Connection switch, Create position:** a hardware cut. The switch contact must physically break the enable lines of the radio power rails (cellular, Wi-Fi, Bluetooth, GNSS, NFC), not just signal software. Design it to fail safe: a broken wire reads as "radios off". The UI must warn that Create blocks emergency calls.
+**Connection switch, Create position:** a hardware cut. The switch contact must physically break the enable lines of the radio power rails (cellular, Wi-Fi, Bluetooth, GNSS, NFC), not just signal software. Design it to fail safe: a broken wire reads as "radios off".
+
+**Emergency override:** holding the power button for 5 seconds in Create triggers a small hardware latch (a timer on the power key line, independent of the main chip) that re-enables the **cellular** rail only, OR-ed past the switch cut. The modem boots in emergency-only mode for the call; the latch releases when the call ends (or after 15 minutes). Wi-Fi, Bluetooth, GNSS and NFC stay cut. The UI must say that Create allows emergency calls only through this override, and that the radio takes some seconds to connect.
 
 ### 3.4 Sub-board
 
@@ -129,7 +131,7 @@ There is no slack. The battery thickness is the first thing to give if any layer
 | Feature | Position | Notes |
 |---|---|---|
 | Cover glass | Whole face, 65.5 × 78.5 mm less the 1.4 mm bevel | Aluminosilicate, about 0.55 mm *(est.)* |
-| Display active area | 59.5 × 67.5 mm, 5.5 to 73.0 mm from the hinge, 3.0 mm side borders | 3.5 in OLED, **no touch layer** |
+| Display active area | 59.5 × 67.5 mm, 5.5 to 73.0 mm from the hinge, 3.0 mm side borders | 3.5 in OLED, **no touch layer**; about 1080 × 1224 pixels (460 ppi), 60 Hz (no scrolling to smooth), about 1,500 nits outdoors for the camera viewfinder in sunlight |
 | Front camera | 74.9 mm from the hinge, centred | About 12 MP; ring 2.7 mm across |
 | Proximity and light sensors | Beside the front camera, 4.2 mm either side of centre | Under the glass, IR-transparent ink windows |
 
@@ -137,8 +139,8 @@ There is no slack. The battery thickness is the first thing to give if any layer
 
 | Feature | Position | Notes |
 |---|---|---|
-| Rear camera | Centred at 66.5 mm from the hinge (12 mm from the far end) | 8 mm ring, flush with the back; 48 to 50 MP, about 1/2", 26 mm, OIS |
-| Flash | 8.5 mm to one side of the camera | 3.6 mm window in a thin dark bezel: white LED plus a low-power colour LED (missed-call glow) |
+| Rear camera | Centred at 66.5 mm from the hinge (12 mm from the far end) | 8 mm ring, flush with the back; 48 to 50 MP, about 1/2", 26 mm, OIS. **Sapphire lens cover** recessed 0.1 mm, because a flush lens rubs the table whenever the phone lies on its back |
+| Flash | 8.5 mm to one side of the camera | 3.6 mm window in a thin dark bezel: white LED plus a low-power full-colour (RGB) LED for the outside signals: missed call (green, breathing), a favourite calling (their colour, pulsing), charging (amber, then white when full) |
 | Rear microphone | 8.5 mm to the other side | Mirrors the flash |
 | Card tray | Left edge, 32.8 to 45.8 mm (13 mm long) | Directly over the connection switch when shut. Double-sided: nano SIM one side, microSD the other. Gasket |
 | Earpiece | Slit in the far-end edge, 10 × 0.5 mm, 1.7 mm behind the glass | Acoustic channel from an offset receiver |
@@ -276,6 +278,8 @@ About 40 lines in all. One wide multi-layer flex, or two narrower ones side by s
 | USB 3 signal | Redriver, only if testing needs it |
 | Keyboard | Small microcontroller with matrix scan and LED driver |
 | Haptics | Haptic driver for the linear actuator |
+| Outside signal | RGB LED driver for the flash's colour LED |
+| Emergency override | Hardware latch on the power key line that re-enables the cellular rail in Create |
 | Audio | Smart speaker amplifiers (earpiece and base), codec in the chip or separate |
 | Motion | 6-axis IMU (stabilisation, orientation) |
 | Lid and angle | Hall sensors, magnet |
