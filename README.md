@@ -258,8 +258,8 @@ Not designed yet:
 - Vlogging (the front camera is only rated for calls) and a tripod mount. One idea: a clip-on cage with a tripod thread that also acts as an extra heat sink for long shoots.
 
 **Name and identity (working idea)**
-- Working name: **Ink Flip**. Black as the signature colour, and a screen that is mostly quiet "ink" (black and white), using colour only where it does a job.
-- Not yet decided. To check: the name against existing trademarks; that "Ink" does not suggest an e-paper display, since this one is OLED; and adding a true black finish, since the current range's darkest is Carbon (warm dark grey).
+- Working name: **Ink Flip**, one of several names to explore. Carbon (the existing dark finish) as the signature colour, and a screen that is mostly quiet "ink" (black and white), using colour only where it does a job.
+- Not yet decided. To check for any name: existing trademarks; and, for Ink Flip, that "Ink" does not suggest an e-paper display, since this one is OLED.
 
 **Business**
 - Radio, safety and network certification; cost of parts against a minimalist price point; hinge patents; trademarks (avoid other companies' product names in anything public).
