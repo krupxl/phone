@@ -51,13 +51,13 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 - **Bead-blasted aluminium** for the whole shell, the battery door, the spine, the dial, the power button and the card tray, all in the same colour.
 - **Five colours.** Three have keys matched to the body (Indigo, Blush, Citrus); two have black keys with white legends (Silver, Carbon). One light neutral, one dark neutral, three colours. Frost, Sky, Champagne and Ink were tried and cut as too close to the others.
 - The keyboard deck is always the body colour. A black keyboard well (as on some laptops) was tried on Silver and Carbon and dropped.
-- **Matching keys:** The keys are a shade lighter than the body, and the legends are a soft, darker tint of the same colour rather than black ink, so the keyboard looks of a piece with the phone.
+- **Matching keys:** The keys are a shade lighter than the body, and the legends are a darker tint of the same colour rather than black ink, so the keyboard looks of a piece with the phone.
 
 | Colour | Finish | Keys | How it ages |
 |---|---|---|---|
-| Indigo | Dyed anodise, muted slate blue | A lighter slate blue, legends in a darker slate | Edges slowly wear to silver |
-| Blush | Dyed anodise, pale pink | A lighter pink, legends in a soft dusty pink-grey | Edges wear to silver, barely visible on a light colour |
-| Citrus | Dyed anodise, pale lemon yellow | A lighter lemon, legends in a soft olive-grey | As Blush |
+| Indigo | Dyed anodise, muted slate blue | A lighter slate blue, legends in deep slate | Edges slowly wear to silver |
+| Blush | Dyed anodise, pale pink | A lighter pink, legends in deep dusty pink-grey | Edges wear to silver, barely visible on a light colour |
+| Citrus | Dyed anodise, pale lemon yellow | A lighter lemon, legends in deep olive-grey | As Blush |
 | Silver | Clear anodise | Black, white legends | Wear is the same colour, so edges just soften. Ages best |
 | Carbon | Dyed anodise, warm dark grey | Black, white legends | Edges slowly wear to silver |
 
@@ -105,6 +105,8 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
   They cost no battery (they use the keyboard layer). Being the furthest keys from the base, they suit occasional, deliberate presses, never typing. A front speaker was considered for this space but would cost about 400 mAh of battery. Every shape means one thing: triangle and square belong to Back and Menu only.
 - **Sculpted keys and frets** (from the research below): on the typing rows each key tilts slightly towards the centre of the keyboard, raised at its outer edge, so each thumb meets its keys squarely and can find them by feel. Thin frets in the body colour run between the rows, 0.3 mm tall: they separate the rows so a thumb does not catch two at once, and give a line to feel for without looking. This is long-standing keyboard-phone practice rather than a measured result.
 - A 1.3 mm raised frame with four soft bumpers holds the glass by its edges when closed, so the screen sits 0.7 mm clear of the keys.
+- **Thumb notch:** at the centre of the base end, the frame is interrupted for 14 mm and the edge has a shallow scoop (about 1.2 mm deep), so a thumb can lift the shut screen half. It sits on the centre line, above the USB-C port.
+- **Legibility:** every legend has at least 4.5:1 contrast against its key, so it reads in daylight. The tinted legends first matched the reference photos at only 2.0 to 2.4:1 and were darkened, keeping their tint; the keyboard backlight covers the dark.
 
 ### Edges
 

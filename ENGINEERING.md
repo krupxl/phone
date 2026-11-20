@@ -47,7 +47,8 @@ Why this split: the user-facing repair (battery) is four screws from the back, a
 
 | Feature | From the hinge | Notes |
 |---|---|---|
-| Raised frame | 0 to 2.8 mm and 75.7 to 78.5 mm; 1.4 mm wide all round | 1.3 mm tall; carries the shut glass by its outer margin |
+| Raised frame | 0 to 2.8 mm and 75.7 to 78.5 mm; 1.4 mm wide all round | 1.3 mm tall; carries the shut glass by its outer margin. Interrupted for 14 mm at the centre of the base end (thumb notch) |
+| Thumb notch | Base end, centred, 14 mm wide | Scoop in the unibody's inner edge, about 1.2 mm deep, so a thumb can lift the shut screen half; 0.25 mm or more clear of the USB-C opening below |
 | Soft bumpers | 4, on the frame, 17.1 mm either side of the centre line, at both ends | 0.3 mm tall; with the frame they hold the glass 0.7 mm above the keys |
 | Talk keys | 4.5 to 11.0 mm | 4 keys, 12.3 × 6.5 mm on a 13 mm pitch: plus (Call), dash (Message), hexagon (Contacts), star (Favourites) |
 | Make keys | 12.0 to 18.5 mm | 4 keys, 12.3 × 6.5 mm on a 13 mm pitch: lens (Camera), wave (voice note), lines (Note), diamond (assignable) |
@@ -57,6 +58,8 @@ Why this split: the user-facing repair (battery) is four screws from the back, a
 | Number row | 35.9 to 42.4 mm | 1 to 0 |
 | Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 4.5 mm wide, 5.2 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
 | Keyboard microphone | 74.1 mm, centred | 0.9 mm hole |
+
+**Legends:** printed (pad-printed or laser-etched through a coating, supplier to propose), at least 4.5:1 contrast against the key colour; the call icons are hidden-until-lit ink over the backlight.
 
 **Key mechanism:** keys stand 0.86 mm above the deck. Typing keys are sculpted: each cap tilts about 3.4° towards the centre of the keyboard, raised at its outer edge, with its highest point still at 0.86 mm. With the shut screen 0.7 mm above the key tops, all travel must sit below that line. Target a low-profile scissor or butterfly-style mechanism with **0.5 to 0.6 mm travel** and a metal dome per key *(est.)*. Backlight: a light-guide film under the keys with side LEDs, used for the hidden-until-lit call icons and the legends.
 

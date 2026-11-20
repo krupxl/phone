@@ -391,17 +391,18 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // ---------- finishes ----------
   // one material, bead-blasted aluminium, in five colours. Silver is clear anodise; the rest are
   // dyed, so their edges slowly wear to silver with use (least visible on the
-  // light ones). Each colour has keys a shade lighter than the body, with soft legends in a darker
+  // light ones). Each colour has keys a shade lighter than the body, with legends in a darker
   // tint of the same colour.
   // The spine, dial, buttons, card tray and door share the body colour; only the door screws are
   // stainless steel (in steel inserts).
-  // colours sampled from Krupal's reference photos: body, a lighter key cap, and a soft legend
-  // that is a darker tint of the same colour rather than dark ink
+  // colours sampled from Krupal's reference photos: body, a lighter key cap, and a legend in a
+  // darker tint of the same colour rather than black ink, darkened to at least 4.5:1 contrast against
+  // its key so it reads in daylight (the photo-matched tints were only 2.0 to 2.4:1)
   var CALL = '#2f7a5c', END = '#b4432f';
   var FINISHES = {
-    blush:  { shell: 0xead2d1, rough: 0.48, key: 0xf1dee0, label: '#a29595', sub: '#c2b2b3', ti: 0xeed9d8, call: CALL, end: END },
-    citrus: { shell: 0xe8e896, rough: 0.48, key: 0xf5f3bd, label: '#a29f77', sub: '#c4c194', ti: 0xeeeda6, call: CALL, end: END },
-    indigo: { shell: 0x525d72, rough: 0.5,  key: 0x8d99b5, label: '#5b677b', sub: '#6f7b92', ti: 0x5c677d, call: '#1f5c44', end: '#8c2a1c' },
+    blush:  { shell: 0xead2d1, rough: 0.48, key: 0xf1dee0, label: '#6b6262', sub: '#8a7e7f', ti: 0xeed9d8, call: CALL, end: END },
+    citrus: { shell: 0xe8e896, rough: 0.48, key: 0xf5f3bd, label: '#706e52', sub: '#8d8b6b', ti: 0xeeeda6, call: CALL, end: END },
+    indigo: { shell: 0x525d72, rough: 0.5,  key: 0x8d99b5, label: '#2d323c', sub: '#454c5b', ti: 0x5c677d, call: '#1f5c44', end: '#8c2a1c' },
     // two colours with black keys and white legends instead of matching keys
     silver:    { shell: 0xd9dbdd, rough: 0.48, key: 0x1f2123, label: '#ecebe6', sub: '#8f8e89', ti: 0xe0e2e4, call: '#7cc7a4', end: '#ef8a77' },
     carbon:    { shell: 0x4b494c, rough: 0.55, key: 0x201f22, label: '#ecebe6', sub: '#8f8e89', ti: 0x545255, call: '#7cc7a4', end: '#ef8a77' }
@@ -417,6 +418,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   var glassMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x060607), roughness: 0.05, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.03 });
   var holeMat = new THREE.MeshStandardMaterial({ color: srgb(0x0b0b0c), roughness: 0.95 });
   var portInnerMat = new THREE.MeshStandardMaterial({ color: srgb(0x3a3b3e), roughness: 0.5, metalness: 0.4 });
+  // recesses (joystick ring, thumb scoop): a darker shade of the body, set per colour in applyFinish
+  var wellMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.6 });
 
   // ---------- keyboard layout ----------
   var U = 0.52, GAP = 0.07, KEYS = [];
@@ -760,13 +763,31 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // keyboard deck plus four 0.3 mm soft bumpers carry the glass, touching only its outer margin,
   // so the screen sits 0.7 mm clear of the key tops (keys stand 0.86 mm proud of the deck).
   var RIM_H = 0.13, RIM_B = 0.02, RIM_W = 0.14;
-  var rimOuter = rrShape(-W / 2 + BS + RIM_B, -L + BS + RIM_B, W / 2 - BS - RIM_B, -BS - RIM_B, 0.62 - BS - RIM_B, 0.02);
-  rimOuter.holes.push(rrShape(-W / 2 + BS + RIM_W, -L + BS + RIM_W, W / 2 - BS - RIM_W, -BS - RIM_W, 0.62 - BS - RIM_W, 0.02));
+  // thumb notch: the frame is interrupted for 14 mm at the centre of the base end, and the edge of
+  // the keyboard half has a shallow scoop there, so a thumb can lift the shut screen half. On the
+  // centre line, clear of the USB-C port below it.
+  var NOTCH_HW = 0.7;
+  var rimO = rrShape(-W / 2 + BS + RIM_B, -L + BS + RIM_B, W / 2 - BS - RIM_B, -BS - RIM_B, 0.62 - BS - RIM_B, 0.02).getPoints(24);
+  var rimI = rrShape(-W / 2 + BS + RIM_W, -L + BS + RIM_W, W / 2 - BS - RIM_W, -BS - RIM_W, 0.62 - BS - RIM_W, 0.02).getPoints(24);
+  var yO = rimO[0].y, yI = rimI[0].y;
+  var rimOuter = new THREE.Shape();
+  rimOuter.moveTo(NOTCH_HW, yO);
+  for (var ri = 1; ri < rimO.length - 1; ri++) rimOuter.lineTo(rimO[ri].x, rimO[ri].y);
+  rimOuter.lineTo(-NOTCH_HW, yO); rimOuter.lineTo(-NOTCH_HW, yI);
+  for (ri = rimI.length - 2; ri >= 1; ri--) rimOuter.lineTo(rimI[ri].x, rimI[ri].y);
+  rimOuter.lineTo(NOTCH_HW, yI); rimOuter.lineTo(NOTCH_HW, yO);
   var rimGeo = new THREE.ExtrudeGeometry(rimOuter, {
     depth: RIM_H - 2 * RIM_B, bevelEnabled: true, bevelThickness: RIM_B, bevelSize: RIM_B, bevelSegments: 3, curveSegments: 24
   });
   rimGeo.translate(0, 0, RIM_B);
   bottom.add(new THREE.Mesh(rimGeo, shellMat));
+  // the scoop, shown as a shallow shaded recess just below the top edge of the base end
+  var scoop = new THREE.Shape(), sn = 32;
+  scoop.moveTo(-NOTCH_HW, -BS);
+  for (var sk = 0; sk <= sn; sk++) { var sa = Math.PI * sk / sn; scoop.lineTo(-NOTCH_HW * Math.cos(sa), -BS - 0.05 * Math.sin(sa)); }
+  scoop.lineTo(NOTCH_HW, -BS); scoop.lineTo(-NOTCH_HW, -BS);
+  var scoopMesh = new THREE.Mesh(new THREE.ShapeGeometry(scoop), wellMat);
+  scoopMesh.rotation.x = Math.PI / 2; scoopMesh.position.set(0, -L - 0.003, 0); bottom.add(scoopMesh);
   var bumperMat = new THREE.MeshStandardMaterial({ color: srgb(0x141415), roughness: 0.95 });
   var bumperGeo = new THREE.CylinderGeometry(0.05, 0.05, 2 * ZP - RIM_H, 20); bumperGeo.rotateX(Math.PI / 2);
   var rimMid = BS + (RIM_W + RIM_B) / 2;
@@ -1007,7 +1028,6 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
 
   // joystick well: a slim recess round the pad, a shade darker than the body so it reads as a soft
   // shadow gap rather than a black ring
-  var wellMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.6 });
   var well = new THREE.Mesh(new THREE.RingGeometry(STICK_R - 0.03, WELL_R, 64), wellMat);
   well.position.set(0, -NAV_D, 0.001); bottom.add(well);
 
