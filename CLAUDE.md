@@ -37,7 +37,7 @@ Do not undo these without asking Krupal:
 - **Raised frame and four bumpers on the keyboard half:** they hold the glass by its edges so the screen never presses on the keys. The 1.6 mm hinge gap (`ZP = 0.08`) exists for this.
 - **Back and Menu only:** the lid answers and ends calls (and one joystick click on End), holding Back goes home, Menu replaces long-press and swipe actions. Call, End and Home keys were removed.
 - **Flush 1/2" camera:** a flagship 1/1.28" sensor needs a bump or a 20 mm phone. Krupal chose slim and flush.
-- **Hidden hinge with a titanium spine** turning at half the hinge angle; opens to 180° so the phone works as a normal camera.
+- **Hidden hinge with a titanium spine** turning at half the hinge angle; opens to 180° so the phone works as a normal camera. The spine is **flattened** (`SB = 0.35`, 3.5 mm proud when closed) because a full half-round looked too big; it must still span the closed thickness (`SR`).
 - **Zoom dial halfway down the right edge of the keyboard half:** right thumb in portrait, right index finger in landscape (camera end on the left).
 - **Connection switch Open / Talk / Create:** nested levels named by intent. Talk is software-enforced (calls and data share the modem); Create is a hardware cut and blocks emergency calls, which the UI must say.
 - **Fingerprint sensor on the power button,** not the dial (a turning, ridged dial cannot read a fingerprint).

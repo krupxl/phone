@@ -17,7 +17,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 
 | | |
 |---|---|
-| Closed | 82 × 56 × 17 mm, flush camera |
+| Closed | 77 × 56 × 17 mm, flush camera |
 | Open flat | 147 × 56 mm |
 | Proportion | Open length = φ² × width |
 | Each half | 73.3 × 56 × 7.5 mm |
@@ -63,6 +63,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 ### Hinge
 
 - Hidden hinge with a full-width titanium spine cover that turns at half the hinge angle.
+- The spine is flattened (elliptical), so when closed it stands only 3.5 mm proud of the hinge end instead of a full 8.3 mm half-round. Open, it sits inside the halves.
 - 0° to 180°, holds any angle. Opens flat so the phone works as a normal camera.
 - 1.6 mm gap between the halves when closed.
 
