@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.4 system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>QWERTY Flip Concept</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one wide product stage, a control rail beneath it, then the spec sheet in columns */
+:root {
+  --bg: #e8eaed;
+  --surface: #f6f7f8;
+  --stage-hi: #fbfbfc;
+  --stage-lo: #d6dade;
+  --fg: #15171a;
+  --muted: #5c626a;
+  --line: #cbd0d6;
+  --accent: #2d5a4e;
+  --accent-fg: #ffffff;
+  --f-ui: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101113; --surface: #181a1d; --stage-hi: #30343a; --stage-lo: #111214;
+    --fg: #e8e9eb; --muted: #9aa0a8; --line: #2c3035; --accent: #8cc2b1; --accent-fg: #0c1512;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101113; --surface: #181a1d; --stage-hi: #30343a; --stage-lo: #111214;
+  --fg: #e8e9eb; --muted: #9aa0a8; --line: #2c3035; --accent: #8cc2b1; --accent-fg: #0c1512;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--f-ui); font-size: 15px; line-height: 1.5; }
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 32px; }
+h1 { margin: 0; font-size: clamp(24px, 3.2vw, 34px); font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 62ch; }
+
+.stage {
+  position: relative; height: clamp(440px, 68vh, 760px); max-width: 100%;
+  border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+  background: radial-gradient(120% 90% at 50% 28%, var(--stage-hi), var(--stage-lo));
+}
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.stage canvas:active { cursor: grabbing; }
+.tag {
+  position: absolute; font: 500 11px/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); pointer-events: none;
+}
+.tag.tl { left: 16px; top: 16px; }
+.tag.bl { left: 16px; bottom: 16px; text-transform: none; letter-spacing: 0.02em; }
+.fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 30px; }
+.group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.label { font: 500 11px/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.btn {
+  font: 500 14px/1 var(--f-ui); padding: 9px 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+}
+.btn:hover { border-color: var(--muted); }
+.btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn.primary { background: var(--accent); color: var(--accent-fg); border-color: transparent; min-width: 92px; font-weight: 600; }
+.btn:focus-visible, .swatch:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.swatch {
+  width: 30px; height: 30px; border-radius: 50%; padding: 0; cursor: pointer;
+  border: 1px solid var(--line); box-shadow: inset 0 0 0 3px var(--surface);
+}
+.swatch[aria-pressed="true"] { border: 2px solid var(--fg); }
+input[type="range"] { width: 150px; accent-color: var(--accent); }
+.num { font: 500 13px/1 var(--f-mono); font-variant-numeric: tabular-nums; min-width: 4ch; }
+
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0 32px; border-top: 1px solid var(--line); padding-top: 6px; }
+.spec { min-width: 0; padding-block: 14px 4px; }
+.spec h2 { margin: 0 0 6px; font: 500 11px/1.4 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.spec p { margin: 0; max-width: 46ch; }
+.dims { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; }
+.dims dt { color: var(--muted); }
+.dims dd { margin: 0; font-family: var(--f-mono); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) {
+  .tag.bl { right: 16px; }
+  input[type="range"] { width: 120px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>QWERTY Flip Concept</h1>
+    <p>A phone for communication and creation, not consumption. No touchscreen and nothing to swipe: a screen on the inside top, a QWERTY keyboard and joystick on the inside bottom, and a camera-style dial on the side. Pro-level camera, mics and video; everyday speakers.</p>
+  </header>
+
+  <section class="stage" id="stage" aria-label="3D model of the flip phone">
+    <canvas id="phone-canvas" aria-label="Rotatable 3D flip phone. Drag to turn it, tap it to open or close."></canvas>
+    <div class="tag tl" id="hinge-tag">Hinge 165°</div>
+    <div class="tag bl">Drag to turn. Scroll or pinch to zoom. Tap the phone to open or close it.</div>
+    <div class="fallback" id="fallback" hidden>The 3D view needs WebGL, which did not start in this browser.</div>
+  </section>
+
+  <div class="controls">
+    <div class="group">
+      <button class="btn primary" id="toggle" type="button">Close</button>
+      <label class="label" for="hinge">Hinge</label>
+      <input type="range" id="hinge" min="0" max="180" step="1" value="165">
+      <span class="num" id="hinge-num">165°</span>
+      <button class="btn" id="flat" type="button">Flat 180°</button>
+    </div>
+    <div class="group" role="group" aria-label="Finish">
+      <span class="label">Finish</span>
+      <button class="swatch" type="button" id="finish-black" data-finish="black" aria-label="Black" aria-pressed="true" style="background:#1d1e20"></button>
+      <button class="swatch" type="button" id="finish-light" data-finish="light" aria-label="Light grey" aria-pressed="false" style="background:#d7d5cf"></button>
+      <button class="swatch" type="button" id="finish-moss" data-finish="moss" aria-label="Moss" aria-pressed="false" style="background:#56604f"></button>
+    </div>
+    <div class="group" role="group" aria-label="View">
+      <span class="label">View</span>
+      <button class="btn" type="button" id="view-hero" data-view="hero" aria-pressed="true">Three-quarter</button>
+      <button class="btn" type="button" id="view-inside" data-view="inside" aria-pressed="false">Inside</button>
+      <button class="btn" type="button" id="view-outside" data-view="outside" aria-pressed="false">Outside</button>
+      <button class="btn" type="button" id="view-left" data-view="left" aria-pressed="false">Left edge</button>
+      <button class="btn" type="button" id="view-edge" data-view="edge" aria-pressed="false">Right edge</button>
+    </div>
+    <div class="group" role="group" aria-label="Switches">
+      <span class="label">Switches</span>
+      <button class="btn" type="button" id="mute" aria-pressed="false">Silent</button>
+      <button class="btn" type="button" id="conn-open" data-conn="open" aria-pressed="true">Open</button>
+      <button class="btn" type="button" id="conn-talk" data-conn="talk" aria-pressed="false">Talk</button>
+      <button class="btn" type="button" id="conn-create" data-conn="create" aria-pressed="false">Create</button>
+    </div>
+    <div class="group">
+      <button class="btn" type="button" id="callmode" aria-pressed="false">On a call</button>
+      <button class="btn" type="button" id="spin" aria-pressed="true">Turntable</button>
+    </div>
+  </div>
+
+  <section class="specs" aria-label="Specification">
+    <div class="spec">
+      <h2>Outside</h2>
+      <p>Almost nothing: one flush camera with a flash near the top of the back, and a titanium spine over the hinge. No screen or logo. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
+    </div>
+    <div class="spec">
+      <h2>Camera</h2>
+      <dl class="dims">
+        <dt>Rear</dt><dd>48 MP, 1/2" sensor, flush</dd>
+        <dt>Pixels</dt><dd>0.8 µm, 1.6 µm binned to 12 MP</dd>
+        <dt>Lens</dt><dd>26 mm, f/1.8</dd>
+        <dt>Stabilisation</dt><dd>Optical</dd>
+        <dt>Front</dt><dd>For video calls</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Controls</h2>
+      <dl class="dims">
+        <dt>Touch</dt><dd>None. No touchscreen, no swiping</dd>
+        <dt>Joystick</dt><dd>Move and click to select; shutter in the camera</dd>
+        <dt>Dial</dt><dd>Knurled titanium, halfway down the right edge of the keyboard half. Under your thumb in portrait, under your index finger in landscape. Zoom in the camera, volume elsewhere</dd>
+        <dt>Power</dt><dd>Fingerprint power button, right edge opposite the silent switch. Rest your thumb as you open the lid to unlock; hold to switch off or call for help</dd>
+        <dt>Back</dt><dd>Leave any screen; hold to go home</dd>
+        <dt>Menu</dt><dd>Other actions for the selected item</dd>
+        <dt>Calls</dt><dd>Open the lid to answer, close it to hang up</dd>
+        <dt>On a call</dt><dd>M mute, H hold, S speaker, A add a call, N note, 1 to 0 tones, hold X to end</dd>
+        <dt>Legends</dt><dd>Letters only at rest. Digits and call icons are hidden until the key backlight shows them</dd>
+        <dt>Keys</dt><dd>34-key QWERTY</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Switches, left edge</h2>
+      <dl class="dims">
+        <dt>Silent</dt><dd>Two positions. Mutes ringer and alerts; shows orange when on</dd>
+        <dt>Open</dt><dd>Everything connected</dd>
+        <dt>Talk</dt><dd>No internet: mobile data and Wi-Fi off. Calls, texts and Bluetooth stay on</dd>
+        <dt>Create</dt><dd>Hardware cut to every radio. Camera, mics and notes still work. No emergency calls</dd>
+        <dt>Balance</dt><dd>Connection switch sits opposite the dial</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Audio</h2>
+      <dl class="dims">
+        <dt>Mics</dt><dd>Four studio-quality</dd>
+        <dt>Where</dt><dd>Keyboard chin, base edge, back by the camera, top edge</dd>
+        <dt>Recording</dt><dd>Spatial Audio and stereo</dd>
+        <dt>Tools</dt><dd>Wind noise reduction, Audio Mix</dd>
+        <dt>Speakers</dt><dd>Stereo, as iPhone 17e: earpiece plus base-edge grille</dd>
+        <dt>Playback</dt><dd>Spatial Audio, Dolby Atmos</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Video</h2>
+      <dl class="dims">
+        <dt>HDR</dt><dd>4K Dolby Vision, 24 to 60 fps</dd>
+        <dt>Pro</dt><dd>ProRes and ProRes RAW, external recording</dd>
+        <dt>Colour</dt><dd>Apple Log 2, ACES</dd>
+        <dt>Sync</dt><dd>Genlock</dd>
+        <dt>USB-C</dt><dd>USB 3, fast enough for ProRes to an external drive</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Inside, top half</h2>
+      <p>One sheet of glass over the whole face. Under it, a 2.9 in OLED display with no touch layer, 50 × 54 mm, centred with equal margins and level with the top of the keyboard deck, and the front camera and earpiece slit on the centre line above it.</p>
+    </div>
+    <div class="spec">
+      <h2>Inside, bottom half</h2>
+      <p>A clickable low-profile joystick for moving around and selecting, between a Back key and a Menu key. Below it, a 34-key QWERTY with clean letter-only legends; digits light up on the top row when needed. The whole deck mirrors the screen above it. Microphone below the keys. A slim raised frame with four soft bumpers holds the glass by its edges when closed, so the screen never touches the keys.</p>
+    </div>
+    <div class="spec">
+      <h2>Size</h2>
+      <dl class="dims">
+        <dt>Closed</dt><dd>82 × 56 × 17 mm, flush camera</dd>
+        <dt>Clearance</dt><dd>Screen sits 0.7 mm clear of the keys when shut</dd>
+        <dt>Open flat</dt><dd>147 × 56 mm</dd>
+        <dt>Proportion</dt><dd>Open = φ² × width (2.618 : 1)</dd>
+      </dl>
+    </div>
+    <div class="spec">
+      <h2>Hinge</h2>
+      <dl class="dims">
+        <dt>Type</dt><dd>Hidden, as on iPhone Duo</dd>
+        <dt>Cover</dt><dd>Grade 5 titanium spine</dd>
+        <dt>Inside</dt><dd>100+ parts, graphite heat pipe</dd>
+        <dt>Range</dt><dd>0° to 180°, holds any angle</dd>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  'use strict';
+  var stage = document.getElementById('stage');
+  var canvas = document.getElementById('phone-canvas');
+  var fallback = document.getElementById('fallback');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!window.THREE || !THREE.OrbitControls) { fallback.hidden = false; return; }
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  } catch (e) { fallback.hidden = false; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(28, 1, 0.5, 400);
+  var maxAniso = renderer.capabilities.getMaxAnisotropy();
+
+  function srgb(hex) { return new THREE.Color(hex).convertSRGBToLinear(); }
+
+  // ---------- studio environment for reflections ----------
+  (function buildEnv() {
+    var env = new THREE.Scene();
+    env.add(new THREE.Mesh(new THREE.BoxGeometry(60, 40, 60), new THREE.MeshBasicMaterial({ color: 0x3a3c40, side: THREE.BackSide })));
+    function panel(w, h, intensity, x, y, z) {
+      var m = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
+      m.color.setScalar(intensity);
+      var p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m);
+      p.position.set(x, y, z); p.lookAt(0, 0, 0); env.add(p);
+    }
+    panel(30, 14, 4.0, 0, 19, 2);
+    panel(8, 26, 3.0, -26, 4, 6);
+    panel(8, 26, 2.0, 26, 2, -4);
+    panel(30, 10, 1.3, 0, 4, -28);
+    panel(22, 8, 1.4, 4, 7, 28);
+    var pm = new THREE.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(env, 0.035).texture;
+    pm.dispose();
+  })();
+
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x3a3a3a, 0.35));
+  var keyLight = new THREE.DirectionalLight(0xffffff, 1.35);
+  keyLight.position.set(6, 22, 10);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.set(2048, 2048);
+  var sc = keyLight.shadow.camera;
+  sc.left = -12; sc.right = 12; sc.top = 12; sc.bottom = -12; sc.near = 1; sc.far = 60;
+  keyLight.shadow.bias = -0.0004;
+  scene.add(keyLight);
+
+  var ground = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.ShadowMaterial({ opacity: 0.22 }));
+  ground.rotation.x = -Math.PI / 2; ground.position.y = -8.8; ground.receiveShadow = true;
+  scene.add(ground);
+
+  // ---------- dimensions (1 unit = 1 cm) ----------
+  // golden proportion: the open phone (2L) is phi squared times the width
+  var PHI = (1 + Math.sqrt(5)) / 2;
+  var W = 5.6, L = W * PHI * PHI / 2, T = 0.75, ZP = 0.08, SR = T + ZP, BS = 0.14;
+
+  function rrShape(x0, y0, x1, y1, rb, rt) {
+    rb = Math.max(rb, 0.001); rt = Math.max(rt, 0.001);
+    var s = new THREE.Shape();
+    s.moveTo(x0 + rb, y0);
+    s.lineTo(x1 - rb, y0);
+    s.absarc(x1 - rb, y0 + rb, rb, -Math.PI / 2, 0, false);
+    s.lineTo(x1, y1 - rt);
+    s.absarc(x1 - rt, y1 - rt, rt, 0, Math.PI / 2, false);
+    s.lineTo(x0 + rt, y1);
+    s.absarc(x0 + rt, y1 - rt, rt, Math.PI / 2, Math.PI, false);
+    s.lineTo(x0, y0 + rb);
+    s.absarc(x0 + rb, y0 + rb, rb, Math.PI, Math.PI * 1.5, false);
+    return s;
+  }
+
+  function slabGeom(isBottom) {
+    var x0 = -W / 2 + BS, x1 = W / 2 - BS, shape;
+    if (isBottom) shape = rrShape(x0, -L + BS, x1, -BS, 0.62 - BS, 0.02);
+    else shape = rrShape(x0, BS, x1, L - BS, 0.02, 0.62 - BS);
+    var g = new THREE.ExtrudeGeometry(shape, {
+      depth: T - 2 * BS, bevelEnabled: true, bevelThickness: BS, bevelSize: BS,
+      bevelSegments: 6, curveSegments: 24
+    });
+    g.translate(0, 0, -T + BS);
+    return g;
+  }
+
+  // hidden-hinge spine cover: a half-round shell that turns at half the hinge angle,
+  // so it wraps the hinge end when closed and tucks flush into the back when open flat
+  var SPINE_ARC = Math.PI * 170 / 180;
+  function spineGeoms(len) {
+    var start = Math.PI / 2 + (Math.PI - SPINE_ARC) / 2;
+    var shell = new THREE.CylinderGeometry(SR, SR, len, 96, 1, true, start, SPINE_ARC);
+    shell.rotateZ(Math.PI / 2);
+    var s = new THREE.Shape(), n = 48, i, a;
+    s.moveTo(0, 0);
+    for (i = 0; i <= n; i++) {
+      a = start + SPINE_ARC * i / n;
+      s.lineTo(SR * Math.cos(a), SR * Math.sin(a));
+    }
+    s.lineTo(0, 0);
+    var cap = new THREE.ShapeGeometry(s);
+    cap.rotateY(-Math.PI / 2);
+    return { shell: shell, cap: cap };
+  }
+
+  // ---------- finishes ----------
+  var FINISHES = {
+    black: { shell: 0x1d1e20, rough: 0.6, key: 0x2c2d30, label: '#ecebe6', sub: '#8f8e89', ti: 0x3c3c3e, call: '#7cc7a4', end: '#ef8a77' },
+    light: { shell: 0xd7d5cf, rough: 0.66, key: 0xebe9e4, label: '#26272a', sub: '#a3a19b', ti: 0xb9b5ae, call: '#2f7a5c', end: '#b4432f' },
+    moss:  { shell: 0x56604f, rough: 0.62, key: 0x67715f, label: '#f3f1ea', sub: '#aeb3a3', ti: 0x6b7067, call: '#e4efc2', end: '#ffb4a1' }
+  };
+  // on a call, the keyboard turns into call controls (digits send tones)
+  var callMode = false;
+  var muted = false, conn = 'open';
+  var CALL_KEYS = { M: 'MUTE', H: 'HOLD', S: 'SPKR', A: 'ADD', N: 'NOTE', X: 'END' };
+  var finish = 'black';
+
+  var shellMat = new THREE.MeshPhysicalMaterial({ roughness: 0.6, metalness: 0, clearcoat: 0.15, clearcoatRoughness: 0.5 });
+  var keySideMat = new THREE.MeshStandardMaterial({ roughness: 0.5, metalness: 0 });
+  var glassMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x060607), roughness: 0.05, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.03 });
+  var holeMat = new THREE.MeshStandardMaterial({ color: srgb(0x0b0b0c), roughness: 0.95 });
+  var portInnerMat = new THREE.MeshStandardMaterial({ color: srgb(0x3a3b3e), roughness: 0.5, metalness: 0.4 });
+
+  // ---------- keyboard layout ----------
+  var U = 0.5, GAP = 0.07, KEYS = [];
+  var rows = [
+    { d: 2.83, keys: 'QWERTYUIOP'.split('').map(function (c, i) { return { t: c, u: 1, sub: '1234567890'.charAt(i) }; }) },
+    { d: 3.87, keys: 'ASDFGHJKL'.split('').map(function (c) { return { t: c, u: 1 }; }).concat([{ t: 'bksp', u: 1 }]) },
+    { d: 4.91, keys: [{ t: 'shift', u: 1.5 }].concat('ZXCVBNM'.split('').map(function (c) { return { t: c, u: 1 }; }), [{ t: 'enter', u: 1.5 }]) },
+    { d: 5.95, keys: [{ t: '123', u: 1.5 }, { t: ',', u: 1 }, { t: 'space', u: 5 }, { t: '.', u: 1 }, { t: 'mic', u: 1.5 }] }
+  ];
+  rows.forEach(function (r) {
+    var x = -2.5;
+    r.keys.forEach(function (k) {
+      var w = k.u * U;
+      KEYS.push({ t: k.t, sub: k.sub, x: x + w / 2, d: r.d, w: w - GAP, h: 0.86 });
+      x += w;
+    });
+  });
+  // navigation row: a low-profile clickable joystick (slide pad) between Back and Menu.
+  // The lid answers and ends calls; holding Back goes home.
+  KEYS.push({ t: 'stick', x: 0, d: 1.6, r: 0.5 });
+  [{ t: 'back', x: -1.61 }, { t: 'menu', x: 1.61 }].forEach(function (k) {
+    KEYS.push({ t: k.t, x: k.x, d: 1.6, w: 1.78, h: 0.7, pill: true });
+  });
+
+  // key-top texture covers the whole bottom deck; caps sample it by position
+  var PX = 200;
+  var keyCanvas = document.createElement('canvas');
+  keyCanvas.width = Math.round(W * PX); keyCanvas.height = Math.round(L * PX);
+  var kctx = keyCanvas.getContext('2d');
+  var keyTex = new THREE.CanvasTexture(keyCanvas);
+  keyTex.encoding = THREE.sRGBEncoding; keyTex.anisotropy = maxAniso;
+  keyTex.repeat.set(1 / W, 1 / L); keyTex.offset.set(0.5, 1);
+  // backlight layer: hidden-til-lit legends glow through the caps only when lit
+  var glowCanvas = document.createElement('canvas');
+  glowCanvas.width = keyCanvas.width; glowCanvas.height = keyCanvas.height;
+  var gctx = glowCanvas.getContext('2d');
+  var glowTex = new THREE.CanvasTexture(glowCanvas);
+  glowTex.encoding = THREE.sRGBEncoding; glowTex.anisotropy = maxAniso;
+  glowTex.repeat.copy(keyTex.repeat); glowTex.offset.copy(keyTex.offset);
+  var keyCapMat = new THREE.MeshStandardMaterial({ map: keyTex, emissive: 0xffffff, emissiveMap: glowTex, roughness: 0.48, metalness: 0 });
+  var GLOW_CALL = '#8fe6bd', GLOW_END = '#ff8a73';
+
+  var FONT = '"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif';
+
+  function rrPath(g, x, y, w, h, r) {
+    g.beginPath();
+    g.moveTo(x + r, y); g.lineTo(x + w - r, y); g.arcTo(x + w, y, x + w, y + r, r);
+    g.lineTo(x + w, y + h - r); g.arcTo(x + w, y + h, x + w - r, y + h, r);
+    g.lineTo(x + r, y + h); g.arcTo(x, y + h, x, y + h - r, r);
+    g.lineTo(x, y + r); g.arcTo(x, y, x + r, y, r); g.closePath();
+  }
+
+  // small line icons for the backlit call legends (drawn in a 0.12 cm box)
+  var LIT = { M: 'mute', H: 'hold', S: 'spkr', A: 'add', N: 'note', X: 'end' };
+  function litIcon(c, name, X, Y, s) {
+    var a = 0.06 * s;
+    c.beginPath();
+    switch (name) {
+      case 'mute':
+        rrPath(c, X - 0.022 * s, Y - a, 0.044 * s, 0.075 * s, 0.022 * s); c.stroke();
+        c.beginPath(); c.arc(X, Y - 0.01 * s, 0.042 * s, 0.2, Math.PI - 0.2, false);
+        c.moveTo(X, Y + 0.032 * s); c.lineTo(X, Y + a);
+        c.moveTo(X - a, Y - a); c.lineTo(X + a, Y + a);
+        break;
+      case 'hold':
+        c.moveTo(X - 0.025 * s, Y - a); c.lineTo(X - 0.025 * s, Y + a);
+        c.moveTo(X + 0.025 * s, Y - a); c.lineTo(X + 0.025 * s, Y + a);
+        break;
+      case 'spkr':
+        c.moveTo(X - a, Y - 0.022 * s); c.lineTo(X - 0.028 * s, Y - 0.022 * s); c.lineTo(X + 0.008 * s, Y - a);
+        c.lineTo(X + 0.008 * s, Y + a); c.lineTo(X - 0.028 * s, Y + 0.022 * s); c.lineTo(X - a, Y + 0.022 * s); c.closePath();
+        c.moveTo(X + 0.035 * s, Y - 0.03 * s); c.quadraticCurveTo(X + 0.065 * s, Y, X + 0.035 * s, Y + 0.03 * s);
+        break;
+      case 'add':
+        c.moveTo(X - a, Y); c.lineTo(X + a, Y); c.moveTo(X, Y - a); c.lineTo(X, Y + a);
+        break;
+      case 'note':
+        c.moveTo(X - a + 0.012 * s, Y + a - 0.012 * s); c.lineTo(X + a, Y - a);
+        c.moveTo(X - a, Y + a); c.lineTo(X - 0.01 * s, Y + a);
+        break;
+      case 'end':
+        c.lineWidth = 0.03 * s;
+        c.arc(X, Y + 0.05 * s, 0.075 * s, Math.PI * 1.2, Math.PI * 1.8, false);
+        break;
+    }
+  }
+
+  // legend system: one typeface weight, one line weight, every legend centred on the same line
+  // in its row, and a slot under each letter that is only used by backlit call legends
+  function drawKeys() {
+    var f = FINISHES[finish], g = kctx, gl = gctx, s = PX, LW = 0.02 * s;
+    g.fillStyle = '#' + new THREE.Color(f.key).getHexString();
+    g.fillRect(0, 0, keyCanvas.width, keyCanvas.height);
+    gl.fillStyle = '#000000'; gl.fillRect(0, 0, glowCanvas.width, glowCanvas.height);
+    [g, gl].forEach(function (c) { c.lineCap = 'round'; c.lineJoin = 'round'; c.textAlign = 'center'; c.textBaseline = 'middle'; });
+
+    function lit(X, Y, icon, isEnd, digit) {
+      [[g, isEnd ? f.end : f.call], [gl, isEnd ? GLOW_END : GLOW_CALL]].forEach(function (p) {
+        var c = p[0];
+        c.strokeStyle = p[1]; c.fillStyle = p[1]; c.lineWidth = 0.016 * s;
+        if (digit) { c.font = '600 ' + (0.13 * s) + 'px ' + FONT; c.fillText(digit, X, Y); }
+        else { litIcon(c, icon, X, Y, s); c.stroke(); }
+      });
+    }
+
+    KEYS.forEach(function (k) {
+      var X = (k.x + W / 2) * s, Y = k.d * s, Yc = Y - 0.04 * s;
+      g.fillStyle = f.label; g.strokeStyle = f.label; g.lineWidth = LW;
+      if (k.t.length === 1 && /[A-Z]/.test(k.t)) {
+        g.font = '500 ' + (0.25 * s) + 'px ' + FONT;
+        g.fillText(k.t, X, Yc);
+        if (callMode && LIT[k.t]) lit(X, Y + 0.22 * s, LIT[k.t], k.t === 'X');
+        if (callMode && k.sub) lit(X, Y + 0.22 * s, null, false, k.sub);
+        return;
+      }
+      g.beginPath();
+      switch (k.t) {
+        case ',': case '.':
+          g.font = '500 ' + (0.3 * s) + 'px ' + FONT; g.textBaseline = 'alphabetic';
+          g.fillText(k.t, X, Yc + 0.09 * s); g.textBaseline = 'middle'; return;
+        case '123':
+          g.font = '500 ' + (0.15 * s) + 'px ' + FONT; g.fillText('123', X, Yc); return;
+        case 'space':
+          return;
+        case 'bksp':
+          g.moveTo(X - 0.13 * s, Yc); g.lineTo(X - 0.065 * s, Yc - 0.08 * s); g.lineTo(X + 0.12 * s, Yc - 0.08 * s);
+          g.lineTo(X + 0.12 * s, Yc + 0.08 * s); g.lineTo(X - 0.065 * s, Yc + 0.08 * s); g.closePath();
+          g.moveTo(X - 0.005 * s, Yc - 0.035 * s); g.lineTo(X + 0.065 * s, Yc + 0.035 * s);
+          g.moveTo(X + 0.065 * s, Yc - 0.035 * s); g.lineTo(X - 0.005 * s, Yc + 0.035 * s);
+          break;
+        case 'shift':
+          g.moveTo(X, Yc - 0.11 * s); g.lineTo(X + 0.105 * s, Yc + 0.005 * s); g.lineTo(X + 0.045 * s, Yc + 0.005 * s);
+          g.lineTo(X + 0.045 * s, Yc + 0.1 * s); g.lineTo(X - 0.045 * s, Yc + 0.1 * s);
+          g.lineTo(X - 0.045 * s, Yc + 0.005 * s); g.lineTo(X - 0.105 * s, Yc + 0.005 * s); g.closePath();
+          break;
+        case 'enter':
+          g.moveTo(X + 0.11 * s, Yc - 0.09 * s); g.lineTo(X + 0.11 * s, Yc + 0.03 * s); g.lineTo(X - 0.11 * s, Yc + 0.03 * s);
+          g.moveTo(X - 0.055 * s, Yc - 0.025 * s); g.lineTo(X - 0.11 * s, Yc + 0.03 * s); g.lineTo(X - 0.055 * s, Yc + 0.085 * s);
+          break;
+        case 'mic':
+          rrPath(g, X - 0.04 * s, Yc - 0.12 * s, 0.08 * s, 0.14 * s, 0.04 * s); g.stroke();
+          g.beginPath(); g.arc(X, Yc - 0.02 * s, 0.075 * s, 0.15, Math.PI - 0.15, false);
+          g.moveTo(X, Yc + 0.055 * s); g.lineTo(X, Yc + 0.11 * s);
+          break;
+        case 'back':
+          g.moveTo(X - 0.045 * s, Y - 0.1 * s); g.lineTo(X - 0.105 * s, Y - 0.04 * s); g.lineTo(X - 0.045 * s, Y + 0.02 * s);
+          g.moveTo(X - 0.105 * s, Y - 0.04 * s); g.lineTo(X + 0.035 * s, Y - 0.04 * s);
+          g.arc(X + 0.035 * s, Y + 0.02 * s, 0.06 * s, -Math.PI / 2, Math.PI / 2, false);
+          g.lineTo(X - 0.04 * s, Y + 0.08 * s);
+          break;
+        case 'menu':
+          [-0.06, 0, 0.06].forEach(function (o) { g.moveTo(X - 0.095 * s, Y + o * s); g.lineTo(X + 0.095 * s, Y + o * s); });
+          break;
+        case 'stick':
+          g.strokeStyle = f.sub; g.lineWidth = 0.01 * s;
+          for (var ri = 1; ri <= 3; ri++) { g.beginPath(); g.arc(X, Y, ri * 0.1 * s, 0, Math.PI * 2); g.stroke(); }
+          return;
+      }
+      g.stroke();
+    });
+    keyTex.needsUpdate = true;
+    glowTex.needsUpdate = true;
+  }
+
+  function keyGeom(k) {
+    if (k.t === 'stick') {
+      // domed slide-pad cap, same 0.86 mm height as the keys so it clears the glass when shut
+      var sb = 0.05, cap = new THREE.Shape();
+      cap.absarc(k.x, -k.d, k.r - sb, 0, Math.PI * 2, false);
+      var sg2 = new THREE.ExtrudeGeometry(cap, { depth: 0.006, bevelEnabled: true, bevelThickness: 0.04, bevelSize: sb, bevelSegments: 6, curveSegments: 48 });
+      sg2.translate(0, 0, 0.04);
+      return sg2;
+    }
+    var b = 0.028, x0 = k.x - k.w / 2 + b, x1 = k.x + k.w / 2 - b, y = -k.d;
+    var y0 = y - k.h / 2 + b, y1 = y + k.h / 2 - b;
+    var r = k.pill ? (y1 - y0) / 2 - 0.002 : 0.1;
+    var g = new THREE.ExtrudeGeometry(rrShape(x0, y0, x1, y1, r, r), {
+      depth: 0.03, bevelEnabled: true, bevelThickness: 0.028, bevelSize: b, bevelSegments: 3, curveSegments: 10
+    });
+    g.translate(0, 0, 0.028);
+    return g;
+  }
+
+  // ---------- screen texture ----------
+  // screen: same width as the keyboard (0.3 cm side margins), equal 0.95 cm margins top and bottom,
+  // so its lower edge lines up with the top row of keys across the fold
+  var DW = 5.0, D0 = 0.95, DH = L - 2 * D0;
+  var screenCanvas = document.createElement('canvas');
+  screenCanvas.width = 1024; screenCanvas.height = Math.round(1024 * DH / DW);
+  var sctx = screenCanvas.getContext('2d');
+  var screenTex = new THREE.CanvasTexture(screenCanvas);
+  screenTex.encoding = THREE.sRGBEncoding; screenTex.anisotropy = maxAniso;
+  screenTex.repeat.set(1 / DW, 1 / DH); screenTex.offset.set(0.5, -D0 / DH);
+
+  function drawScreen() {
+    var g = sctx, w = screenCanvas.width, h = screenCanvas.height;
+    var fg = '#efeee9', mute = '#86857f';
+    g.fillStyle = '#050506'; g.fillRect(0, 0, w, h);
+    g.textBaseline = 'alphabetic';
+    g.font = '500 30px ' + FONT; g.textAlign = 'left';
+    if (conn !== 'create') {
+      for (var i = 0; i < 4; i++) {
+        g.fillStyle = i < 3 ? fg : '#3a3a3a';
+        g.fillRect(60 + i * 15, 72 - (i + 1) * 9, 10, (i + 1) * 9);
+      }
+      g.fillStyle = fg; g.fillText(conn === 'talk' ? 'Talk · no internet' : '5G', 130, 72);
+    } else {
+      g.fillStyle = fg; g.fillText('Create · all radios off', 60, 72);
+    }
+    g.textAlign = 'right';
+    if (muted) { g.fillStyle = '#ff9a4a'; g.fillText('Silent', w - 250, 72); }
+    g.fillStyle = fg; g.fillText('86%', w - 128, 72);
+    g.strokeStyle = fg; g.lineWidth = 3;
+    rrPath(g, w - 116, 48, 48, 26, 6); g.stroke();
+    g.fillRect(w - 111, 53, Math.round(38 * 0.86), 16);
+    g.fillRect(w - 66, 56, 5, 10);
+
+    if (callMode) { drawCallScreen(g, w, fg, mute); screenTex.needsUpdate = true; return; }
+
+    g.textAlign = 'left'; g.fillStyle = fg; g.font = '600 200px ' + FONT;
+    g.fillText('10:08', 48, 300);
+    g.font = '500 42px ' + FONT; g.fillStyle = mute;
+    g.fillText('Friday 20 November', 58, 372);
+
+    var items = [['Phone'], ['Messages', '2'], ['Camera'], ['Notes'], ['Directions'], ['Music']];
+    // no touch: the joystick moves a highlight down the list
+    var y = 525, SEL = 1, ink = '#050506';
+    items.forEach(function (it, i) {
+      var on = i === SEL;
+      if (on) { g.fillStyle = fg; rrPath(g, 30, y - 70, w - 60, 96, 18); g.fill(); }
+      g.textAlign = 'left'; g.fillStyle = on ? ink : fg; g.font = '500 66px ' + FONT;
+      g.fillText(it[0], 58, y);
+      if (it[1]) { g.textAlign = 'right'; g.fillStyle = on ? '#55544f' : mute; g.font = '500 44px ' + FONT; g.fillText(it[1], w - 62, y - 4); }
+      y += 108;
+    });
+    screenTex.needsUpdate = true;
+  }
+
+  function drawCallScreen(g, w, fg, mute) {
+    var ink = '#050506';
+    g.textAlign = 'left';
+    g.fillStyle = mute; g.font = '500 40px ' + FONT; g.fillText('On call', 58, 175);
+    g.fillStyle = fg; g.font = '600 96px ' + FONT; g.fillText('Alex Morgan', 54, 285);
+    g.fillStyle = mute; g.font = '500 56px ' + FONT; g.fillText('03:12', 58, 365);
+    var rows = [['M', 'Mute'], ['H', 'Hold'], ['S', 'Speaker'], ['A', 'Add a call'], ['N', 'Take a note'], ['0-9', 'Tones'], ['X', 'End call (hold)']];
+    var y = 470;
+    rows.forEach(function (r) {
+      var cw = r[0].length > 1 ? 112 : 70;
+      g.fillStyle = r[0] === 'X' ? '#ef8a77' : fg;
+      rrPath(g, 58, y - 54, cw, 70, 14); g.fill();
+      g.fillStyle = ink; g.font = '600 40px ' + FONT; g.textAlign = 'center';
+      g.fillText(r[0], 58 + cw / 2, y - 5);
+      g.fillStyle = fg; g.font = '500 52px ' + FONT; g.textAlign = 'left';
+      g.fillText(r[1], 58 + cw + 34, y);
+      y += 92;
+    });
+  }
+
+  // ---------- assemble the phone ----------
+  var root = new THREE.Group();
+  root.rotation.x = -0.35;
+  scene.add(root);
+  var shift = new THREE.Group(); root.add(shift);
+  var bottom = new THREE.Group(); shift.add(bottom);
+  var pivot = new THREE.Group(); pivot.position.z = ZP; shift.add(pivot);
+  var top = new THREE.Group(); top.position.z = -ZP; pivot.add(top);
+
+  bottom.add(new THREE.Mesh(slabGeom(true), shellMat));
+
+  // closed clearance: the hinge leaves a 1.6 mm gap between the halves. A 1.3 mm frame round the
+  // keyboard deck plus four 0.3 mm soft bumpers carry the glass, touching only its outer margin,
+  // so the screen sits 0.7 mm clear of the key tops (keys stand 0.86 mm proud of the deck).
+  var RIM_H = 0.13, RIM_B = 0.02, RIM_W = 0.14;
+  var rimOuter = rrShape(-W / 2 + BS + RIM_B, -L + BS + RIM_B, W / 2 - BS - RIM_B, -BS - RIM_B, 0.62 - BS - RIM_B, 0.02);
+  rimOuter.holes.push(rrShape(-W / 2 + BS + RIM_W, -L + BS + RIM_W, W / 2 - BS - RIM_W, -BS - RIM_W, 0.62 - BS - RIM_W, 0.02));
+  var rimGeo = new THREE.ExtrudeGeometry(rimOuter, {
+    depth: RIM_H - 2 * RIM_B, bevelEnabled: true, bevelThickness: RIM_B, bevelSize: RIM_B, bevelSegments: 3, curveSegments: 24
+  });
+  rimGeo.translate(0, 0, RIM_B);
+  bottom.add(new THREE.Mesh(rimGeo, shellMat));
+  var bumperMat = new THREE.MeshStandardMaterial({ color: srgb(0x141415), roughness: 0.95 });
+  var bumperGeo = new THREE.CylinderGeometry(0.05, 0.05, 2 * ZP - RIM_H, 20); bumperGeo.rotateX(Math.PI / 2);
+  var rimMid = BS + (RIM_W + RIM_B) / 2;
+  [[-1.6, -rimMid], [1.6, -rimMid], [-1.6, -(L - rimMid)], [1.6, -(L - rimMid)]].forEach(function (p) {
+    var b = new THREE.Mesh(bumperGeo, bumperMat);
+    b.position.set(p[0], p[1], RIM_H + (2 * ZP - RIM_H) / 2);
+    bottom.add(b);
+  });
+  top.add(new THREE.Mesh(slabGeom(false), shellMat));
+
+  // hinge: hidden mechanism, Grade 5 titanium spine cover across the full width
+  var tiMat = new THREE.MeshStandardMaterial({ roughness: 0.36, metalness: 1, side: THREE.DoubleSide });
+  var spine = new THREE.Group(); spine.position.z = ZP; shift.add(spine);
+  var spineLen = W - 0.06, sg = spineGeoms(spineLen);
+  spine.add(new THREE.Mesh(sg.shell, tiMat));
+  [-1, 1].forEach(function (sgn) {
+    var cap = new THREE.Mesh(sg.cap, tiMat);
+    cap.position.x = sgn * spineLen / 2;
+    spine.add(cap);
+  });
+
+  // rear camera and flash, on the outside of the top half
+  var lensMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x07080b), roughness: 0.03, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.02 });
+  var lensCoreMat = new THREE.MeshPhysicalMaterial({ color: srgb(0x1c2140), roughness: 0.04, metalness: 0.3, clearcoat: 1, clearcoatRoughness: 0.02 });
+  var ringMat = new THREE.MeshStandardMaterial({ color: srgb(0x2a2b2e), roughness: 0.32, metalness: 0.75 });
+  var flashMat = new THREE.MeshStandardMaterial({ color: srgb(0xdcd5c3), roughness: 0.35, metalness: 0 });
+  // sized for a 1/2" 48MP sensor module: 8 mm ring, flush with the 7.5 mm back
+  var camY = L - 1.0;
+  var ring = new THREE.Mesh(new THREE.RingGeometry(0.36, 0.4, 64), ringMat);
+  ring.rotation.y = Math.PI; ring.position.set(0, camY, -T - 0.001); top.add(ring);
+  var bezel = new THREE.Mesh(new THREE.RingGeometry(0.32, 0.36, 64), holeMat);
+  bezel.rotation.y = Math.PI; bezel.position.set(0, camY, -T - 0.001); top.add(bezel);
+  var lens = new THREE.Mesh(new THREE.CircleGeometry(0.32, 64), lensMat);
+  lens.rotation.y = Math.PI; lens.position.set(0, camY, -T - 0.002); top.add(lens);
+  var lensCore = new THREE.Mesh(new THREE.CircleGeometry(0.14, 48), lensCoreMat);
+  lensCore.rotation.y = Math.PI; lensCore.position.set(0, camY, -T - 0.003); top.add(lensCore);
+  var flash = new THREE.Mesh(new THREE.CircleGeometry(0.08, 32), flashMat);
+  flash.rotation.y = Math.PI; flash.position.set(0.85, camY, -T - 0.002); top.add(flash);
+
+  // four studio-quality mics: deck chin (added later), base edge, back beside the camera, top edge
+  var micGeo = new THREE.CircleGeometry(0.035, 20);
+  var rearMic = new THREE.Mesh(micGeo, holeMat);
+  rearMic.rotation.y = Math.PI; rearMic.position.set(-0.85, camY, -T - 0.002); top.add(rearMic);
+  var topMic = new THREE.Mesh(micGeo, holeMat);
+  topMic.rotation.x = -Math.PI / 2; topMic.position.set(0, L + 0.003, -T / 2); top.add(topMic);
+
+  // camera-style command dial: a knurled titanium disc rolling out of a slot halfway down the right
+  // edge of the keyboard half. Under the right thumb in portrait; under the right index finger on the
+  // top edge when the phone is flat and held landscape. Zoom in the camera, volume everywhere else.
+  var DIAL_R = 0.45, DIAL_OUT = 0.12, DIAL_D = -L / 2, DIAL_TH = 0.34;
+  var dialGeo = new THREE.CylinderGeometry(DIAL_R, DIAL_R, DIAL_TH, 72, 1, false);
+  (function knurl(g) {
+    var p = g.attributes.position, v = new THREE.Vector3();
+    for (var i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i);
+      var rad = Math.hypot(v.x, v.z);
+      if (rad > DIAL_R * 0.99) {
+        var a = Math.atan2(v.x, v.z), seg = Math.round(a / (Math.PI * 2 / 72));
+        if (seg % 2) { v.x *= 0.955; v.z *= 0.955; p.setXYZ(i, v.x, v.y, v.z); }
+      }
+    }
+    g.computeVertexNormals();
+  })(dialGeo);
+  dialGeo.rotateX(Math.PI / 2);
+  var dial = new THREE.Mesh(dialGeo, tiMat);
+  dial.position.set(W / 2 - DIAL_R + DIAL_OUT, DIAL_D, -T / 2);
+  bottom.add(dial);
+  var slotGeo = new THREE.ShapeGeometry(rrShape(T / 2 - 0.21, DIAL_D - 0.36, T / 2 + 0.21, DIAL_D + 0.36, 0.08, 0.08), 8);
+  var slot = new THREE.Mesh(slotGeo, holeMat);
+  slot.rotation.y = Math.PI / 2; slot.position.x = W / 2 + 0.002; bottom.add(slot);
+
+  // ---------- left edge: ringer mute switch and three-position connection switch ----------
+  // Each knob slides away from the hinge; the slot floor it uncovers shows a colour,
+  // so a glance at the edge tells you the state (orange = silent, teal = radios cut).
+  var SW_Z = -T / 2, SW_H = 0.11;
+  function sideRect(y0, y1, z0, z1, r, mat, eps) {
+    var m = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(z0, y0, z1, y1, r, r), 6), mat);
+    m.rotation.y = -Math.PI / 2; m.position.x = -W / 2 - (eps || 0.002);
+    return m;
+  }
+  var stripMatMute = new THREE.MeshStandardMaterial({ color: srgb(0xff7a1a), emissive: srgb(0xff7a1a), emissiveIntensity: 0.35, roughness: 0.5 });
+  var stripMatConn = new THREE.MeshStandardMaterial({ color: srgb(0x35b3a2), emissive: srgb(0x35b3a2), emissiveIntensity: 0.3, roughness: 0.5 });
+  var dotMat = new THREE.MeshStandardMaterial({ color: srgb(0x9a9a95), roughness: 0.6 });
+  function makeSwitch(yStart, yEnd, knobLen, positions, stripMat) {
+    bottom.add(sideRect(yEnd, yStart, SW_Z - SW_H, SW_Z + SW_H, 0.06, holeMat, 0.002));
+    var strip = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), stripMat);
+    strip.rotation.y = -Math.PI / 2; strip.visible = false; bottom.add(strip);
+    var knob = new THREE.Mesh(new THREE.BoxGeometry(0.1, knobLen, 0.15), tiMat);
+    knob.position.set(-W / 2 - 0.02, positions[0], SW_Z); bottom.add(knob);
+    return { yStart: yStart, knobLen: knobLen, positions: positions, knob: knob, strip: strip, idx: 0, y: positions[0] };
+  }
+  var muteSw = makeSwitch(-1.05, -1.55, 0.2, [-1.16, -1.44], stripMatMute);
+  var connSw = makeSwitch(-L / 2 + 0.5, -L / 2 - 0.5, 0.24, [-L / 2 + 0.37, -L / 2, -L / 2 - 0.37], stripMatConn);
+  connSw.positions.forEach(function (py) {
+    var dot = new THREE.Mesh(new THREE.CircleGeometry(0.022, 16), dotMat);
+    dot.rotation.y = -Math.PI / 2; dot.position.set(-W / 2 - 0.002, py, SW_Z + 0.17); bottom.add(dot);
+  });
+
+  // ---------- right edge: power button with fingerprint sensor ----------
+  // Mirrors the silent switch on the left (same height, same length). Flat sapphire-capped
+  // titanium key, nearly flush so it is not pressed in a pocket.
+  var PB_Y0 = -1.55, PB_Y1 = -1.05, PB_H = 0.105;
+  var pbGap = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-SW_Z - PB_H - 0.025, PB_Y0 - 0.025, -SW_Z + PB_H + 0.025, PB_Y1 + 0.025, PB_H + 0.02, PB_H + 0.02), 12), holeMat);
+  pbGap.rotation.y = Math.PI / 2; pbGap.position.x = W / 2 + 0.002; bottom.add(pbGap);
+  var pbGeo = new THREE.ExtrudeGeometry(rrShape(-SW_Z - PB_H + 0.004, PB_Y0 + 0.004, -SW_Z + PB_H - 0.004, PB_Y1 - 0.004, PB_H - 0.004, PB_H - 0.004), {
+    depth: 0.008, bevelEnabled: true, bevelThickness: 0.004, bevelSize: 0.004, bevelSegments: 2, curveSegments: 12
+  });
+  var pb = new THREE.Mesh(pbGeo, tiMat);
+  pb.rotation.y = Math.PI / 2; pb.position.x = W / 2 + 0.0; bottom.add(pb);
+
+  // base edge, mirrored about USB-C: speaker grille on the right, matching row on the left hides the base mic
+  var grilleGeo = new THREE.CircleGeometry(0.032, 16);
+  [-1, 1].forEach(function (sgn) {
+    for (var gi = 0; gi < 5; gi++) {
+      var hole = new THREE.Mesh(grilleGeo, holeMat);
+      hole.rotation.x = Math.PI / 2; hole.position.set(sgn * (0.68 + gi * 0.13), -L - 0.003, -T / 2); bottom.add(hole);
+    }
+  });
+
+  KEYS.forEach(function (k) { bottom.add(new THREE.Mesh(keyGeom(k), [keyCapMat, keySideMat])); });
+
+  var mic = new THREE.Mesh(new THREE.CircleGeometry(0.045, 24), holeMat);
+  mic.position.set(0, -(6.38 + L) / 2, 0.002); bottom.add(mic);
+
+  // joystick well: a dark recess ring round the pad
+  var well = new THREE.Mesh(new THREE.RingGeometry(0.47, 0.6, 64), holeMat);
+  well.position.set(0, -1.6, 0.001); bottom.add(well);
+
+  var port = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.45, -0.16, 0.45, 0.16, 0.155, 0.155), 12), holeMat);
+  port.rotation.x = Math.PI / 2; port.position.set(0, -L - 0.003, -T / 2); bottom.add(port);
+  var tongue = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.3, -0.035, 0.3, 0.035, 0.03, 0.03), 6), portInnerMat);
+  tongue.rotation.x = Math.PI / 2; tongue.position.set(0, -L - 0.005, -T / 2); bottom.add(tongue);
+
+  // the whole inner face is one sheet of glass, following the shell's own outline
+  var glass = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-W / 2 + BS, BS, W / 2 - BS, L - BS, 0.02, 0.62 - BS), 24), glassMat);
+  glass.position.z = 0.002; top.add(glass);
+
+  var displayMat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: screenTex, roughness: 0.06, metalness: 0 });
+  displayMat.toneMapped = false;
+  var display = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-DW / 2, D0, DW / 2, D0 + DH, 0.16, 0.16), 12), displayMat);
+  display.position.z = 0.004; top.add(display);
+
+  // earpiece slit and front camera, both on the centre line above the screen
+  var ear = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(-0.5, L - 0.31, 0.5, L - 0.25, 0.03, 0.03), 6), holeMat);
+  ear.position.z = 0.005; top.add(ear);
+  var fcY = D0 + DH + 0.4;
+  var fcRing = new THREE.Mesh(new THREE.RingGeometry(0.1, 0.135, 32), new THREE.MeshStandardMaterial({ color: srgb(0x1b1c1f), roughness: 0.4, metalness: 0.5 }));
+  fcRing.position.set(0, fcY, 0.006); top.add(fcRing);
+  var fcLens = new THREE.Mesh(new THREE.CircleGeometry(0.1, 32), lensCoreMat);
+  fcLens.position.set(0, fcY, 0.006); top.add(fcLens);
+
+  var meshes = [];
+  root.traverse(function (o) { if (o.isMesh) { o.castShadow = true; meshes.push(o); } });
+
+  function applyFinish(name) {
+    finish = name;
+    var f = FINISHES[name];
+    shellMat.color.copy(srgb(f.shell)); shellMat.roughness = f.rough;
+    keySideMat.color.copy(srgb(f.key));
+    tiMat.color.copy(srgb(f.ti));
+    drawKeys();
+    document.querySelectorAll('[data-finish]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.finish === name)); });
+  }
+  applyFinish('black');
+  drawScreen();
+  if (document.fonts && document.fonts.load) {
+    Promise.all(['500', '600'].map(function (wt) { return document.fonts.load(wt + ' 40px "Instrument Sans"'); }))
+      .then(function () { drawScreen(); drawKeys(); }, function () {});
+  }
+
+  // ---------- camera, controls, views ----------
+  var target = new THREE.Vector3(0, -0.4, 0);
+  var controls = new THREE.OrbitControls(camera, canvas);
+  controls.target.copy(target);
+  controls.enableDamping = true; controls.dampingFactor = 0.08;
+  controls.enablePan = false;
+  controls.autoRotateSpeed = 0.7;
+
+  var VIEWS = {
+    hero: new THREE.Vector3(0.45, 0.3, 0.84),
+    inside: new THREE.Vector3(0, 0.34, 0.94),
+    outside: new THREE.Vector3(-0.15, 0.22, -0.96),
+    edge: new THREE.Vector3(0.98, 0.14, 0.1),
+    left: new THREE.Vector3(-0.98, 0.14, 0.1)
+  };
+  var BASE_DIST = 38;
+  function distScale() { var a = camera.aspect || 1; return a < 0.95 ? Math.min(1.9, 0.95 / a) : 1; }
+
+  var tween = null;
+  function setViewButtons(name) {
+    document.querySelectorAll('[data-view]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.view === name)); });
+  }
+  function goView(name, instant) {
+    var to = VIEWS[name].clone().normalize().multiplyScalar(BASE_DIST * distScale()).add(target);
+    setViewButtons(name);
+    if (instant || reduce) { camera.position.copy(to); camera.lookAt(target); controls.update(); tween = null; return; }
+    var a = new THREE.Spherical().setFromVector3(camera.position.clone().sub(target));
+    var b = new THREE.Spherical().setFromVector3(to.clone().sub(target));
+    var dt = b.theta - a.theta;
+    while (dt > Math.PI) dt -= 2 * Math.PI;
+    while (dt < -Math.PI) dt += 2 * Math.PI;
+    tween = { a: a, b: b, dTheta: dt, t: 0 };
+  }
+
+  var spin = !reduce;
+  var spinBtn = document.getElementById('spin');
+  function setSpin(v) { spin = v; spinBtn.setAttribute('aria-pressed', String(v)); }
+  setSpin(spin);
+  spinBtn.addEventListener('click', function () { setSpin(!spin); });
+
+  function showLeft() { if (spin) setSpin(false); goView('left'); }
+  var muteBtn = document.getElementById('mute');
+  muteBtn.addEventListener('click', function () {
+    muted = !muted; muteSw.idx = muted ? 1 : 0;
+    muteBtn.setAttribute('aria-pressed', String(muted));
+    drawScreen(); showLeft();
+  });
+  var CONN = ['open', 'talk', 'create'];
+  document.querySelectorAll('[data-conn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      conn = b.dataset.conn; connSw.idx = CONN.indexOf(conn);
+      document.querySelectorAll('[data-conn]').forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      drawScreen(); showLeft();
+    });
+  });
+
+  var callBtn = document.getElementById('callmode');
+  callBtn.addEventListener('click', function () {
+    callMode = !callMode;
+    callBtn.setAttribute('aria-pressed', String(callMode));
+    drawKeys(); drawScreen();
+    if (callMode) { if (targetAngle < OPEN / 2) setTarget(OPEN); if (spin) setSpin(false); goView('inside'); }
+  });
+  controls.addEventListener('start', function () { tween = null; if (spin) setSpin(false); setViewButtons(''); });
+
+  document.querySelectorAll('[data-view]').forEach(function (b) {
+    b.addEventListener('click', function () { if (spin) setSpin(false); goView(b.dataset.view); });
+  });
+  document.querySelectorAll('[data-finish]').forEach(function (b) {
+    b.addEventListener('click', function () { applyFinish(b.dataset.finish); });
+  });
+
+  // ---------- hinge ----------
+  var MAX = 180, OPEN = 165;
+  var angle = reduce ? OPEN : 0, targetAngle = OPEN;
+  var slider = document.getElementById('hinge');
+  var hingeNum = document.getElementById('hinge-num');
+  var hingeTag = document.getElementById('hinge-tag');
+  var toggleBtn = document.getElementById('toggle');
+  if (!reduce) { targetAngle = 0; setTimeout(function () { setTarget(OPEN); }, 500); }
+
+  function setTarget(a) {
+    targetAngle = Math.max(0, Math.min(MAX, a));
+    slider.value = String(Math.round(targetAngle));
+    hingeNum.textContent = Math.round(targetAngle) + '°';
+    toggleBtn.textContent = targetAngle > OPEN / 2 ? 'Close' : 'Open';
+  }
+  function toggle() { setTarget(targetAngle > OPEN / 2 ? 0 : OPEN); }
+  toggleBtn.addEventListener('click', toggle);
+  document.getElementById('flat').addEventListener('click', function () { setTarget(MAX); });
+  slider.addEventListener('input', function () { setTarget(Number(slider.value)); });
+
+  // tap the phone to open or close
+  var raycaster = new THREE.Raycaster(), ndc = new THREE.Vector2(), down = null;
+  canvas.addEventListener('pointerdown', function (e) { down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+  canvas.addEventListener('pointerup', function (e) {
+    if (!down) return;
+    var moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), quick = performance.now() - down.t < 450;
+    down = null;
+    if (moved > 6 || !quick) return;
+    var r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    if (raycaster.intersectObjects(meshes, false).length) toggle();
+  });
+
+  // ---------- sizing ----------
+  var firstLayout = true;
+  function resize() {
+    var r = stage.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height;
+    camera.updateProjectionMatrix();
+    controls.minDistance = 20 * distScale();
+    controls.maxDistance = 75 * distScale();
+    if (firstLayout) { firstLayout = false; goView('hero', true); }
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
+  else window.addEventListener('resize', resize);
+  resize();
+
+  // ---------- loop ----------
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  var clock = new THREE.Clock();
+  var sph = new THREE.Spherical();
+  function frame() {
+    var dt = Math.min(clock.getDelta(), 0.05);
+    angle = reduce ? targetAngle : angle + (targetAngle - angle) * (1 - Math.exp(-dt * 5));
+    if (Math.abs(targetAngle - angle) < 0.01) angle = targetAngle;
+    var theta = Math.PI - angle * Math.PI / 180;
+    pivot.rotation.x = theta;
+    spine.rotation.x = theta / 2;
+
+    [muteSw, connSw].forEach(function (sw) {
+      var tgt = sw.positions[sw.idx];
+      sw.y = reduce ? tgt : sw.y + (tgt - sw.y) * (1 - Math.exp(-dt * 12));
+      sw.knob.position.y = sw.y;
+      var a = sw.yStart - 0.01, b = sw.y + sw.knobLen / 2, len = a - b;
+      sw.strip.visible = len > 0.004;
+      if (sw.strip.visible) { sw.strip.scale.set(2 * SW_H * 0.8, len, 1); sw.strip.position.set(-W / 2 - 0.003, (a + b) / 2, SW_Z); }
+    });
+    shift.position.y = (1 - angle / MAX) * (L - SR) / 2;
+    hingeTag.textContent = 'Hinge ' + Math.round(angle) + '°';
+
+    if (tween) {
+      tween.t = Math.min(1, tween.t + dt / 0.9);
+      var e = ease(tween.t);
+      sph.radius = tween.a.radius + (tween.b.radius - tween.a.radius) * e;
+      sph.phi = tween.a.phi + (tween.b.phi - tween.a.phi) * e;
+      sph.theta = tween.a.theta + tween.dTheta * e;
+      camera.position.setFromSpherical(sph).add(target);
+      camera.lookAt(target);
+      if (tween.t >= 1) tween = null;
+    }
+    controls.autoRotate = spin && !tween;
+    controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
