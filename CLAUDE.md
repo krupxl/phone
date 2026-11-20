@@ -7,6 +7,7 @@ Read `README.md` first: it is the spec, and its "Open questions" section is the 
 - `model.html`: **the source.** The artifact page (no doctype, head or body tags, because the artifact host adds its own skeleton). Edit this one.
 - `index.html`: **generated.** `model.html` wrapped as a full page so it opens straight in a browser. Never edit by hand; rebuild with `node tools/wrap.js`.
 - `tools/wrap.js`: the wrapper.
+- `ENGINEERING.md`: the engineering brief. Outside dimensions in it come from the model; when the model's geometry changes, update the matching numbers there. Inside numbers are estimates marked *(est.)*.
 
 ## Workflow for a change
 
