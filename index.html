@@ -104,7 +104,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
 <div class="wrap">
   <header>
     <h1>QWERTY Flip Concept</h1>
-    <p>A phone for communication and creation, not consumption. No touchscreen and nothing to swipe: a screen on the inside top, a QWERTY keyboard and joystick on the inside bottom, and a camera-style dial on the side. A good camera and mics for making things; everyday speakers.</p>
+    <p>A phone for communication and creation, not consumption. No touchscreen and nothing to swipe: a screen on the inside top, a QWERTY keyboard and joystick on the inside bottom, and a camera-style zoom slider on the side. A good camera and mics for making things; everyday speakers.</p>
   </header>
 
   <section class="stage" id="stage" aria-label="3D model of the flip phone">
@@ -156,7 +156,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   <section class="specs" aria-label="Specification">
     <div class="spec">
       <h2>Outside</h2>
-      <p>Almost nothing: one flush camera with a flash near the top of the back, and an aluminium spine over the hinge. No antenna lines: the radios use the hinge joints and the battery door seam. No screen or logo. The back of the keyboard half is the one battery door, hooked in at the hinge end and held by two flush Torx screws. Right edge: a fingerprint power button and a zoom dial. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
+      <p>Almost nothing: one flush camera with a flash near the top of the back, and an aluminium spine over the hinge. No antenna lines: the radios use the hinge joints and the battery door seam. No screen or logo. The back of the keyboard half is the one battery door, hooked in at the hinge end and held by two flush Torx screws. Right edge: a fingerprint power button and a spring-return zoom slider. Left edge, mirroring them: a silent switch and a connection switch, and on the screen half, opposite the connection switch, the SIM and microSD tray. USB-C, a mic and a speaker grille on the base edge. Open it flat to 180° and it shoots like a normal phone.</p>
     </div>
     <div class="spec">
       <h2>Camera</h2>
@@ -173,7 +173,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       <dl class="dims">
         <dt>Touch</dt><dd>None. No touchscreen, no swiping</dd>
         <dt>Joystick</dt><dd>Move and click to select; shutter in the camera</dd>
-        <dt>Dial</dt><dd>Knurled aluminium, halfway down the right edge of the keyboard half. Under your thumb in portrait, under your index finger in landscape. Zoom in the camera, volume elsewhere</dd>
+        <dt>Zoom</dt><dd>Spring-return slider, halfway down the right edge of the keyboard half, opposite the connection switch. Slide either way, it springs back to centre; hold to keep going. Under your thumb in portrait, under your index finger in landscape. Zoom in the camera, volume elsewhere</dd>
         <dt>Power</dt><dd>Fingerprint power button, right edge opposite the silent switch. Rest your thumb as you open the lid to unlock; hold to switch off or call for help</dd>
         <dt>Back</dt><dd>Leave any screen; hold to go home</dd>
         <dt>Menu</dt><dd>Other actions for the selected item</dd>
@@ -194,7 +194,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
         <dt>Open</dt><dd>Everything connected</dd>
         <dt>Talk</dt><dd>No internet: mobile data and Wi-Fi off. Calls, texts and Bluetooth stay on</dd>
         <dt>Create</dt><dd>Hardware cut to every radio. Camera, mics and notes still work. No emergency calls</dd>
-        <dt>Balance</dt><dd>Connection switch sits opposite the dial</dd>
+        <dt>Balance</dt><dd>Connection switch sits opposite the zoom slider, same slot</dd>
       </dl>
     </div>
     <div class="spec">
@@ -406,7 +406,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   // dyed, so their edges slowly wear to silver with use (least visible on the
   // light ones). Each colour has keys a shade lighter than the body, with legends in a darker
   // tint of the same colour.
-  // The spine, dial, buttons, card tray and door share the body colour; only the door screws are
+  // The spine, zoom slider, buttons, card tray and door share the body colour; only the door screws are
   // stainless steel (in steel inserts).
   // colours sampled from Krupal's reference photos: body, a lighter key cap, and a legend in a
   // darker tint of the same colour rather than black ink, darkened to at least 4.5:1 contrast against
@@ -920,7 +920,9 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     draw(); batteryDraws.push(draw);
     // onBack mirrors geometry in x, so off-centre parts are built centred and moved by position
     var cx = (b.x0 + b.x1) / 2, tabY = o.tabAtTop ? b.y1 : b.y0;
-    onBack(new THREE.PlaneGeometry(bw, bh), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55 }), cx, (b.y0 + b.y1) / 2, -T - 0.004, bay);
+    var cy = (b.y0 + b.y1) / 2, batGeo;
+    batGeo = new THREE.PlaneGeometry(bw, bh);
+    onBack(batGeo, new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55 }), cx, cy, -T - 0.004, bay);
     onBack(new THREE.ShapeGeometry(rrShape(-0.5, tabY - 0.28, 0.5, tabY + 0.28, 0.08, 0.08), 8), tabMat, cx, 0, -T - 0.005, bay);
     return { door: door, bay: bay };
   }
@@ -945,30 +947,21 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
   });
   var doorLift = 0, doorOff = false;
 
-  // camera-style command dial: a knurled aluminium disc rolling out of a slot halfway down the right
-  // edge of the keyboard half. Under the right thumb in portrait; under the right index finger on the
-  // top edge when the phone is flat and held landscape. Zoom in the camera, volume everywhere else.
-  var DIAL_R = 0.45, DIAL_OUT = 0.12, DIAL_D = -L / 2, DIAL_TH = 0.34;
-  var dialGeo = new THREE.CylinderGeometry(DIAL_R, DIAL_R, DIAL_TH, 72, 1, false);
-  (function knurl(g) {
-    var p = g.attributes.position, v = new THREE.Vector3();
-    for (var i = 0; i < p.count; i++) {
-      v.fromBufferAttribute(p, i);
-      var rad = Math.hypot(v.x, v.z);
-      if (rad > DIAL_R * 0.99) {
-        var a = Math.atan2(v.x, v.z), seg = Math.round(a / (Math.PI * 2 / 72));
-        if (seg % 2) { v.x *= 0.955; v.z *= 0.955; p.setXYZ(i, v.x, v.y, v.z); }
-      }
-    }
-    g.computeVertexNormals();
-  })(dialGeo);
-  dialGeo.rotateX(Math.PI / 2);
-  var dial = new THREE.Mesh(dialGeo, tiMat);
-  dial.position.set(W / 2 - DIAL_R + DIAL_OUT, DIAL_D, -T / 2);
-  bottom.add(dial);
-  var slotGeo = new THREE.ShapeGeometry(rrShape(T / 2 - 0.21, DIAL_D - 0.36, T / 2 + 0.21, DIAL_D + 0.36, 0.08, 0.08), 8);
-  var slot = new THREE.Mesh(slotGeo, holeMat);
-  slot.rotation.y = Math.PI / 2; slot.position.x = W / 2 + 0.002; bottom.add(slot);
+  // zoom slider: a spring-return rocker halfway down the right edge of the keyboard half, mirroring
+  // the connection switch on the left (same 10 mm slot, same height). Slide towards the hinge to zoom
+  // in (volume up), away to zoom out (volume down); hold to keep going; let go and it springs back to
+  // the centre. A ridged knob tells it apart from the switch by feel. Only about 2.5 mm deep, so it
+  // takes nothing from the battery. Under the right thumb in portrait; under the right index finger
+  // on the top edge when the phone is flat and held landscape, like a camera's zoom lever.
+  var ZOOM_D = -L / 2, ZOOM_H = 0.11;
+  var zoomSlot = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(T / 2 - ZOOM_H, ZOOM_D - 0.5, T / 2 + ZOOM_H, ZOOM_D + 0.5, 0.06, 0.06), 6), holeMat);
+  zoomSlot.rotation.y = Math.PI / 2; zoomSlot.position.x = W / 2 + 0.002; bottom.add(zoomSlot);
+  var zoomKnob = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.32, 0.15), tiMat);
+  zoomKnob.position.set(W / 2 + 0.02, ZOOM_D, -T / 2); bottom.add(zoomKnob);
+  [-0.07, 0, 0.07].forEach(function (o) {
+    var ridge = new THREE.Mesh(new THREE.PlaneGeometry(0.014, 0.12), holeMat);
+    ridge.rotation.y = Math.PI / 2; ridge.position.set(W / 2 + 0.0705, ZOOM_D + o, -T / 2); bottom.add(ridge);
+  });
 
   // ---------- left edge: ringer mute switch and three-position connection switch ----------
   // Each knob slides away from the hinge; the slot floor it uncovers shows a colour,

@@ -24,7 +24,7 @@ Positions are given as millimetres **from the hinge** along the length of each h
 
 **Split of contents (bottom-heavy by design):**
 
-- **Keyboard half:** keyboard, battery, a small USB-C / speaker / charging sub-board, edge controls (silent switch, connection switch, power button, dial), two microphones, base speaker.
+- **Keyboard half:** keyboard, battery, a small USB-C / speaker / charging sub-board, edge controls (silent switch, connection switch, power button, zoom slider), two microphones, base speaker.
 - **Screen half:** display, main board (chip, memory, storage, modem, radios), card reader, rear and front cameras, flash, earpiece, haptic actuator, sensors, two microphones.
 
 ---
@@ -83,11 +83,11 @@ Why this split: the user-facing repair (battery) is two screws from the back, an
 | Left | Silent switch | 10.5 to 15.5 mm | 2 positions; orange strip shows when on |
 | Left | Connection switch | 34.3 to 44.3 mm | 3 positions (Open, Talk, Create); teal strip |
 | Right | Power button with fingerprint sensor | 10.5 to 15.5 mm | Flush, mirrors the silent switch |
-| Right | Zoom dial | Centred at 39.3 mm | 9.0 mm diameter, 3.4 mm thick, 1.2 mm proud; knurled |
+| Right | Zoom slider | 34.3 to 44.3 mm (centred at 39.3 mm) | Spring-return rocker in a 10 mm slot, mirroring the connection switch; ridged knob, 0.7 mm proud; about 2.5 mm deep |
 | Base | USB-C | Centred | 9.0 × 3.2 mm opening |
 | Base | Speaker grille (right) and mic grille (left) | 5 holes each, 6.8 to 12.0 mm from centre | Mirrored about USB-C |
 
-**Dial:** a rotary encoder with no mechanical detents; the haptic actuator supplies soft clicks for zoom steps. Sealed shaft (O-ring).
+**Zoom slider:** a sprung rocker with a centre rest and about 1.5 mm of travel each way, read by two switch contacts (or a Hall sensor for a soft, wear-free feel). A short press steps the zoom; holding keeps it going. The haptic actuator ticks for each step. Sealed with an O-ring round the slider shaft, as on the other switches. Only about 2.5 mm deep, so it stays clear of the battery.
 
 **Connection switch, Create position:** a hardware cut. The switch contact must physically break the enable lines of the radio power rails (cellular, Wi-Fi, Bluetooth, GNSS, NFC), not just signal software. Design it to fail safe: a broken wire reads as "radios off". The UI must warn that Create blocks emergency calls.
 
@@ -207,7 +207,7 @@ All counts and sizes are *(est.)* except the battery door. Internal screws use T
 | Battery door | Door to keyboard unibody, far end (the hinge end hooks under a lip in the frame) | 2 | M1.4 × 2.5 mm Torx T5, stainless, flush; into **steel threaded inserts** pressed into the aluminium |
 | Keyboard half | Keyboard module to deck | 6 | M1.2 Torx T3 |
 | Keyboard half | Sub-board and USB-C bracket (takes plug forces) | 3 | M1.4 Torx T5 |
-| Keyboard half | Dial assembly bracket | 2 | M1.2 Torx T3 |
+| Keyboard half | Zoom slider bracket | 2 | M1.2 Torx T3 |
 | Keyboard half | Switch brackets (silent, connection) | 4 | M1.2 Torx T3 |
 | Keyboard half | Power button and fingerprint bracket | 2 | M1.2 Torx T3 |
 | Keyboard half | Speaker module | 2 | M1.2 Torx T3 |
@@ -242,7 +242,7 @@ USB-C (keyboard half)
                                          ├─ radios (modem, RF, Wi-Fi/BT, GNSS, NFC) ◄── gated by the Create switch
                                          ├─ audio, haptics, sensors
                                          └─ back to the keyboard half: keyboard controller and backlight,
-                                            fingerprint sensor, dial encoder, switches (low current, via the flex)
+                                            fingerprint sensor, zoom slider, switches (low current, via the flex)
 ```
 
 Only **one high-current path** crosses the hinge (VSYS and its returns). The flex needs several wide copper layers for it: plan for peaks of about 4 A *(est.)*.
@@ -256,7 +256,7 @@ Only **one high-current path** crosses the hinge (VSYS and its returns). The fle
 | Charger and gauge | I²C (2) plus interrupt |
 | Keyboard | I²C or I³C (2), interrupt, backlight supply |
 | Fingerprint sensor | SPI (4), interrupt, reset |
-| Dial encoder | 2 |
+| Zoom slider | 2 |
 | Switches | Silent (1), connection (2), power key (1) |
 | Create radio cut | 1 or 2 dedicated lines to the radio rail switches |
 | Audio | 2 microphone PDM lines with clock; speaker as I²S (amp on the sub-board) or speaker wires (amp on the main board) |
@@ -322,7 +322,7 @@ The door must be electrically isolated from the frame where the seam acts as an 
 | Card tray | Silicone gasket on the tray |
 | Silent and connection switches | O-ring on each slider shaft, sealed behind the visible slot |
 | Power button | Sealed membrane behind the key |
-| Dial | O-ring on the shaft |
+| Zoom slider | O-ring on the slider shaft |
 | USB-C | Sealed receptacle, sealed to the unibody |
 | Speaker, microphones, earpiece | Water-resistant mesh membranes behind each opening |
 | Cover glass | Sealing adhesive gasket round the glass |
@@ -339,7 +339,7 @@ Target: IP68 at the same depth and time as current flagship phones.
 **Keyboard half (from the back):**
 1. Press steel threaded inserts into the unibody.
 2. Fit keycaps and mechanism from behind the deck; fit the keyboard module and flex.
-3. Fit the edge controls: switches, power button and fingerprint, dial.
+3. Fit the edge controls: switches, power button and fingerprint, zoom slider.
 4. Fit the speaker, microphones and sub-board with USB-C.
 5. Lay the graphite spreader and aerogel.
 6. Fit the battery, connect it, close the door.
@@ -374,7 +374,7 @@ Target: IP68 at the same depth and time as current flagship phones.
 | Water and dust | IP68 after hinge cycling and 50 battery-door removals |
 | Battery door | 50 open/close cycles without thread wear or gasket loss |
 | Keys | Key life and feel; dome life to the supplier's rating |
-| Dial, switches, power button | Cycle life to the supplier's rating |
+| Zoom slider, switches, power button | Cycle life to the supplier's rating |
 | USB-C | 10,000 insertions |
 | Heat | 30 minutes of 4K60 without throttling; surface temperature limits |
 | Finish | Sweat and salt exposure on each anodised colour |

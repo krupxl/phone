@@ -6,7 +6,7 @@ A concept phone for **communication and creation, not consumption**: a clamshell
 
 ## Design principles
 
-- **No touchscreen, no swiping.** Navigation is a joystick, Back and Menu keys, a keyboard and a side dial. Every action is deliberate.
+- **No touchscreen, no swiping.** Navigation is a joystick, Back and Menu keys, a keyboard and a side zoom slider. Every action is deliberate.
 - **Symmetry.** Everything sits on a centre line or is mirrored across it. One deliberate exception: the keyboard sits low on its half, in the thumb zone, so it no longer mirrors the screen across the fold.
 - **Clean proportion.** Each half is exactly 6:5, so the open phone is 12:5.
 - **Physical controls for big decisions.** Silent and connection levels are hardware switches, not settings.
@@ -48,7 +48,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 
 ### Body
 
-- **Bead-blasted aluminium** for the whole shell, the battery door, the spine, the dial, the power button and the card tray, all in the same colour.
+- **Bead-blasted aluminium** for the whole shell, the battery door, the spine, the zoom slider, the power button and the card tray, all in the same colour.
 - **Five colours.** Three have keys matched to the body (Indigo, Blush, Citrus); two have black keys with white legends (Silver, Carbon). One light neutral, one dark neutral, three colours. Frost, Sky, Champagne and Ink were tried and cut as too close to the others.
 - The keyboard deck is always the body colour. A black keyboard well (as on some laptops) was tried on Silver and Carbon and dropped.
 - **Matching keys:** The keys are a shade lighter than the body, and the legends are a darker tint of the same colour rather than black ink, so the keyboard looks of a piece with the phone.
@@ -71,7 +71,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
   - The gaps are filled with polymer tinted to match the aluminium.
   - Two antenna areas at opposite ends give the diversity a phone needs: if a hand covers one, the other still works.
   - Thin, colour-matched bands remain the fallback if radio testing shows the hidden gaps are not enough.
-- **Water and dust:** IP68, to the same depth and time as current flagship phones. Seals: a gasket under the battery door, a gasket on the card tray, O-rings on both switches and the dial shaft, mesh membranes behind the speaker and microphone holes, a sealed USB-C port.
+- **Water and dust:** IP68, to the same depth and time as current flagship phones. Seals: a gasket under the battery door, a gasket on the card tray, O-rings on both switches and the zoom slider, mesh membranes behind the speaker and microphone holes, a sealed USB-C port.
 
 ### Inside, top half
 
@@ -113,7 +113,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | | Near the hinge | Halfway down |
 |---|---|---|
 | **Left** | Silent switch | Connection switch |
-| **Right** | Power button with fingerprint sensor | Camera-style zoom dial |
+| **Right** | Power button with fingerprint sensor | Spring-return zoom slider |
 
 - **Silent switch:** two positions. Mutes ringer and alerts; uncovers an orange strip when on.
 - **Connection switch:** three positions. The further you slide it, the more teal shows.
@@ -125,7 +125,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 | Create | Every radio, cut in hardware | Camera, mics, notes. **No emergency calls** |
 
 - **Power button:** flush aluminium key with a fingerprint sensor. Rest your thumb on it as you open the lid to unlock; hold to switch off or call for help.
-- **Zoom dial:** knurled aluminium disc. Zoom in the camera, volume everywhere else. In landscape (camera end on the left) it sits on the top edge under the right index finger.
+- **Zoom slider:** a spring-return rocker in a 10 mm slot, exactly opposite the connection switch (same position, same size), with a ridged knob so the two are easy to tell apart by feel. Slide towards the hinge to zoom in (volume up elsewhere), away to zoom out (volume down); hold to keep zooming; let go and it springs back to the centre, like a camera's zoom lever. The haptic actuator ticks for each zoom step. It needs only about 2.5 mm of depth, so the battery keeps its full width. In landscape (camera end on the left) it sits on the top edge under the right index finger. A rotating dial was dropped: it stood proud of the edge, and a flush one would have cut into the battery.
 
 - **Card tray:** on the screen half, halfway along its left edge. It is the mirror of the connection switch across the fold, so when the phone is shut it sits directly over the switch. One double-sided tray, 13 mm long, flush aluminium face with the eject pinhole in it: one nano SIM on one side, one microSD card on the other. Nothing is mirrored opposite it on the right edge; that was a deliberate choice so cards swap without opening the phone.
 - The card reader sits in the screen half with the main board, so the keyboard half keeps its space for the battery.
@@ -158,7 +158,7 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 ### Sensors and feedback
 
 - Proximity and ambient light sensors by the earpiece (see Inside, top half).
-- **Haptics:** a large linear resonant actuator, as strong and crisp as the best phone haptics, in the screen half with the main board. It gives alerts when the silent switch is on, and soft clicks for the joystick and for zoom steps on the dial.
+- **Haptics:** a large linear resonant actuator, as strong and crisp as the best phone haptics, in the screen half with the main board. It gives alerts when the silent switch is on, and soft clicks for the joystick and for zoom steps on the slider.
 - **Missed calls:** the flash has a low-power coloured LED. With the lid shut, it breathes softly after a missed call until you open the phone. Nothing more: the point is to use the phone less, so there is no wider notification system. It can be turned off.
 
 ### Connectivity and storage
@@ -181,14 +181,14 @@ Pro-level cooling (memory beside the chip, a metal-over-foam pad, a large vapour
 
 - The wider body also gave a bigger screen (3.5 in) and battery (about 2,250 mAh).
 - **Confirm by hand:** print a keyboard mock-up at 65.5 mm and type on it (speed, errors, thumb strain) before tooling.
-- The mock-ups also test the weight and balance in the hand, reaching the dial and power button, and the edges of the battery door.
+- The mock-ups also test the weight and balance in the hand, reaching the zoom slider and power button, and the edges of the battery door.
 - **What keyboard phones teach (research, November 2026):**
   - The best-loved keyboard phones were wider than this one (about 67 to 72 mm), and the most praised one gained its reputation partly by widening its keyboard. Width is the single biggest factor, so the 64 mm mock-up is worth making.
   - Those keyboards had four rows and put digits on a phone-style 3×3 block of letter keys. This phone keeps a dedicated number row by choice, accepting one more row of thumb travel.
   - Comfort came from sculpted keys angled towards each thumb, frets between rows, and a light, fast press, more than from key count. This phone adopts the first two; the third is for the key mechanism supplier.
   - Thumb travel is what slows typing; models of two-thumb typing reward short distances and alternating thumbs. Hence the compact block in the thumb zone and the shortcut rows at the far end.
   - A portrait clamshell with a full QWERTY is almost untried (earlier keyboard clamshells opened sideways into landscape), so physical mock-ups matter more here than usual.
-- **Left-handed edition:** a limited run with the edges mirrored (dial and power button on the left, switches on the right, card tray on the right). The keyboard stays the same. Because everything is already symmetric, it needs mirrored edge parts, not a new design.
+- **Left-handed edition:** a limited run with the edges mirrored (zoom slider and power button on the left, switches on the right, card tray on the right). The keyboard stays the same. Because everything is already symmetric, it needs mirrored edge parts, not a new design.
 
 ### Outside
 
