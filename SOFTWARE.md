@@ -46,8 +46,7 @@ How every physical control behaves, everywhere in the system.
 | **Joystick** | Moves the highlight; click to choose |
 | **◁ Back** | Goes back one step. **Hold**: home |
 | **□ Menu** | Actions for the highlighted item (replaces long-presses and swipe actions) |
-| **Talk keys** | + Call (dialler, or call the highlighted person) · – Message (new message) · ⬡ Contacts · ☆ Favourites |
-| **Make keys** | Lens: Camera, from anywhere · Wave: hold to record a voice note, release to save · Lines: a new note · ◇ your choice |
+| **Talk and make keys** | **Press: this screen's action. Hold: the key's own job** (section 3.1). Their own jobs: + Call (dialler, or call the highlighted person) · – Message (new message) · ⬡ Contacts · ☆ Favourites · Lens: Camera · Wave: record a voice note while held · Lines: a new note · ◇ your choice |
 | **Typing from home** | Start typing any name, app or number: the screen searches as you type (a contact, an app, a note, or a number to call) |
 | **Number row** | Digits; tones on a call |
 | **Microphone key** (bottom row) | **Dictation**: speech into text, wherever you are typing. Different from the Voice note key, which records audio |
@@ -57,7 +56,25 @@ How every physical control behaves, everywhere in the system.
 | **Connection switch** | Open / Talk / Create (section 7) |
 | **Power button** | Fingerprint; hold to switch off |
 
-On a call, the keyboard becomes call controls (the icons light up): **M** mute, **H** hold, **S** speaker, **A** add a call, **N** take a note, **hold X** to end, digits for tones. A proximity sensor ignores keys while the phone is at your ear.
+On a call, the call controls are on the key strip (section 3.1), digits send tones, and closing the lid ends the call. A proximity sensor ignores keys while the phone is at your ear.
+
+### 3.1 The key strip
+
+The eight shape keys sit just below the screen's bottom edge when the phone is open. Inside an app, a strip of eight cells along the bottom of the screen shows what each key does there, mirroring the keys across the fold: the strip's bottom row is the talk row (+ – ⬡ ☆, nearest the hinge), the row above it the make row (lens, wave, lines, ◇). Each cell shows its key's shape beside the action, so a key is found by shape and position.
+
+- **Press** a key: the action in its cell on this screen.
+- **Hold** a key: its own job, the printed meaning, from anywhere (hold lens for the camera, wave to record a voice note, + for the dialler, and so on).
+- An inverted cell means that action is on or chosen (Speaker on, Photo mode); colour only where it matters (End in red).
+- **Home** has no strip: there, a press is the printed meaning.
+- The keyboard stays for typing; letters no longer double as call controls.
+
+| Screen | Make row (upper) | Talk row (lower, nearest the keys) |
+|---|---|---|
+| On a call | Add call · Note · Keypad · Record | Mute · Hold · Speaker · End |
+| Conversation | Photo · Voice · Location · More | Call · Attach · Dictate · Send |
+| Camera | Gallery · Front · Grid · Share | Photo · Video · Flash · Timer |
+
+The strip takes about an eighth of the screen height, only on screens that use it.
 
 ---
 

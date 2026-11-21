@@ -178,8 +178,8 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
         <dt>Back</dt><dd>Leave any screen; hold to go home</dd>
         <dt>Menu</dt><dd>Other actions for the selected item</dd>
         <dt>Calls</dt><dd>Open the lid to answer, close it to hang up</dd>
-        <dt>On a call</dt><dd>M mute, H hold, S speaker, A add a call, N note, 1 to 0 tones, hold X to end</dd>
-        <dt>Legends</dt><dd>Letters and digits printed. Call icons are hidden until the key backlight shows them</dd>
+        <dt>On a call</dt><dd>Mute, Hold, Speaker, End and more on the shape keys, labelled by a strip on screen; close the lid to end</dd>
+        <dt>Legends</dt><dd>Letters and digits printed; double-shot, backlit</dd>
         <dt>Keys</dt><dd>44 (numbers and QWERTY), 4 make keys, 4 talk keys</dd>
         <dt>Talk keys</dt><dd>Plus: Call. Dash: Message. Hexagon: Contacts. Star: Favourites</dd>
         <dt>Make keys</dt><dd>Lens: Camera. Wave: hold for a voice note. Lines: Note. Diamond: yours to assign</dd>
@@ -421,7 +421,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     silver:    { shell: 0xd9dbdd, rough: 0.48, key: 0x1f2123, label: '#ecebe6', sub: '#8f8e89', ti: 0xe0e2e4, call: '#7cc7a4', end: '#ef8a77' },
     carbon:    { shell: 0x4b494c, rough: 0.55, key: 0x201f22, label: '#ecebe6', sub: '#8f8e89', ti: 0x545255, call: '#7cc7a4', end: '#ef8a77' }
   };
-  // on a call, the keyboard turns into call controls (digits send tones)
+  // on a call, the shape keys carry the call controls, labelled by a strip on screen (digits send tones)
   var callMode = false;
   var muted = false, conn = 'open';
   var CALL_KEYS = { M: 'MUTE', H: 'HOLD', S: 'SPKR', A: 'ADD', N: 'NOTE', X: 'END' };
@@ -517,41 +517,6 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     g.lineTo(x, y + r); g.arcTo(x, y, x + r, y, r); g.closePath();
   }
 
-  // small line icons for the backlit call legends (drawn in a 0.12 cm box)
-  var LIT = { M: 'mute', H: 'hold', S: 'spkr', A: 'add', N: 'note', X: 'end' };
-  function litIcon(c, name, X, Y, s) {
-    var a = 0.06 * s;
-    c.beginPath();
-    switch (name) {
-      case 'mute':
-        rrPath(c, X - 0.022 * s, Y - a, 0.044 * s, 0.075 * s, 0.022 * s); c.stroke();
-        c.beginPath(); c.arc(X, Y - 0.01 * s, 0.042 * s, 0.2, Math.PI - 0.2, false);
-        c.moveTo(X, Y + 0.032 * s); c.lineTo(X, Y + a);
-        c.moveTo(X - a, Y - a); c.lineTo(X + a, Y + a);
-        break;
-      case 'hold':
-        c.moveTo(X - 0.025 * s, Y - a); c.lineTo(X - 0.025 * s, Y + a);
-        c.moveTo(X + 0.025 * s, Y - a); c.lineTo(X + 0.025 * s, Y + a);
-        break;
-      case 'spkr':
-        c.moveTo(X - a, Y - 0.022 * s); c.lineTo(X - 0.028 * s, Y - 0.022 * s); c.lineTo(X + 0.008 * s, Y - a);
-        c.lineTo(X + 0.008 * s, Y + a); c.lineTo(X - 0.028 * s, Y + 0.022 * s); c.lineTo(X - a, Y + 0.022 * s); c.closePath();
-        c.moveTo(X + 0.035 * s, Y - 0.03 * s); c.quadraticCurveTo(X + 0.065 * s, Y, X + 0.035 * s, Y + 0.03 * s);
-        break;
-      case 'add':
-        c.moveTo(X - a, Y); c.lineTo(X + a, Y); c.moveTo(X, Y - a); c.lineTo(X, Y + a);
-        break;
-      case 'note':
-        c.moveTo(X - a + 0.012 * s, Y + a - 0.012 * s); c.lineTo(X + a, Y - a);
-        c.moveTo(X - a, Y + a); c.lineTo(X - 0.01 * s, Y + a);
-        break;
-      case 'end':
-        c.lineWidth = 0.03 * s;
-        c.arc(X, Y + 0.05 * s, 0.075 * s, Math.PI * 1.2, Math.PI * 1.8, false);
-        break;
-    }
-  }
-
   // legend system: one typeface weight, one line weight, every legend centred on the same line
   // in its row, and a slot under each letter that is only used by backlit call legends. Digits have
   // their own printed row; on a call they send tones.
@@ -562,22 +527,12 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     gl.fillStyle = '#000000'; gl.fillRect(0, 0, glowCanvas.width, glowCanvas.height);
     [g, gl].forEach(function (c) { c.lineCap = 'round'; c.lineJoin = 'round'; c.textAlign = 'center'; c.textBaseline = 'middle'; });
 
-    function lit(X, Y, icon, isEnd, digit) {
-      [[g, isEnd ? f.end : f.call], [gl, isEnd ? GLOW_END : GLOW_CALL]].forEach(function (p) {
-        var c = p[0];
-        c.strokeStyle = p[1]; c.fillStyle = p[1]; c.lineWidth = 0.016 * s;
-        if (digit) { c.font = '600 ' + (0.13 * s) + 'px ' + FONT; c.fillText(digit, X, Y); }
-        else { litIcon(c, icon, X, Y, s); c.stroke(); }
-      });
-    }
-
     KEYS.forEach(function (k) {
       var X = (k.x + W / 2) * s, Y = k.d * s, Yc = Y - 0.04 * s;
       g.fillStyle = f.label; g.strokeStyle = f.label; g.lineWidth = LW;
       if (k.t.length === 1 && /[A-Z0-9]/.test(k.t)) {
         g.font = '500 ' + (0.25 * s) + 'px ' + FONT;
         g.fillText(k.t, X, Yc);
-        if (callMode && LIT[k.t]) lit(X, Y + 0.22 * s, LIT[k.t], k.t === 'X');
         return;
       }
       g.beginPath();
@@ -722,7 +677,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     g.fillRect(w - 111, 53, Math.round(38 * 0.86), 16);
     g.fillRect(w - 66, 56, 5, 10);
 
-    if (callMode) { drawCallScreen(g, w, fg, mute); screenTex.needsUpdate = true; return; }
+    if (callMode) { drawCallScreen(g, w, fg, mute, h); screenTex.needsUpdate = true; return; }
 
     g.textAlign = 'left'; g.fillStyle = fg; g.font = '600 200px ' + FONT;
     g.fillText('10:08', 48, 300);
@@ -743,24 +698,26 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     screenTex.needsUpdate = true;
   }
 
-  function drawCallScreen(g, w, fg, mute) {
-    var ink = '#050506';
+  function drawCallScreen(g, w, fg, mute, h) {
     g.textAlign = 'left';
-    g.fillStyle = mute; g.font = '500 40px ' + FONT; g.fillText('On call', 58, 175);
-    g.fillStyle = fg; g.font = '600 96px ' + FONT; g.fillText('Alex Morgan', 54, 285);
-    g.fillStyle = mute; g.font = '500 56px ' + FONT; g.fillText('03:12', 58, 365);
-    var rows = [['M', 'Mute'], ['H', 'Hold'], ['S', 'Speaker'], ['A', 'Add a call'], ['N', 'Take a note'], ['0-9', 'Tones'], ['X', 'End call (hold)']];
-    var y = 470;
-    rows.forEach(function (r) {
-      var cw = r[0].length > 1 ? 112 : 70;
-      g.fillStyle = r[0] === 'X' ? '#ef8a77' : fg;
-      rrPath(g, 58, y - 54, cw, 70, 14); g.fill();
-      g.fillStyle = ink; g.font = '600 40px ' + FONT; g.textAlign = 'center';
-      g.fillText(r[0], 58 + cw / 2, y - 5);
-      g.fillStyle = fg; g.font = '500 52px ' + FONT; g.textAlign = 'left';
-      g.fillText(r[1], 58 + cw + 34, y);
-      y += 92;
+    g.fillStyle = '#7cc7a4'; g.font = '500 40px ' + FONT; g.fillText('On call', 58, 175);
+    g.fillStyle = fg; g.font = '600 104px ' + FONT; g.fillText('Maya Patel', 54, 295);
+    g.fillStyle = mute; g.font = '500 60px ' + FONT; g.fillText('03:12', 58, 380);
+    // key strip: mirrors the shape keys below the screen; lower row = talk keys, upper row = make keys
+    var rowsS = [['Add call', 'Note', 'Keypad', 'Record'], ['Mute', 'Hold', 'Speaker', 'End']];
+    var pad = 30, gap = 12, cw = (w - 2 * pad - 3 * gap) / 4, ch = 70;
+    rowsS.forEach(function (row, ri) {
+      var y = h - 30 - (2 - ri) * ch - (1 - ri) * gap;
+      row.forEach(function (label, ci) {
+        var x = pad + ci * (cw + gap), on = label === 'Speaker', end = label === 'End';
+        g.fillStyle = end ? '#ef8a77' : on ? fg : '#17171a';
+        rrPath(g, x, y, cw, ch, 14); g.fill();
+        g.fillStyle = end ? '#1a0604' : on ? '#050506' : fg;
+        g.font = (end ? '600 ' : '500 ') + '34px ' + FONT; g.textAlign = 'center';
+        g.fillText(label, x + cw / 2, y + 47);
+      });
     });
+    g.textAlign = 'left';
   }
 
   // ---------- assemble the phone ----------

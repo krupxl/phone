@@ -87,7 +87,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 ### Inside, bottom half
 
 - Navigation row: the clickable low-profile joystick (a slide pad, so it clears the screen when shut) is the focal control, 12.4 mm across, between two small pill keys (12 × 6.5 mm, as tall as a letter key), each centred between the joystick ring and the keyboard edge. Back has a printed **◁** and Menu a printed **□**, so the row reads triangle, circle, square, mirrored about the centre line. Keys physically shaped as a triangle and a square were tried and rejected. The shapes are the legends. It sits just above the number row.
-- 44 keys: a full **number row** (1 to 0) above a QWERTY. Letters and digits are printed; the call icons are in hidden-until-lit ink and only appear when the key backlight shows them. The bottom-left key switches to symbols.
+- 44 keys: a full **number row** (1 to 0) above a QWERTY. Letters and digits are printed. The bottom-left key switches to symbols.
 - **Near-square keys in the thumb zone.** Keys are 5.1 mm wide on a 5.8 mm pitch and 6.5 mm tall on a 7.5 mm row pitch, at least 1.5 mm clear of the frame. Earlier keys were 9.2 mm tall on 11.1 mm rows, which spread the keyboard over 68 mm and put Back, joystick and Menu 62 to 74 mm from the base, beyond a comfortable thumb reach. Now the whole block (navigation row, five rows) is 51 mm long, built up from the base: the bottom row is 6 mm from the base edge and the navigation row 45 to 57 mm.
 - Microphone centred below the keys.
 - **Talk and make keys:** two rows of four wide keys above the navigation row, each marked with a plain outlined shape. Together they spell out the phone's purpose: talk on top, make below.
@@ -107,7 +107,7 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 - **Sculpted keys and frets** (from the research below): on the typing rows each key tilts slightly towards the centre of the keyboard, raised at its outer edge, so each thumb meets its keys squarely and can find them by feel. Thin frets in the body colour run between the rows, 0.3 mm tall: they separate the rows so a thumb does not catch two at once, and give a line to feel for without looking. This is long-standing keyboard-phone practice rather than a measured result.
 - A 1.3 mm raised frame with four soft bumpers holds the glass by its edges when closed, so the screen sits 0.7 mm clear of the keys.
 - **Thumb notch:** at the centre of the base end, the frame is interrupted for 14 mm and the edge has a shallow scoop (about 1.2 mm deep), so a thumb can lift the shut screen half. It sits on the centre line, above the USB-C port.
-- **Keycaps:** double-shot PBT. The legend is moulded through the key in a second plastic, so it can never wear off, and PBT does not go shiny with use: the keyboard ages as well as the body. The call icons are the exception, in hidden-until-lit ink over the backlight.
+- **Keycaps:** double-shot PBT. The legend is moulded through the key in a second plastic, so it can never wear off, and PBT does not go shiny with use: the keyboard ages as well as the body. The backlight shines through the legends.
 - **Legibility:** every legend has at least 4.5:1 contrast against its key, so it reads in daylight. The tinted legends first matched the reference photos at only 2.0 to 2.4:1 and were darkened, keeping their tint; the keyboard backlight covers the dark.
 
 ### Edges
@@ -234,7 +234,7 @@ A larger 1/1.28" sensor (as in current flagship phones) was considered; it needs
 ### Calls
 
 - Open the lid to answer, close it to hang up. On the call screen, End is highlighted by default, so one joystick click also hangs up.
-- On a call the keyboard becomes call controls (the icons light up): **M** mute, **H** hold, **S** speaker, **A** add a call, **N** take a note, **number row** tones, **hold X** to end.
+- On a call the controls (Mute, Hold, Speaker, End, Add call, Note, Keypad, Record) are on the eight shape keys, labelled by an on-screen strip just above them; the number row sends tones. See `SOFTWARE.md`, the key strip.
 - A proximity sensor ignores all keys while the phone is at your ear.
 
 ## Open questions

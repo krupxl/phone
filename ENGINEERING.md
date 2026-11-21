@@ -59,7 +59,7 @@ Why this split: the user-facing repair (battery) is two screws from the back, an
 | Key rows | 5 rows (numbers, Q–P, A–L, Z–M, bottom), 7.5 mm row pitch, keys 6.5 mm tall × 5.1 mm wide, 5.8 mm pitch across | Ends at 72.4 mm, 6 mm from the base edge. Everything within about 57 mm of the base for thumb reach |
 | Keyboard microphone | 74.1 mm, centred | 0.9 mm hole |
 
-**Keycaps and legends:** double-shot PBT keycaps: the legend is a second moulded plastic running through the key, so it cannot wear off, and PBT does not polish shiny with use. At least 4.5:1 contrast against the key colour. The call icons are the exception: hidden-until-lit ink over the backlight, laser-etched windows in the cap.
+**Keycaps and legends:** double-shot PBT keycaps: the legend is a second moulded plastic running through the key, so it cannot wear off, and PBT does not polish shiny with use. At least 4.5:1 contrast against the key colour. The backlight shines through the legends; no hidden-until-lit icons are needed (in-app actions are labelled on screen).
 
 **Key mechanism:** keys stand 0.86 mm above the deck. Typing keys are sculpted: each cap tilts about 3.4° towards the centre of the keyboard, raised at its outer edge, with its highest point still at 0.86 mm. With the shut screen 0.7 mm above the key tops, all travel must sit below that line. Target a low-profile scissor or butterfly-style mechanism with **0.5 to 0.6 mm travel** and a metal dome per key *(est.)*. Backlight: a light-guide film under the keys with side LEDs, used for the hidden-until-lit call icons and the legends.
 
