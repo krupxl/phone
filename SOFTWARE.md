@@ -175,4 +175,4 @@ Software must never work around either switch.
 - **RCS and WhatsApp in Talk mode**: confirm the "waits until Open" behaviour is clear enough.
 - **Moving video to a computer**: plain USB folders first; a companion app only if needed.
 - **Email**: not on the day-one list; decide whether it belongs.
-- **Interface design**: the core set of 20 screens is drawn (`screens/`). Next: interaction details (transitions, haptics per action), the remaining setup steps, and testing on a real panel.
+- **Interface design**: the core set of 20 screens is drawn (`screens/`). The seven setup steps teach the phone by doing (language, moving around, shape keys, switches, fingerprint, favourites, connect). Next: interaction details (transitions, haptics per action) and testing on a real panel.
