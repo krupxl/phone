@@ -91,7 +91,7 @@ Why this split: the user-facing repair (battery) is two screws from the back, an
 
 **Connection switch, Create position:** a hardware cut. The switch contact must physically break the enable lines of the radio power rails (cellular, Wi-Fi, Bluetooth, GNSS, NFC), not just signal software. Design it to fail safe: a broken wire reads as "radios off".
 
-**Emergency override:** holding the power button for 5 seconds in Create triggers a small hardware latch (a timer on the power key line, independent of the main chip) that re-enables the **cellular** rail only, OR-ed past the switch cut. The modem boots in emergency-only mode for the call; the latch releases when the call ends (or after 15 minutes). Wi-Fi, Bluetooth, GNSS and NFC stay cut. The UI must say that Create allows emergency calls only through this override, and that the radio takes some seconds to connect.
+**No override:** nothing may bypass the Create cut, in hardware or software, emergency calls included; there must be no path that re-enables a radio rail while the switch is in Create. The way out is the switch itself: sliding to Talk restores the cellular rail. The UI must say that Create blocks emergency calls, and if an emergency number is dialled in Create it must tell the user to slide to Talk. (A power-button latch that re-enabled the cellular rail was considered and rejected.)
 
 ### 3.4 Sub-board
 
@@ -279,7 +279,6 @@ About 40 lines in all. One wide multi-layer flex, or two narrower ones side by s
 | Keyboard | Small microcontroller with matrix scan and LED driver |
 | Haptics | Haptic driver for the linear actuator |
 | Outside signal | RGB LED driver for the flash's colour LED |
-| Emergency override | Hardware latch on the power key line that re-enables the cellular rail in Create |
 | Audio | Smart speaker amplifiers (earpiece and base), codec in the chip or separate |
 | Motion | 6-axis IMU (stabilisation, orientation) |
 | Lid and angle | Hall sensors, magnet |

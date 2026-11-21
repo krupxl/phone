@@ -124,12 +124,12 @@ The core hardware is benchmarked against a current entry-level flagship phone, b
 |---|---|---|
 | Open | Nothing | Everything |
 | Talk | All internet: mobile data and Wi-Fi (software-enforced) | Calls, texts, Bluetooth |
-| Create | Every radio, cut in hardware | Camera, mics, notes. **Emergency calls only through the override:** hold the power button for 5 seconds |
+| Create | Every radio, cut in hardware | Camera, mics, notes. **No emergency calls:** slide to Talk to make one |
 
 - **Power button:** flush aluminium key with a fingerprint sensor. Rest your thumb on it as you open the lid to unlock; hold to switch off or call for help.
 - **Zoom slider:** a spring-return rocker in a 10 mm slot, exactly opposite the connection switch (same position, same size), with a ridged knob so the two are easy to tell apart by feel. Slide towards the hinge to zoom in (volume up elsewhere), away to zoom out (volume down); hold to keep zooming; let go and it springs back to the centre, like a camera's zoom lever. The haptic actuator ticks for each zoom step. It needs only about 2.5 mm of depth, so the battery keeps its full width. In landscape (camera end on the left) it sits on the top edge under the right index finger. A rotating dial was dropped: it stood proud of the edge, and a flush one would have cut into the battery.
 
-- **Emergency override:** Create cuts every radio in hardware, which would block emergency calls. Holding the power button for 5 seconds restores power to the cellular radio only, for an emergency call, then cuts it again when the call ends. It is a hardware path, so Create stays a true cut the rest of the time; the radio takes some seconds to connect.
+- **Create is a true kill switch, with no exceptions:** nothing in hardware or software can turn a radio back on while the switch is in Create, emergency calls included. The switch itself is the way out: sliding it to Talk (under a second) restores calls, emergency calls among them. The screen says so plainly in Create, and if you dial an emergency number it tells you to slide to Talk. A power-button override that re-enabled the cellular radio was considered and dropped: a kill switch with a back door is not a kill switch.
 - **Card tray:** on the screen half, halfway along its left edge. It is the mirror of the connection switch across the fold, so when the phone is shut it sits directly over the switch. One double-sided tray, 13 mm long, flush aluminium face with the eject pinhole in it: one nano SIM on one side, one microSD card on the other. Nothing is mirrored opposite it on the right edge; that was a deliberate choice so cards swap without opening the phone.
 - The card reader sits in the screen half with the main board, so the keyboard half keeps its space for the battery.
 
