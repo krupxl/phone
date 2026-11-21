@@ -98,7 +98,7 @@ Designed for keys from the start.
 |---|---|
 | **Phone** | Dialler (number row), recents, favourites. Lid answers and ends calls |
 | **Messages** | SMS and RCS, one thread list, people first. Typing on the keyboard; dictation on the microphone key |
-| **Contacts** | Searchable by typing; Favourites carry a chosen colour for the outside light (section 8) |
+| **Contacts** | Searchable by typing; Favourites carry a chosen colour for the outside light (section 8). Favourite colours come from a set that stays visible (3:1 or more) on both the black ground and the light highlight bar, and each favourite shows the same colour on every screen |
 | **Camera** | Opens with the Lens key. Joystick click is the shutter; zoom slider zooms; open flat to shoot like a normal phone. Photo and video, no filters or effects |
 | **Notes** | Plain text notes, typed or dictated; the Lines key opens a new one |
 | **Voice notes** | Hold the Wave key to record anywhere; a red light dot on screen while recording |
