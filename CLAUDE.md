@@ -7,6 +7,7 @@ Read `README.md` first: it is the spec, and its "Open questions" section is the 
 - `model.html`: **the source.** The artifact page (no doctype, head or body tags, because the artifact host adds its own skeleton). Edit this one.
 - `index.html`: **generated.** `model.html` wrapped as a full page so it opens straight in a browser. Never edit by hand; rebuild with `node tools/wrap.js`.
 - `tools/wrap.js`: the wrapper.
+- `SOFTWARE.md`: the software foundation. Decided with Krupal: Google-certified Android under our own touch-free "ink" interface (quiet black and white, colour only where functional), a short curated app list (WhatsApp, Signal, banking and two-factor, maps and rides; music and podcasts later by decision), links-only browser. Software must never work around the switches.
 - `ENGINEERING.md`: the engineering brief. Outside dimensions in it come from the model; when the model's geometry changes, update the matching numbers there. Inside numbers are estimates marked *(est.)*.
 
 ## Workflow for a change
@@ -18,7 +19,7 @@ Read `README.md` first: it is the spec, and its "Open questions" section is the 
 5. Update `README.md` if the spec changed.
 6. Commit and push. Before the first commit in a session, run `git var GIT_COMMITTER_IDENT` and confirm it is `Krupal Tandel <krupalktandel@gmail.com>`. This PC falls back to a work address if unset; never commit with it. Push with `git -c credential.helper= -c credential.helper='!"/c/Program Files/GitHub CLI/gh.exe" auth git-credential' push`.
 
-The repo is **public**: no personal details, nothing about Krupal's employer, no private links other than the artifact link above (it is private and only opens for Krupal), and no other companies' phone or product names (trademarks). Component suppliers and licensed standards may be named as candidates.
+The repo is **public**: no personal details, nothing about Krupal's employer, no private links other than the artifact link above (it is private and only opens for Krupal), and no other companies' phone or product names (trademarks). Component suppliers, licensed standards, and the operating system and apps the phone runs (Android, WhatsApp and so on) may be named; other makers' phones may not.
 
 ## Design rules (Krupal's, in priority order)
 

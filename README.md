@@ -241,11 +241,9 @@ A larger 1/1.28" sensor (as in current flagship phones) was considered; it needs
 
 Not designed yet:
 
-**Software (the biggest gap)**
-- Own minimal system or an adapted Android? Most people talk through WhatsApp and similar apps, which are built for touch.
-- Banking and two-factor apps, maps, email, contactless payments.
-- Moving large video files to a computer; a companion app for editing.
-- Accessibility (screen reader, large text, voice control) and non-English input.
+**Software** (foundation decided; see `SOFTWARE.md`)
+- Google-certified Android with our own touch-free "ink" interface, a short curated list of third-party apps (WhatsApp, Signal, banking and two-factor, maps and rides) and a links-only browser.
+- Open: Google certification for a phone with no touchscreen; the chip vendor's update commitment; testing the curated apps without touch; email; screen-by-screen interface design.
 
 **Hardware**
 - Battery life on about 2,250 mAh, especially for 4K recording.
@@ -268,5 +266,6 @@ Not designed yet:
 
 - `index.html`: the interactive 3D model, self-contained apart from three.js and Google Fonts from their CDNs. Generated from `model.html` by `node tools/wrap.js`.
 - `model.html`: the source of the model.
+- `SOFTWARE.md`: the software foundation: principles, base system, controls, home, core and curated apps, the switches in software, signals, accessibility and open questions.
 - `ENGINEERING.md`: the engineering brief for the team: construction, internal layout and stack-ups of each half, hinge, every fastener, electrical architecture, heat, antennas, sealing, assembly and repair, testing and the risk list.
 - `CLAUDE.md`: how to work on the model and the reasons behind the design.
