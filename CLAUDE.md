@@ -8,6 +8,7 @@ Read `README.md` first: it is the spec, and its "Open questions" section is the 
 - `index.html`: **generated.** `model.html` wrapped as a full page so it opens straight in a browser. Never edit by hand; rebuild with `node tools/wrap.js`.
 - `tools/wrap.js`: the wrapper.
 - `SOFTWARE.md`: the software foundation. Decided with Krupal: Google-certified Android under our own touch-free "ink" interface (quiet black and white, colour only where functional), a short curated app list (WhatsApp, Signal, banking and two-factor, maps and rides; music and podcasts later by decision), links-only browser. Software must never work around the switches.
+- `screens/`: screen designs, copied from the private Design canvas https://claude.ai/artifact/Y47MgXNPu2nUr6Aa5HW9Nx where they are edited (read it first from a new session); copy changed screens back here. Ink style: near-black ground, off-white Instrument Sans, inverted highlight bar, colour only where functional, the key strip mirroring the shape keys.
 - `ENGINEERING.md`: the engineering brief. Outside dimensions in it come from the model; when the model's geometry changes, update the matching numbers there. Inside numbers are estimates marked *(est.)*.
 
 ## Workflow for a change

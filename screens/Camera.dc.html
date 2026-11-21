@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Camera</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#efeee9}a:hover{color:#ffffff}
+</style>
+</helmet>
+<div style="width: 540px; height: 612px; box-sizing: border-box; background: #050506; color: #efeee9; font-family: 'Instrument Sans', system-ui, sans-serif; display: flex; flex-direction: column; padding: 0 16px 12px">
+  <div style="height: 46px; padding: 0 8px; display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: #9a998f">
+    <span>Click: shoot</span>
+    <span style="font-size: 20px; font-weight: 600; color: #efeee9">1.0×</span>
+    <span>Slider: zoom</span>
+  </div>
+  <div style="flex-grow: 1; border-radius: 6px; background: #1c1d20; display: flex; align-items: center; justify-content: center; position: relative">
+    <span style="font-size: 18px; color: #8f8e89">[ VIEWFINDER: 4:3 ]</span>
+    <div style="position: absolute; left: 33.33%; top: 0; bottom: 0; border-left: 1px solid #3a3b3f" aria-hidden="true"></div>
+    <div style="position: absolute; left: 66.66%; top: 0; bottom: 0; border-left: 1px solid #3a3b3f" aria-hidden="true"></div>
+    <div style="position: absolute; top: 33.33%; left: 0; right: 0; border-top: 1px solid #3a3b3f" aria-hidden="true"></div>
+    <div style="position: absolute; top: 66.66%; left: 0; right: 0; border-top: 1px solid #3a3b3f" aria-hidden="true"></div>
+  </div>
+  <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px">
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-size: 16px; font-weight: 500">
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #17171a; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#9a998f" stroke-width="1.6" fill="none"></circle><circle cx="8" cy="8" r="2.2" stroke="#9a998f" stroke-width="1.6" fill="none"></circle></svg><span>Gallery</span></div>
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #17171a; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8 C3 3,4.5 3,6 8 S9 13,10.5 8 S13.5 3,14.5 8" stroke="#9a998f" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg><span>Front</span></div>
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #efeee9; color: #050506; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 5h10M3 8h10M5 11h6" stroke="#3c3b36" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg><span>Grid on</span></div>
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #17171a; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1.5 14.5,8 8,14.5 1.5,8" stroke="#9a998f" stroke-width="1.6" fill="none" stroke-linejoin="round"></polygon></svg><span>Share</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-size: 16px; font-weight: 500">
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #efeee9; color: #050506; border-radius: 8px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v12M2 8h12" stroke="#3c3b36" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg><span>Photo</span></div>
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #17171a; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h12" stroke="#9a998f" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg><span>Video</span></div>
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #17171a; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1.5 13.6,4.75 13.6,11.25 8,14.5 2.4,11.25 2.4,4.75" stroke="#9a998f" stroke-width="1.6" fill="none" stroke-linejoin="round"></polygon></svg><span>Flash off</span></div>
+      <div style="display: flex; align-items: center; gap: 7px; padding: 8px 9px; background: #17171a; border-radius: 8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1.5 9.53,5.9 14.18,5.99 10.47,8.8 11.82,13.26 8,10.6 4.18,13.26 5.53,8.8 1.82,5.99 6.47,5.9" stroke="#9a998f" stroke-width="1.4" fill="none" stroke-linejoin="round"></polygon></svg><span>Timer</span></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":540,"height":612}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
