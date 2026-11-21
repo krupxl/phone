@@ -2,7 +2,7 @@
 
 A concept phone for **communication and creation, not consumption**: a clamshell with a screen and a physical QWERTY keyboard inside, no touchscreen and nothing to swipe, a good camera and microphones for making things, and everyday speakers. Not a pro studio camera: photos and video should be good, not studio-grade.
 
-`index.html` is an interactive 3D model of the phone (three.js, loaded from a CDN). Open it in a browser: drag to turn, scroll to zoom, tap the phone to open or close it. The controls under the model change the hinge angle, the colour, the view and the switches, show the phone on a call or after a missed call, and take the battery door off.
+`index.html` is an interactive 3D model of the phone (three.js, loaded from a CDN). Open it in a browser: drag to turn, scroll to zoom, tap the phone to open or close it. The controls under the model change the hinge angle, the colour, the view and the switches, pick which designed screen it shows (Home, Messages, Conversation, Camera, Note, Contacts, Calendar, Settings), show the phone on a call or after a missed call, and take the battery door off.
 
 ## Design principles
 

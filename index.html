@@ -145,6 +145,17 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
       <button class="btn" type="button" id="conn-talk" data-conn="talk" aria-pressed="false">Talk</button>
       <button class="btn" type="button" id="conn-create" data-conn="create" aria-pressed="false">Create</button>
     </div>
+    <div class="group" role="group" aria-label="Screen">
+      <span class="label">Screen</span>
+      <button class="btn" type="button" data-screen="home" aria-pressed="true">Home</button>
+      <button class="btn" type="button" data-screen="messages" aria-pressed="false">Messages</button>
+      <button class="btn" type="button" data-screen="conversation" aria-pressed="false">Conversation</button>
+      <button class="btn" type="button" data-screen="camera" aria-pressed="false">Camera</button>
+      <button class="btn" type="button" data-screen="note" aria-pressed="false">Note</button>
+      <button class="btn" type="button" data-screen="contacts" aria-pressed="false">Contacts</button>
+      <button class="btn" type="button" data-screen="calendar" aria-pressed="false">Calendar</button>
+      <button class="btn" type="button" data-screen="settings" aria-pressed="false">Settings</button>
+    </div>
     <div class="group">
       <button class="btn" type="button" id="callmode" aria-pressed="false">On a call</button>
       <button class="btn" type="button" id="missed" aria-pressed="false">Missed call</button>
@@ -679,6 +690,7 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     txt('86%', 516, 33, 15, 500, INK.fg, 'right');
 
     if (callMode) { drawCallScreen(g, w, h, S, txt); screenTex.needsUpdate = true; return; }
+    if (screenName !== 'home') { drawSpec(g, S, txt, SCREENS[screenName]); screenTex.needsUpdate = true; return; }
 
     txt('10:08', 22, 152, 108, 600, INK.fg);
     txt('Saturday 21 November', 24, 190, 22, 400, INK.mute);
@@ -726,6 +738,160 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     g.stroke();
   }
 
+  // the other screens, as data in the layout of screens/*.dc.html (540 x 612 design units)
+  var screenName = 'home';
+  var SCREENS = {
+    messages: { blocks: [
+      { t: 'title', text: 'Messages', size: 40 },
+      { t: 'list', two: true, items: [
+        { a: 'Maya Patel', b: '10:04', c: 'Are we still on for Sunday? I can bring the…', sel: true },
+        { a: 'Sam', b: 'Yesterday', c: 'Photos from the hike are in the folder' },
+        { a: 'Dad', b: 'Thursday', c: 'Call me when you land' },
+        { a: 'Design group', b: 'Wednesday', c: 'Lea: the mock-ups look great' }] }],
+      hints: ['– Message: new', 'Menu: options'] },
+    conversation: { blocks: [
+      { t: 'title', text: 'Maya Patel', size: 30, rule: true },
+      { t: 'msgs', items: [
+        { text: 'Are we still on for Sunday? I can bring the bread and the good coffee.', who: 'Maya · 10:04' },
+        { text: 'Yes, still on. Come at eleven?', who: 'You · 10:09 · read', me: true },
+        { text: 'Perfect. See you then.', who: 'Maya · 10:11' }] },
+      { t: 'field', text: "Great, I'll make lunch" }],
+      strip: [[['lens', 'Photo'], ['wave', 'Voice'], ['lines', 'Location'], ['diamond', 'More']],
+              [['plus', 'Call'], ['dash', 'Attach'], ['hexagon', 'Dictate'], ['star', 'Send', 'on']]] },
+    camera: { blocks: [{ t: 'camtop' }, { t: 'view' }],
+      strip: [[['lens', 'Gallery'], ['wave', 'Front'], ['lines', 'Grid on', 'on'], ['diamond', 'Share']],
+              [['plus', 'Photo', 'on'], ['dash', 'Video'], ['hexagon', 'Flash off'], ['star', 'Timer']]] },
+    note: { blocks: [
+      { t: 'title', text: 'Market list', size: 34, right: 'Saved · 10:25', rule: true },
+      { t: 'checks', items: [{ text: 'Bread', done: true }, { text: 'Coffee beans' }, { text: 'Tomatoes, basil' }, { text: 'Lemons' }] },
+      { t: 'para', text: 'Ask Maya if she wants to cook on Sunday or eat out.' }],
+      strip: [[['lens', 'Photo'], ['wave', 'Recording'], ['lines', 'Checklist', 'on'], ['diamond', 'Share']],
+              [['plus', 'New note'], ['dash', 'Delete'], ['hexagon', 'Find'], ['star', 'Pin']]] },
+    contacts: { blocks: [
+      { t: 'title', text: 'Contacts', size: 34, right: 'Type a letter to jump' },
+      { t: 'label', text: 'Favourites' },
+      { t: 'list', items: [{ a: 'Maya Patel', dot: '#3f7fb8', sel: true }, { a: 'Dad', dot: '#b97a2e' }, { a: 'Sam', dot: '#8a63b8' }] },
+      { t: 'label', text: 'A' },
+      { t: 'list', items: [{ a: 'Alex Morgan' }, { a: 'Anita Rao' }] }],
+      strip: [[['lens', 'Groups'], ['wave', 'Recent'], ['lines', 'Edit'], ['diamond', 'Share']],
+              [['plus', 'Call', 'go'], ['dash', 'Message'], ['hexagon', 'New contact'], ['star', 'Favourite']]] },
+    calendar: { blocks: [
+      { t: 'title', text: 'Today', size: 34 },
+      { t: 'sub', text: 'Saturday 21 November' },
+      { t: 'list', items: [{ time: '11:00', a: 'Lunch with Maya', sel: true }, { time: '15:30', a: 'Collect mock-ups' }] },
+      { t: 'label', text: 'Tomorrow' },
+      { t: 'list', items: [{ time: '09:00', a: 'Run by the river' }, { time: 'All day', a: "Dad's birthday" }] }],
+      strip: [[['lens', 'Agenda', 'on'], ['wave', 'Day'], ['lines', 'Week'], ['diamond', 'Month']],
+              [['plus', 'New event'], ['dash', 'Edit'], ['hexagon', 'Find'], ['star', 'Today']]] },
+    settings: { blocks: [
+      { t: 'title', text: 'Settings', size: 38 },
+      { t: 'list', tight: true, items: [
+        { a: 'Outside light', b: '3 signals on', sel: true }, { a: 'Text and display', b: 'Large' },
+        { a: 'Sound and haptics', b: 'Ring, haptic' }, { a: 'Keys and strip', b: '◇ = Torch' },
+        { a: 'Connections', b: 'Switch' }, { a: 'Apps', b: '5 of the list' }, { a: 'Privacy', b: 'Mic, camera dots' },
+        { a: 'Battery and storage', b: '86% · 212 GB free' }, { a: 'System', b: 'Up to date' }] }],
+      hints: ['Type to find a setting', 'Joystick: open'] }
+  };
+
+  function wrapLines(g, text, maxW) {
+    var words = text.split(' '), lines = [], line = '';
+    words.forEach(function (wd) {
+      var test = line ? line + ' ' + wd : wd;
+      if (g.measureText(test).width > maxW && line) { lines.push(line); line = wd; } else line = test;
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function drawStrip(g, S, txt, rows) {
+    var cw = (540 - 32 - 18) / 4, ch = 34;
+    rows.forEach(function (row, ri) {
+      var top = 612 - 12 - (2 - ri) * ch - (1 - ri) * 6;
+      row.forEach(function (c, ci) {
+        var x = 16 + ci * (cw + 6), st = c[2];
+        var bg = st === 'end' ? INK.red : st === 'go' ? INK.green : st === 'on' ? INK.fg : INK.cell;
+        var ink = st === 'end' ? '#1a0604' : st === 'go' ? '#04140d' : st === 'on' ? INK.bg : INK.fg;
+        g.fillStyle = bg; rrPath(g, x * S, top * S, cw * S, ch * S, 8 * S); g.fill();
+        drawShape(g, c[0], (x + 17) * S, (top + ch / 2) * S, 6.5 * S, st ? ink : INK.mute, 1.6 * S);
+        txt(c[1], x + 32, top + 23, 16, st === 'end' || st === 'go' ? 600 : 500, ink);
+      });
+    });
+  }
+
+  function drawSpec(g, S, txt, spec) {
+    var y = 60, stripTop = spec.strip ? 612 - 12 - 2 * 34 - 6 : 612;
+    spec.blocks.forEach(function (b) {
+      if (b.t === 'title') {
+        txt(b.text, 24, y + b.size * 0.85, b.size, 600, INK.fg);
+        if (b.right) txt(b.right, 516, y + b.size * 0.85, 16, 400, INK.mute, 'right');
+        y += b.size + 12;
+        if (b.rule) { g.fillStyle = '#2e2d2a'; g.fillRect(24 * S, y * S, 492 * S, 1 * S); y += 12; }
+      } else if (b.t === 'sub') {
+        txt(b.text, 24, y + 16, 18, 400, INK.mute); y += 30;
+      } else if (b.t === 'label') {
+        txt(b.text.toUpperCase(), 36, y + 16, 15, 500, INK.mute); y += 24;
+      } else if (b.t === 'list') {
+        b.items.forEach(function (it) {
+          var hgt = b.two ? 70 : b.tight ? 44 : 46, on = !!it.sel, x = 38;
+          if (on) { g.fillStyle = INK.fg; rrPath(g, 24 * S, y * S, 492 * S, (hgt - 4) * S, 10 * S); g.fill(); }
+          if (it.dot) { g.fillStyle = it.dot; g.beginPath(); g.arc(44 * S, (y + 21) * S, 6 * S, 0, Math.PI * 2); g.fill(); x = 60; }
+          if (it.time) { txt(it.time, 38, y + 30, 20, on ? 600 : 500, on ? INK.bg : INK.mute); x = 128; }
+          txt(it.a, x, y + (b.two ? 30 : 30), b.tight ? 23 : 24, on ? 600 : 500, on ? INK.bg : INK.fg);
+          if (it.b) txt(it.b, 504, y + 29, 17, 400, on ? '#3c3b36' : INK.mute, 'right');
+          if (it.c) txt(it.c, 38, y + 56, 18, 400, on ? '#3c3b36' : INK.mute);
+          y += hgt;
+        });
+        y += 6;
+      } else if (b.t === 'checks') {
+        b.items.forEach(function (it) {
+          g.strokeStyle = it.done ? INK.mute : INK.fg; g.lineWidth = 2 * S;
+          g.strokeRect(36 * S, (y + 8) * S, 16 * S, 16 * S);
+          if (it.done) { g.fillStyle = INK.mute; g.fillRect(36 * S, (y + 8) * S, 16 * S, 16 * S); }
+          txt(it.text, 64, y + 23, 23, 400, it.done ? INK.mute : INK.fg);
+          if (it.done) { g.fillStyle = INK.mute; g.font = '400 ' + Math.round(23 * S) + 'px ' + FONT; g.fillRect(64 * S, (y + 16) * S, g.measureText(it.text).width, 1.5 * S); }
+          y += 36;
+        });
+        y += 8;
+      } else if (b.t === 'para') {
+        g.font = '400 ' + Math.round(21 * S) + 'px ' + FONT;
+        wrapLines(g, b.text, 468 * S).forEach(function (ln) { txt(ln, 24, y + 22, 21, 400, '#c9c8c2'); y += 30; });
+      } else if (b.t === 'msgs') {
+        b.items.forEach(function (m) {
+          g.font = '400 ' + Math.round(21 * S) + 'px ' + FONT;
+          var lines = wrapLines(g, m.text, 400 * S), startY = y;
+          lines.forEach(function (ln) { txt(ln, m.me ? 500 : 24, y + 22, 21, 400, INK.fg, m.me ? 'right' : 'left'); y += 28; });
+          txt(m.who, m.me ? 500 : 24, y + 16, 15, 400, INK.mute, m.me ? 'right' : 'left');
+          y += 24;
+          if (m.me) { g.fillStyle = INK.fg; g.fillRect(509 * S, startY * S, 3 * S, (y - startY - 6) * S); }
+          y += 10;
+        });
+      } else if (b.t === 'field') {
+        var fy = stripTop - 56;
+        g.strokeStyle = INK.fg; g.lineWidth = 2 * S; rrPath(g, 24 * S, fy * S, 492 * S, 44 * S, 10 * S); g.stroke();
+        txt(b.text, 38, fy + 29, 21, 400, INK.fg);
+        g.font = '400 ' + Math.round(21 * S) + 'px ' + FONT;
+        g.fillStyle = INK.fg; g.fillRect(38 * S + g.measureText(b.text).width + 4 * S, (fy + 10) * S, 2 * S, 24 * S);
+      } else if (b.t === 'camtop') {
+        txt('Click: shoot', 24, y + 2, 15, 400, INK.mute);
+        txt('1.0×', 270, y + 4, 20, 600, INK.fg, 'center');
+        txt('Slider: zoom', 516, y + 2, 15, 400, INK.mute, 'right');
+        y += 16;
+      } else if (b.t === 'view') {
+        var vh = stripTop - 10 - y;
+        g.fillStyle = '#1c1d20'; rrPath(g, 16 * S, y * S, 508 * S, vh * S, 6 * S); g.fill();
+        g.fillStyle = '#3a3b3f';
+        for (var k = 1; k < 3; k++) {
+          g.fillRect((16 + 508 * k / 3) * S, y * S, 1 * S, vh * S);
+          g.fillRect(16 * S, (y + vh * k / 3) * S, 508 * S, 1 * S);
+        }
+        txt('[ VIEWFINDER: 4:3 ]', 270, y + vh / 2 + 6, 18, 400, INK.dim, 'center');
+        y += vh;
+      }
+    });
+    if (spec.strip) drawStrip(g, S, txt, spec.strip);
+    else if (spec.hints) { txt(spec.hints[0], 24, 596, 15, 400, INK.mute); txt(spec.hints[1], 516, 596, 15, 400, INK.mute, 'right'); }
+  }
+
   // on a call: as screens/Call.dc.html, with the key strip mirroring the shape keys below the screen
   // (lower row = talk keys, upper row = make keys)
   function drawCallScreen(g, w, h, S, txt) {
@@ -736,20 +902,10 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     g.strokeStyle = INK.fg; g.lineWidth = 1.5 * S; rrPath(g, 24 * S, 212 * S, 112 * S, 30 * S, 15 * S); g.stroke();
     txt('Speaker on', 80, 233, 17, 500, INK.fg, 'center');
     txt('Close the lid to end the call', 24, 272, 17, 400, INK.mute);
-    var rows = [
+    drawStrip(g, S, txt, [
       [['lens', 'Add call'], ['wave', 'Note'], ['lines', 'Keypad'], ['diamond', 'Record']],
       [['plus', 'Mute'], ['dash', 'Hold'], ['hexagon', 'Speaker', 'on'], ['star', 'End', 'end']]
-    ];
-    var cw = (540 - 32 - 18) / 4, ch = 34;
-    rows.forEach(function (row, ri) {
-      var top = 612 - 12 - (2 - ri) * ch - (1 - ri) * 6;
-      row.forEach(function (c, ci) {
-        var x = 16 + ci * (cw + 6), on = c[2] === 'on', end = c[2] === 'end';
-        g.fillStyle = end ? INK.red : on ? INK.fg : INK.cell; rrPath(g, x * S, top * S, cw * S, ch * S, 8 * S); g.fill();
-        drawShape(g, c[0], (x + 17) * S, (top + ch / 2) * S, 6.5 * S, end ? '#1a0604' : on ? '#3c3b36' : INK.mute, 1.6 * S);
-        txt(c[1], x + 32, top + 23, 16, end ? 600 : 500, end ? '#1a0604' : on ? INK.bg : INK.fg);
-      });
-    });
+    ]);
   }
 
   // ---------- assemble the phone ----------
@@ -1146,6 +1302,16 @@ input[type="range"] { width: 150px; accent-color: var(--accent); }
     missed = !missed;
     missedBtn.setAttribute('aria-pressed', String(missed));
     if (missed) { setTarget(0); if (spin) setSpin(false); goView('outside'); }
+  });
+  document.querySelectorAll('[data-screen]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      screenName = b.dataset.screen;
+      document.querySelectorAll('[data-screen]').forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      if (callMode) { callMode = false; callBtn.setAttribute('aria-pressed', 'false'); drawKeys(); }
+      drawScreen();
+      if (targetAngle < OPEN / 2) setTarget(OPEN);
+      if (spin) setSpin(false); goView('inside');
+    });
   });
   var callBtn = document.getElementById('callmode');
   callBtn.addEventListener('click', function () {
