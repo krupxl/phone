@@ -166,7 +166,86 @@ Software must never work around either switch.
 
 ---
 
-## 11. Open questions
+## 11. Interaction details
+
+Exact behaviour, so the phone feels the same everywhere. Calm and quick: things respond at once, move little, and confirm by touch more than by animation.
+
+### 11.1 Timings
+
+| Action | Value |
+|---|---|
+| **Hold** (shape keys, Back, letters for accents) | 450 ms. A firm haptic tick fires at the moment a hold takes effect, so you feel it before you let go |
+| **Repeat** (joystick, Backspace) | Starts after 400 ms held, then every 80 ms, quickening to every 40 ms after 1.5 s. In long lists, after 1.5 s the joystick moves a screen at a time |
+| **Double press** (Shift twice for caps lock; a destructive key pressed again to confirm) | Within 3 s for confirmation, 350 ms for caps lock |
+| **Screen sleep** with the lid open | Dims at 50 s, sleeps at 60 s. Any key wakes it; the first key only wakes and does nothing else |
+| **Returning** | Opening the lid within 5 minutes returns to the last screen; after that, to Home |
+
+Letters do not auto-repeat; only the joystick and Backspace do.
+
+### 11.2 Motion
+
+Motion is minimal and never decorative.
+
+| Element | Behaviour |
+|---|---|
+| **Highlight bar** | Slides to the next item in 90 ms, easing out |
+| **Opening and going back** | The new screen fades in over 120 ms. No slides, zooms, bounces or parallax |
+| **Key strip press** | The pressed cell inverts for 120 ms as a visual echo; a toggle (Speaker, Grid) stays inverted while on |
+| **Lists** | Scroll so the highlight stays a third of the way from the edge it is moving towards, keeping what comes next in view |
+| **Reduce motion** (setting) | All of the above happen instantly |
+
+### 11.3 Haptics
+
+The actuator says things the screen does not need to. Every pattern is short and distinct; each class can be turned down or off.
+
+| Event | Pattern |
+|---|---|
+| Joystick click, strip key press, zoom step | One light tick |
+| A hold taking effect | One firm tick |
+| Reaching the end of a list (no wrap-around) | Two light ticks |
+| Message from a person | Two short pulses |
+| Call ringing | Long, short, repeating; a favourite's call adds a third short pulse |
+| Alarm | Strong pulses, rising |
+| Something refused (for example, a call in Create) | Three short pulses, with the reason on screen |
+| Voice note recording starts / saves | Double tick / single tick |
+
+Moving the highlight item by item gives no haptic, so scrolling is not a buzz. Silent mode keeps haptics; nothing else changes them.
+
+### 11.4 The lid
+
+| Moment | Behaviour |
+|---|---|
+| Lid passes 30° opening | The screen wakes within 150 ms; with a thumb on the power button, the fingerprint unlocks in the same move |
+| Lid opened while a call rings | Answers as the lid passes 30°, debounced for 100 ms so a knock does not answer |
+| Lid closing below 15° on a call | Ends the call after a 300 ms grace, so a wobble does not hang up |
+| Lid closed otherwise | Locks at once and the screen goes dark. Music or a route in Maps would carry on through the speaker; nothing else runs visibly |
+
+### 11.5 Focus
+
+- **Entering a list:** the highlight starts on the first item, or on the item you last opened there.
+- **Going back:** the highlight returns to where it was.
+- **Conversation:** the typing field has focus; the joystick moves up into the messages.
+- **On a call:** a joystick click ends the call (End is the default action), as do the strip's End key and closing the lid.
+- **Third-party apps:** focus mode starts on the app's first control; if an app loses focus entirely, Menu offers pointer mode.
+
+### 11.6 Typing
+
+- **Autocorrect off by default.** Misspellings are underlined; Menu on a word offers suggestions. (Physical keys make far fewer slips than glass.)
+- **Shift:** once for the next letter, twice quickly for caps lock (shown in the top line).
+- **Accents:** hold a letter to see its accents in a row; the joystick picks one.
+- **Symbols:** #+= shows the symbols as a grid laid out like the keys, so each symbol sits where its key is.
+- **Dictation** (microphone key) types where the cursor is; speaking "full stop" or "new line" works.
+
+### 11.7 Empty states, errors and confirmation
+
+- **Empty:** one plain sentence and the key that acts. "No notes yet. Lines key: new note."
+- **Error:** what happened and what to do, in one or two sentences, with a red dot. "Not sent: no internet in Talk mode. It will send when you slide to Open." Never an error code.
+- **Destructive actions** confirm with the same key: "Delete this note? Press – again." Nothing is deleted on one press.
+- **No pop-ups** over the screen except an incoming call and an alarm; everything else is a line in place.
+
+---
+
+## 12. Open questions
 
 - **Google certification for a no-touchscreen phone** (section 2): confirm first.
 - **Chip vendor update commitment**: which gives the longest support.
@@ -175,4 +254,4 @@ Software must never work around either switch.
 - **RCS and WhatsApp in Talk mode**: confirm the "waits until Open" behaviour is clear enough.
 - **Moving video to a computer**: plain USB folders first; a companion app only if needed.
 - **Email**: not on the day-one list; decide whether it belongs.
-- **Interface design**: the core set of 20 screens is drawn (`screens/`). The seven setup steps teach the phone by doing (language, moving around, shape keys, switches, fingerprint, favourites, connect). Next: interaction details (transitions, haptics per action) and testing on a real panel.
+- **Interface design**: the core set of screens and the setup steps are drawn (`screens/`); interaction details are in section 11. The seven setup steps teach the phone by doing (language, moving around, shape keys, switches, fingerprint, favourites, connect). Next: test the timings and haptics on a working prototype, and the screens on a real panel.
