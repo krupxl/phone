@@ -175,4 +175,4 @@ Software must never work around either switch.
 - **RCS and WhatsApp in Talk mode**: confirm the "waits until Open" behaviour is clear enough.
 - **Moving video to a computer**: plain USB folders first; a companion app only if needed.
 - **Email**: not on the day-one list; decide whether it belongs.
-- **Interface design**: first 14 screens drawn (`screens/`); still to do: Files, Clock, Voice notes list, contacts list, the Talk-mode waiting state, and onboarding.
+- **Interface design**: the core set of 20 screens is drawn (`screens/`). Next: interaction details (transitions, haptics per action), the remaining setup steps, and testing on a real panel.
